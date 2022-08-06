@@ -1,7 +1,6 @@
 import AdminLayout from "../../../components/Layout/admin";
 import {ObjectForm} from "../../../components/layout/form";
 import {useState} from "react";
-import Swal from "sweetalert2";
 
 export default function CityAdd() {
     const [inputFields, setInputFields] = useState(
@@ -17,9 +16,9 @@ export default function CityAdd() {
     return (
         <>
             <ObjectForm
-                InputFields={inputFields}
-                SetInputFields={setInputFields}
-                Data={data}
+                inputFields={inputFields}
+                setInputFields={setInputFields}
+                data={data}
             />
         </>
     )

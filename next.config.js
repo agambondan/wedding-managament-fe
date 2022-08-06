@@ -13,7 +13,7 @@ module.exports = {
         ]
     },
     require: ("tinymce/tinymce"),
-    reactStrictMode: true, // false for not render twice
+    reactStrictMode: false, // false for not render twice
     swcMinify: true,
     env: {
         IP: process.env.IP,

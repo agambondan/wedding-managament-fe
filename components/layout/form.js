@@ -33,9 +33,9 @@ function Form(props) {
 
 export function ObjectForm(props) {
     const router = useRouter()
-    let keyInputFields = Object.keys(props.InputFields);
+    let keyInputFields = Object.keys(props.inputFields);
     const handleFormChange1 = (key, event) => {
-        props.SetInputFields({...props.InputFields, [key]: event.target.value})
+        props.setInputFields({...props.inputFields, [key]: event.target.value})
     }
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -45,29 +45,32 @@ export function ObjectForm(props) {
             }
         )
         Swal.showLoading()
-        await axios.post(props.Data.url, props.InputFields, {
+        await axios({
+            method: props.data.method,
+            url: props.data.url,
+            data: props.inputFields,
             headers: {
-                "Content-Type": `${props.Data.content_type}`,
+                "Content-Type": `${props.data.content_type}`,
             },
             withCredentials: true,
         }).then(() => {
             Swal.hideLoading()
             Swal.update({
                 icon: 'success',
-                title: `Success ${props.Data.title} ${props.Data.module_name}`,
+                title: `Success ${props.data.title} ${props.data.module_name}`,
                 showConfirmButton: false,
                 timer: 3000,
                 allowOutsideClick: true
             })
             setTimeout(() => {
-                router.push(props.Data.redirects)
+                router.push(props.data.redirects)
                 Swal.close()
             }, 3000)
         }).catch(err => {
             Swal.hideLoading()
             Swal.update({
                 icon: 'error',
-                title: `Failed ${props.Data.title} ${props.Data.module_name} <br> message : ${err.response.data.message}`,
+                title: `Failed ${props.data.title} ${props.data.module_name} <br> message : ${err.response.data.message}`,
                 showConfirmButton: false,
                 timer: 3000,
                 allowOutsideClick: true
@@ -77,7 +80,7 @@ export function ObjectForm(props) {
             }, 3000)
         })
     }
-    console.log(props.InputFields)
+    console.log(props.inputFields)
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -90,7 +93,7 @@ export function ObjectForm(props) {
                                 className={"px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full"}
                                 name={keyInputFields[index]}
                                 placeholder={(keyInputFields[index].match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toLowerCase()}${w.slice(1)}`).join(' ')}
-                                value={props.InputFields[key]}
+                                value={props.inputFields[key]}
                                 onChange={event => handleFormChange1(key, event)}
                             />
                         </div>

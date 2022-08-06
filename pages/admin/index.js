@@ -13,10 +13,6 @@ export default function Index(props) {
                 </a>
 
             </Link>
-            {/*<Link href="https://www.flaticon.com/free-icons/theme">*/}
-            {/*    <a title="theme icons">Theme icons created by monkik -*/}
-            {/*        Flaticon</a>*/}
-            {/*</Link>*/}
             <p>Selamat Datang, <b><i>{user.username}</i></b> di web administrator !</p>
         </>
     )
