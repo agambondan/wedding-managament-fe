@@ -5,8 +5,10 @@ import axios from "axios";
 
 export default function DiscountEdit(props) {
     const [inputFields, setInputFields] = useState({
-        state_province_code: props.data.state_province_code,
-        state_province_name: props.data.state_province_name
+        name: props.data.name,
+        description: props.data.description,
+        percent: props.data.percent,
+        is_active: props.data.is_active
     })
     const data = {
         url: `${process.env.IP}/api/v1/master/discounts/${props.data.id}`,

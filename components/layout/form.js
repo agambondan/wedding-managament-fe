@@ -2,16 +2,31 @@ import {useRouter} from "next/router";
 import Swal from "sweetalert2";
 import axios from "axios";
 import {Select} from "./form/select";
-import {InputText} from "./form/fields";
+import {InputNumber, InputText} from "./form/fields";
+import {BorderedCheckBox} from "./form/checkbox";
 
 export function Form(props) {
-    console.log(props.inputFields)
+    const rx_live = /^[+-]?\d*(?:[.,]\d*)?$/;
     const router = useRouter()
     let keyInputFields = Object.keys(props.inputFields).filter(function (element) {
         return !element.match("id") && element !== "action"
     });
-    const handleFormChange = (key, event) => {
+    const handleChangeCheckBox = (key, event) => {
+        props.setInputFields({...props.inputFields, [key]: !props.inputFields[key]})
+    }
+    const handleChangeText = (key, event) => {
         props.setInputFields({...props.inputFields, [key]: event.target.value})
+    }
+    const handleInputNumber = (key, event) => {
+        if (rx_live.test(event.target.value)) {
+            props.setInputFields({...props.inputFields, [key]: Number(event.currentTarget.value)})
+        }
+    }
+    const handleChangeNumber = (key, event) => {
+        if (rx_live.test(event.target.value)) {
+            const value = Math.max(0, Math.min(100, Number(event.target.value)));
+            props.setInputFields({...props.inputFields, [key]: value})
+        }
     }
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -57,35 +72,41 @@ export function Form(props) {
             }, 3000)
         })
     }
+    console.log(props.inputFields)
     return (
         <div className={"bg-gray-200 px-6 py-4"}>
             <form onSubmit={handleSubmit}>
                 {keyInputFields.map((key, index) => {
                     return (
                         <div key={index}>
-                            <div className={"py-2 my-1 text-2xl"}>
-                                {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
-                            </div>
-                            {typeof props.inputFields[key] === "string" ?
-                                <InputText key={key} keyInput={key} keyInputFields={keyInputFields[index]}
-                                           inputFields={props.inputFields[key]} handleFormChange={handleFormChange}/>
-                                :
-                                typeof props.inputFields[key] === "boolean" ?
+                            {
+                                typeof props.inputFields[key] === "string" ?
                                     <>
+                                        <div className={"py-2 my-1 text-2xl"}>
+                                            {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
+                                        </div>
+                                        <InputText key={key} keyInput={key}
+                                                   inputFields={props.inputFields[key]}
+                                                   handleChangeText={handleChangeText}/>
                                     </>
                                     :
-                                    <>
-                                    </>
+                                    typeof props.inputFields[key] === "boolean" ?
+                                        <div className={"flex flex-row py-2 my-1 text-2xl"}>
+                                            {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
+                                            <BorderedCheckBox keyInput={key} defaultChecked={props.inputFields[key]}
+                                                              handleChangeCheckBox={handleChangeCheckBox}/>
+                                        </div>
+                                        :
+                                        <>
+                                            <div className={"py-2 my-1 text-2xl"}>
+                                                {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
+                                            </div>
+                                            <InputNumber key={key} keyInput={key}
+                                                         inputFields={props.inputFields[key]}
+                                                         handleInputNumber={handleInputNumber}
+                                                         handleChangeNumber={handleChangeNumber}/>
+                                        </>
                             }
-                            {/*<input*/}
-                            {/*    type={typeof props.inputFields[key] === "string" ? "text" :*/}
-                            {/*        typeof props.inputFields[key] === "boolean" ? "checkbox" : "number"}*/}
-                            {/*    className={"px-3 py-3 my-1 placeholder-blueGray-300 text-blueGray-600 bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full"}*/}
-                            {/*    name={keyInputFields[index]}*/}
-                            {/*    placeholder={(keyInputFields[index].match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toLowerCase()}${w.slice(1)}`).join(' ')}*/}
-                            {/*    value={props.inputFields[key]}*/}
-                            {/*    onChange={event => handleFormChange(key, event)}*/}
-                            {/*/>*/}
                         </div>
                     )
                 })}
