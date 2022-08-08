@@ -8,8 +8,9 @@ export function Table(props) {
     const router = useRouter()
     const data = props.data
     let item = props.data[0]
+    let isDummy = item.id === "dummy"
     let keys = Object.keys(item).filter(function (element) {
-        return !element.match("id")
+        return !element.match("id") && element !== "action"
     });
     let keysRemove = Object.keys(item).filter(function (element) {
         return element.match("id") || element === "action"
@@ -24,7 +25,6 @@ export function Table(props) {
         })
     });
     const handleDelete = (id) => {
-        console.log(id)
         Swal.fire({
             title: `Do you want to delete this item?`,
             showCancelButton: true,
@@ -67,7 +67,7 @@ export function Table(props) {
     }
     return (
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <div className="flex justify-between items-center px-4 pb-4">
+            <div className="flex justify-between px-4 pt-2 pb-6">
                 <div className="dark:bg-gray-900">
                     <label htmlFor="table-search" className="sr-only">Search</label>
                     <div className="relative mt-1">
@@ -85,9 +85,9 @@ export function Table(props) {
                     </div>
                 </div>
                 <div className="relative mt-1">
-                    <Link href={"/admin/city/add"}>
+                    <Link href={`${props.detail.redirects}`}>
                         <a className={"inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white " +
-                            "dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 px-4 py-3 mx-auto"}>
+                            "dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 px-4 py-2 mx-auto"}>
                             Add
                         </a>
                     </Link>
@@ -97,12 +97,8 @@ export function Table(props) {
                 <thead
                     className="text-xs text-gray-700 uppercase bg-gray-50 bg-gray-200 dark:bg-gray-900 dark:text-gray-400">
                 <tr>
-                    <th scope="col" className="p-4">
-                        <div className="flex items-center">
-                            <input id="checkbox-all-search" type="checkbox"
-                                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                            <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
-                        </div>
+                    <th scope="col" className="py-3 px-6 text-center">
+                        No
                     </th>
                     {keys.map((key, index) => {
                         return (
@@ -119,37 +115,43 @@ export function Table(props) {
                 </thead>
                 <tbody>
                 {props.data.map((item, index) => {
-                    return (
-                        <tr key={index}
-                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td className="p-4 w-4">
-                                <div className="flex items-center">
-                                    <input id="checkbox-table-search-1" type="checkbox"
-                                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                                    <label htmlFor="checkbox-table-search-1"
-                                           className="sr-only">checkbox</label>
-                                </div>
-                            </td>
-                            {keys.map((key, indexKey) => {
-                                return (
-                                    <th key={indexKey} scope="row" className="text-center py-4 px-6">
-                                        {item[key]}
-                                    </th>
-                                )
-                            })}
-                            <th key={index} className="flex items-center justify-center py-4 px-6 space-x-3">
-                                <Link href={`${router.pathname}/${ids[index]}`}>
-                                    <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                </Link>
-                                <button className={"font-medium text-red-600 dark:text-red-500 hover:underline"}
-                                        onClick={() => {
-                                            handleDelete(ids[index])
-                                        }}>
-                                    Remove
-                                </button>
-                            </th>
-                        </tr>
-                    )
+                    if (isDummy) {
+                        return ""
+                    } else {
+                        return (
+                            <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700
+                            hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <th scope="col" className="py-3 px-6 text-center">
+                                    {index + 1}
+                                </th>
+                                {keys.map((key, indexKey) => {
+                                    return (
+                                        <th key={indexKey} scope="row" className="text-center py-4 px-6">
+                                            {typeof item[key] === "boolean" ?
+                                                <input
+                                                    type="checkbox"
+                                                    value={item[key]}
+                                                    disabled={true}
+                                                />
+                                                :
+                                                item[key]}
+                                        </th>
+                                    )
+                                })}
+                                <th key={index} className="flex items-center justify-center py-4 px-6 space-x-3">
+                                    <Link href={`${router.pathname}/${ids[index]}`}>
+                                        <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    </Link>
+                                    <button className={"font-medium text-red-600 dark:text-red-500 hover:underline"}
+                                            onClick={() => {
+                                                handleDelete(ids[index])
+                                            }}>
+                                        Remove
+                                    </button>
+                                </th>
+                            </tr>
+                        )
+                    }
                 })}
                 </tbody>
             </table>

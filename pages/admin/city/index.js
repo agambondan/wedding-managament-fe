@@ -6,8 +6,7 @@ export default function CityIndex(props) {
     let data = [];
     if (props.data.items.length === 0) {
         const obj = {
-            "id": "",
-            "no": 0,
+            "id": "dummy",
             "city_code": "",
             "city_name": "",
             "created_at": "",
@@ -29,7 +28,6 @@ export default function CityIndex(props) {
             let date = new Date(item.created_at)
             return {
                 "id": item.id,
-                "no": item.sort,
                 "city_code": item.city_code,
                 "city_name": item.city_name,
                 "created_at": date.toLocaleString(),
@@ -39,9 +37,12 @@ export default function CityIndex(props) {
             }
         })
     }
+    const detail = {
+        redirects: `/admin/city/add`,
+    }
     return (
         <>
-            <Table data={data}/>
+            <Table data={data} detail={detail}/>
         </>
     )
 }
@@ -61,7 +62,7 @@ export async function getServerSideProps(context) {
     if (context.query.sort !== undefined) {
         sort = context.query.sort
     }
-    const response = await axios.get(`${process.env.IP}/api/v1/master/cities?size=${size}&page=${page}&sort=${sort}`, {
+    const response = await axios.get(`${process.env.IP}/api/v1/master/cities?size=${size}&page=${page}&sort=StateProvince.state_province_name,city_code,city_name,${sort}`, {
         withCredentials: true
     })
     return {

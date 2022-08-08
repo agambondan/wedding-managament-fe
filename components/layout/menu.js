@@ -12,7 +12,8 @@ export function Menu(props) {
                         <div key={i}>
                             <Link href={menu.link}>
                                 <a className={`flex items-center text-white ${isRoutePathname(menu.path) ? "active-nav-link" : "opacity-75 hover:opacity-100"} py-4 pl-6 nav-item`}>
-                                    <i className={menu.icon}/>
+                                    {menu.icon.match("<") ? <div dangerouslySetInnerHTML={{__html: menu.icon}}/> :
+                                        <i className={menu.icon}/>}
                                     {menu.name}
                                 </a>
                             </Link>
@@ -34,7 +35,8 @@ export function NavMenu(props) {
                         <div key={i}>
                             <Link href={menu.link}>
                                 <a className={`${isRoutePathname(menu.path) ? "active-nav-link" : "opacity-75 hover:opacity-100"} flex items-center text-white -mx-2 py-2 pl-2 nav-item`}>
-                                    <i className={menu.icon}/>
+                                    {menu.icon.match("<") ? <i className={menu.icon}/> :
+                                        <div dangerouslySetInnerHTML={{__html: menu.icon}}/>}
                                     {menu.name}
                                 </a>
                             </Link>
