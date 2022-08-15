@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {useRouter} from "next/router";
-import {DeleteModal} from "./modal";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -94,67 +93,77 @@ export function Table(props) {
                 </div>
             </div>
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead
-                    className="text-xs text-gray-700 uppercase bg-gray-50 bg-gray-200 dark:bg-gray-900 dark:text-gray-400">
-                <tr>
-                    <th scope="col" className="py-3 px-6 text-center">
-                        No
-                    </th>
-                    {keys.map((key, index) => {
-                        return (
-                            key !== "id" ?
-                                <th key={index} scope="col" className="text-center py-3 px-6">
-                                    {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
-                                </th> : <></>
-                        )
-                    })}
-                    <th scope="col" className="py-3 px-6 text-center">
-                        Action
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                {props.data.map((item, index) => {
-                    if (isDummy) {
-                        return ""
-                    } else {
-                        return (
-                            <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700
-                            hover:bg-gray-50 dark:hover:bg-gray-600">
+                {
+                    (props.default === undefined || props.default === true) ?
+                        <>
+                            <thead
+                                className="text-xs text-gray-700 uppercase bg-gray-50 bg-gray-200 dark:bg-gray-900 dark:text-gray-400">
+                            <tr>
                                 <th scope="col" className="py-3 px-6 text-center">
-                                    {index + 1}
+                                    No
                                 </th>
-                                {keys.map((key, indexKey) => {
+                                {keys.map((key, index) => {
                                     return (
-                                        <th key={indexKey} scope="row" className="text-center py-4 px-6">
-                                            {typeof item[key] === "boolean" ?
-                                                <input
-                                                    className={"w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"}
-                                                    defaultChecked={item[key]}
-                                                    type="checkbox"
-                                                    disabled={true}
-                                                />
-                                                :
-                                                item[key]}
-                                        </th>
+                                        key !== "id" ?
+                                            <th key={index} scope="col" className="text-center py-3 px-6">
+                                                {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
+                                            </th> : <></>
                                     )
                                 })}
-                                <th key={index} className="flex items-center justify-center py-4 px-6 space-x-3">
-                                    <Link href={`${router.pathname}/${ids[index]}`}>
-                                        <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </Link>
-                                    <button className={"font-medium text-red-600 dark:text-red-500 hover:underline"}
-                                            onClick={() => {
-                                                handleDelete(ids[index])
-                                            }}>
-                                        Remove
-                                    </button>
+                                <th scope="col" className="py-3 px-6 text-center">
+                                    Action
                                 </th>
                             </tr>
-                        )
-                    }
-                })}
-                </tbody>
+                            </thead>
+                            <tbody>
+                            {props.data.map((item, index) => {
+                                if (isDummy) {
+                                    return ""
+                                } else {
+                                    return (
+                                        <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700
+                            hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <th scope="col" className="py-3 px-6 text-center">
+                                                {index + 1}
+                                            </th>
+                                            {keys.map((key, indexKey) => {
+                                                return (
+                                                    <th key={indexKey} scope="row" className="text-center py-4 px-6">
+                                                        {typeof item[key] === "boolean" ?
+                                                            <input
+                                                                className={"w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"}
+                                                                defaultChecked={item[key]}
+                                                                type="checkbox"
+                                                                disabled={true}
+                                                            />
+                                                            :
+                                                            item[key]}
+                                                    </th>
+                                                )
+                                            })}
+                                            <th key={index}
+                                                className="flex items-center justify-center py-4 px-6 space-x-3">
+                                                <Link href={`${router.pathname}/${ids[index]}`}>
+                                                    <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                                </Link>
+                                                <button
+                                                    className={"font-medium text-red-600 dark:text-red-500 hover:underline"}
+                                                    onClick={() => {
+                                                        handleDelete(ids[index])
+                                                    }}>
+                                                    Remove
+                                                </button>
+                                            </th>
+                                        </tr>
+                                    )
+                                }
+                            })}
+                            </tbody>
+                        </>
+                        :
+                        <></>
+                }
+                {props.children}
             </table>
         </div>
     )

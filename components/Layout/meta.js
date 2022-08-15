@@ -11,6 +11,10 @@ const Meta = ({title, keywords, description}) => {
                 <link rel={'icon'} href={'/favicon.ico'}/>
                 <title>{`Go Blog - ${title}`}</title>
             </Head>
+            {/*<Script*/}
+            {/*    id="tiny mce"*/}
+            {/*    src="https://cdn.tiny.cloud/1/v6lx3ohrair0pthr5tn6ex0uqnicspn03xbbpnyip45t3jm7/tinymce/6/tinymce.min.js"*/}
+            {/*/>*/}
             <Script
                 id="alpine js"
                 src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"

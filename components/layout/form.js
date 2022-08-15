@@ -5,6 +5,9 @@ import {Select} from "./form/select";
 import {InputNumber, InputText} from "./form/fields";
 import {BorderedCheckBox} from "./form/checkbox";
 
+// Form
+//
+// if default form is false then you must add handle submit for form
 export function Form(props) {
     const rx_live = /^[+-]?\d*(?:[.,]\d*)?$/;
     const router = useRouter()
@@ -102,58 +105,69 @@ export function Form(props) {
     console.log(props.inputFields)
     return (
         <div className={"bg-gray-200 px-6 py-4"}>
-            <form onSubmit={handleSubmit}>
-                {keyInputFields.map((key, index) => {
-                    let max = key === "percent" ? 100 : 1000000
-                    return (
-                        <div key={index}>
-                            {
-                                typeof props.inputFields[key] === "string" ?
-                                    <>
-                                        <div className={"py-2 my-1 text-2xl"}>
-                                            {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
-                                        </div>
-                                        <InputText key={key} keyInput={key}
-                                                   inputFields={props.inputFields[key]}
-                                                   handleChangeText={handleChangeText}/>
-                                    </>
-                                    :
-                                    typeof props.inputFields[key] === "boolean" ?
-                                        <div className={"flex flex-row py-2 my-1 text-2xl"}>
-                                            {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
-                                            <BorderedCheckBox keyInput={key} defaultChecked={props.inputFields[key]}
-                                                              handleChangeCheckBox={handleChangeCheckBox}/>
-                                        </div>
-                                        :
-                                        <>
-                                            <div className={"py-2 my-1 text-2xl"}>
-                                                {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
-                                            </div>
-                                            <InputNumber max={max} key={key} keyInput={key}
-                                                         inputFields={props.inputFields[key]}
-                                                         handleInputNumber={handleInputNumber}
-                                                         handleChangeNumber={handleChangeNumber}/>
-                                        </>
-                            }
-                        </div>
-                    )
-                })}
-                {props.select !== undefined ?
-                    Object.keys(props.select).map((key, index) => {
-                        return (
-                            <Select key={index} data={props.select[key]} setInputFields={props.setInputFields}
-                                    inputFields={props.inputFields}
-                                    title={key}/>
-                        )
-                    })
-                    :
-                    <></>
-                }
-                {props.children}
-                <button type={"submit"} className="mt-5 px-10 py-3 text-blue-100 transition-colors
+            {
+                (props.default === undefined || props.default === true) ?
+                    <form onSubmit={handleSubmit}>
+                        {keyInputFields.map((key, index) => {
+                            let max = key === "percent" ? 100 : 1000000
+                            return (
+                                <div key={index}>
+                                    {
+                                        typeof props.inputFields[key] === "string" ?
+                                            <>
+                                                <div className={"py-2 my-1 text-2xl"}>
+                                                    {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
+                                                </div>
+                                                <InputText key={key} keyInput={key}
+                                                           inputFields={props.inputFields[key]}
+                                                           handleChangeText={handleChangeText}/>
+                                            </>
+                                            :
+                                            typeof props.inputFields[key] === "boolean" ?
+                                                <div className={"flex flex-row py-2 my-1 text-2xl"}>
+                                                    {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
+                                                    <BorderedCheckBox keyInput={key}
+                                                                      defaultChecked={props.inputFields[key]}
+                                                                      handleChangeCheckBox={handleChangeCheckBox}/>
+                                                </div>
+                                                :
+                                                <>
+                                                    <div className={"py-2 my-1 text-2xl"}>
+                                                        {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
+                                                    </div>
+                                                    <InputNumber max={max} key={key} keyInput={key}
+                                                                 inputFields={props.inputFields[key]}
+                                                                 handleInputNumber={handleInputNumber}
+                                                                 handleChangeNumber={handleChangeNumber}/>
+                                                </>
+                                    }
+                                </div>
+                            )
+                        })}
+                        {props.select !== undefined ?
+                            Object.keys(props.select).map((key, index) => {
+                                return (
+                                    <Select key={index} data={props.select[key]} setInputFields={props.setInputFields}
+                                            inputFields={props.inputFields}
+                                            title={key}/>
+                                )
+                            })
+                            :
+                            <></>
+                        }
+                        {props.children}
+                        <button type={"submit"} className="mt-5 px-10 py-3 text-blue-100 transition-colors
                          duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700">Save
-                </button>
-            </form>
+                        </button>
+                    </form>
+                    :
+                    <form onSubmit={props.handleSubmit}>
+                        {props.children}
+                        <button type={"submit"} className="mt-5 px-10 py-3 text-blue-100 transition-colors
+                         duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700">Save
+                        </button>
+                    </form>
+            }
         </div>
     );
 }

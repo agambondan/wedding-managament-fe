@@ -4,9 +4,9 @@ import {useRef, useState} from "react";
 import {RichEditor} from "../../../components/layout/form/editor";
 
 export default function ThemeAdd() {
-    let editorRef = useRef("");
+    const editorRef = useRef("");
     const [inputFields, setInputFields] = useState({
-        name: '', html: '', description: '',
+        "name": "", "html": "", "description": "",
     })
     const data = {
         url: `${process.env.IP}/api/v1/master/themes`,

@@ -16,7 +16,7 @@ function AdminLayout(props) {
                         <Header/>
                         <HeaderMobile/>
                         <Content>
-                            {props.children}
+                            {/*{props.children}*/}
                         </Content>
                     </div>
                 </div>
@@ -25,4 +25,5 @@ function AdminLayout(props) {
     )
 }
 
-export default WithAuth(AdminLayout)
+export default AdminLayout
+// export default WithAuth(AdminLayout)

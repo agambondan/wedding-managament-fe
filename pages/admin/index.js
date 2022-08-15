@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 
 export default function Index(props) {
-    const user = React.useContext(UserContext);
+    // const user = React.useContext(UserContext);
     return (
         <>
             <Link href={"https://go-blog.vercel.app/"}>

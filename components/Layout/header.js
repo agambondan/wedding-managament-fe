@@ -6,6 +6,7 @@ import {UserContext} from "../../lib/protected_route";
 import {NavMenu} from "../layout/menu";
 import {navbarMenu, sidebarMenu} from "../../lib/const";
 import axios from "axios";
+import {useCookies} from "next/dist/client/components/hooks-server";
 
 export default function Header() {
     const user = React.useContext(UserContext);
