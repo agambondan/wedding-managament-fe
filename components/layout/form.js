@@ -9,7 +9,7 @@ export function Form(props) {
     const rx_live = /^[+-]?\d*(?:[.,]\d*)?$/;
     const router = useRouter()
     let keyInputFields = Object.keys(props.inputFields).filter(function (element) {
-        return !element.match("id") && element !== "action"
+        return !element.match("id") && element !== "action" && element !== "html"
     });
     const handleChangeCheckBox = (key, event) => {
         props.setInputFields({...props.inputFields, [key]: !props.inputFields[key]})
@@ -19,13 +19,40 @@ export function Form(props) {
     }
     const handleInputNumber = (key, event) => {
         if (rx_live.test(event.target.value)) {
-            props.setInputFields({...props.inputFields, [key]: Number(event.currentTarget.value)})
+            switch (key) {
+                case "percent":
+                    console.log(key)
+                    props.setInputFields({
+                        ...props.inputFields,
+                        [key]: Math.max(0, Math.min(100, Number(event.target.value)))
+                    })
+                    return
+                default :
+                    console.log(key)
+                    props.setInputFields({
+                        ...props.inputFields,
+                        [key]: Math.max(0, Math.min(1000000, Number(event.target.value)))
+                    })
+                    return;
+            }
         }
     }
     const handleChangeNumber = (key, event) => {
         if (rx_live.test(event.target.value)) {
-            const value = Math.max(0, Math.min(100, Number(event.target.value)));
-            props.setInputFields({...props.inputFields, [key]: value})
+            switch (key) {
+                case "percent":
+                    props.setInputFields({
+                        ...props.inputFields,
+                        [key]: Math.max(0, Math.min(100, Number(event.target.value)))
+                    })
+                    return
+                default :
+                    props.setInputFields({
+                        ...props.inputFields,
+                        [key]: Math.max(0, Math.min(1000000, Number(event.target.value)))
+                    })
+                    return;
+            }
         }
     }
     const handleSubmit = async (event) => {
@@ -77,6 +104,7 @@ export function Form(props) {
         <div className={"bg-gray-200 px-6 py-4"}>
             <form onSubmit={handleSubmit}>
                 {keyInputFields.map((key, index) => {
+                    let max = key === "percent" ? 100 : 1000000
                     return (
                         <div key={index}>
                             {
@@ -101,7 +129,7 @@ export function Form(props) {
                                             <div className={"py-2 my-1 text-2xl"}>
                                                 {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
                                             </div>
-                                            <InputNumber key={key} keyInput={key}
+                                            <InputNumber max={max} key={key} keyInput={key}
                                                          inputFields={props.inputFields[key]}
                                                          handleInputNumber={handleInputNumber}
                                                          handleChangeNumber={handleChangeNumber}/>
@@ -121,6 +149,7 @@ export function Form(props) {
                     :
                     <></>
                 }
+                {props.children}
                 <button type={"submit"} className="mt-5 px-10 py-3 text-blue-100 transition-colors
                          duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700">Save
                 </button>

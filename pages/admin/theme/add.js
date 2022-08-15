@@ -1,0 +1,35 @@
+import AdminLayout from "../../../components/Layout/admin";
+import {Form} from "../../../components/layout/form";
+import {useRef, useState} from "react";
+import {RichEditor} from "../../../components/layout/form/editor";
+
+export default function ThemeAdd() {
+    let editorRef = useRef("");
+    const [inputFields, setInputFields] = useState({
+        name: '', html: '', description: '',
+    })
+    const data = {
+        url: `${process.env.IP}/api/v1/master/themes`,
+        redirects: `/admin/theme`,
+        module_name: `Theme`,
+        title: `Save`,
+        content_type: `application/json`,
+        method: "POST"
+    }
+    const handleChangeWYSIWYG = () => {
+        setInputFields({...inputFields, html: editorRef.current.getContent()})
+    }
+    return (
+        <>
+            <Form inputFields={inputFields} setInputFields={setInputFields} data={data}>
+                <div className={"py-2 my-1 text-2xl"}>
+                    HTML
+                </div>
+                <RichEditor description={inputFields.html} editorRef={editorRef}
+                            handleChange={handleChangeWYSIWYG}/>
+            </Form>
+        </>
+    )
+}
+
+ThemeAdd.layout = AdminLayout

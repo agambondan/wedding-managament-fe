@@ -125,7 +125,6 @@ export function Table(props) {
                                     {index + 1}
                                 </th>
                                 {keys.map((key, indexKey) => {
-                                    console.log(item[key])
                                     return (
                                         <th key={indexKey} scope="row" className="text-center py-4 px-6">
                                             {typeof item[key] === "boolean" ?

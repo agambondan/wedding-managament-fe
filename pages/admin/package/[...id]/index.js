@@ -3,22 +3,24 @@ import {Form} from "../../../../components/layout/form";
 import {useState} from "react";
 import axios from "axios";
 
-export default function CityEdit(props) {
+export default function PackageEdit(props) {
     const [inputFields, setInputFields] = useState({
-        city_code: props.data.city_code,
-        city_name: props.data.city_name,
-        state_province_id: props.data.state_province_id
+        "name": props.data.name,
+        "sku": props.data.sku,
+        "price": props.data.price,
+        "description": props.data.description,
+        "discount_id": props.data.discount_id
     })
     const data = {
-        url: `${process.env.IP}/api/v1/master/cities/${props.data.id}`,
-        redirects: `/admin/city`,
-        module_name: `City`,
+        url: `${process.env.IP}/api/v1/master/packages/${props.data.id}`,
+        redirects: `/admin/package`,
+        module_name: `Package`,
         title: `Update`,
         content_type: `application/json`,
         method: "PUT"
     }
     let selectItem = {
-        "state_province": props.provinces
+        "discount": props.discounts
     }
     return (
         <>
@@ -32,21 +34,21 @@ export default function CityEdit(props) {
     )
 }
 
-CityEdit.layout = AdminLayout
+PackageEdit.layout = AdminLayout
 
 
 export async function getServerSideProps(context) {
     let size = 1
     let sort = "sort"
-    const [province, city] = await Promise.all([
-        axios.get(`${process.env.IP}/api/v1/master/state-provinces?size=${size}`, {
+    const [discount, packages] = await Promise.all([
+        axios.get(`${process.env.IP}/api/v1/master/discounts?size=${size}`, {
             withCredentials: true
         }),
-        axios.get(`${process.env.IP}/api/v1/master/cities/${context.query.id[0]}`, {
+        axios.get(`${process.env.IP}/api/v1/master/packages/${context.query.id[0]}`, {
             withCredentials: true
         })
     ])
-    const provinces = await axios.get(`${process.env.IP}/api/v1/master/state-provinces?size=${province.data.total}&sort=state_province_code,state_province_name,${sort}&fields=id,state_province_name`, {
+    const discounts = await axios.get(`${process.env.IP}/api/v1/master/discounts?size=${discount.data.total}&sort=name,${sort}&fields=id,name`, {
         withCredentials: true
     })
     return {
@@ -54,8 +56,8 @@ export async function getServerSideProps(context) {
             context: {
                 query: context.query
             },
-            data: city.data,
-            provinces: provinces.data.items
+            data: packages.data,
+            discounts: discounts.data.items
         }, // will be passed to the page component as props
     }
 }
