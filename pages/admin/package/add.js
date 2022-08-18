@@ -1,7 +1,7 @@
 import AdminLayout from "../../../components/Layout/admin";
 import {Form} from "../../../components/layout/form";
 import {useState} from "react";
-import axios from "axios";
+import {MasterService} from "../../../lib/http";
 
 export default function PackageAdd(props) {
     const [inputFields, setInputFields] = useState({
@@ -12,7 +12,7 @@ export default function PackageAdd(props) {
         }
     )
     const data = {
-        url: `${process.env.IP}/api/v1/master/packages`,
+        url: `${process.env.ENDPOINT_MASTER}/packages`,
         redirects: `/admin/package`,
         module_name: `Package`,
         title: `Save`,
@@ -37,17 +37,33 @@ export default function PackageAdd(props) {
 PackageAdd.layout = AdminLayout
 
 export async function getServerSideProps(context) {
+    const {req} = context
     let size = 1
     let sort = "sort"
-    const res = await axios.get(`${process.env.IP}/api/v1/master/discounts?size=${size}`, {
-        withCredentials: true
+    let request = {
+        url: `discounts?size=${size}`,
+        headers: {
+            "Cookie": `token=${req.cookies.token}`
+        },
+    }
+    const res = await MasterService(request).then(res => {
+        return res
+    }).catch(err => {
+        return err
     })
-    const response = await axios.get(`${process.env.IP}/api/v1/master/discounts?size=${res.data.total}&sort=${sort}&fields=id,name`, {
-        withCredentials: true
-    })
+    if (res.status !== 200) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: '/admin'
+            }
+        }
+    }
+    request.url = `discounts?size=${res.data.total}&sort=${sort}&fields=id,state_province_name`
+    const response = await MasterService(request)
     return {
         props: {
-            discounts: response.data.items
+            provinces: response.data.items
         }, // will be passed to the page component as props
     }
 }

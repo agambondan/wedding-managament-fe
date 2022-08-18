@@ -1,6 +1,4 @@
 import {useRouter} from "next/router";
-import Label from "./text";
-import {Input} from "postcss";
 import React from "react";
 
 export const InputText = (props) => {

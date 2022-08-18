@@ -1,14 +1,14 @@
 import AdminLayout from "../../../components/Layout/admin";
 import {Form} from "../../../components/layout/form";
 import {useState} from "react";
-import axios from "axios";
+import {MasterService} from "../../../lib/http";
 
 export default function CityAdd(props) {
     const [inputFields, setInputFields] = useState(
         {city_code: '', city_name: ''}
     )
     const data = {
-        url: `${process.env.IP}/api/v1/master/cities`,
+        url: `${process.env.ENDPOINT_MASTER}/cities`,
         redirects: `/admin/city`,
         module_name: `City`,
         title: `Save`,
@@ -31,14 +31,30 @@ export default function CityAdd(props) {
 CityAdd.layout = AdminLayout
 
 export async function getServerSideProps(context) {
+    const {req} = context
     let size = 1
     let sort = "sort"
-    const res = await axios.get(`${process.env.IP}/api/v1/master/state-provinces?size=${size}`, {
-        withCredentials: true
+    let request = {
+        url: `state-provinces?size=${size}`,
+        headers: {
+            "Cookie": `token=${req.cookies.token}`
+        },
+    }
+    const res = await MasterService(request).then(res => {
+        return res
+    }).catch(err => {
+        return err
     })
-    const response = await axios.get(`${process.env.IP}/api/v1/master/state-provinces?size=${res.data.total}&sort=${sort}&fields=id,state_province_name`, {
-        withCredentials: true
-    })
+    if (res.status !== 200) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: '/admin'
+            }
+        }
+    }
+    request.url = `state-provinces?size=${res.data.total}&sort=${sort}&fields=id,state_province_name`
+    const response = await MasterService(request)
     return {
         props: {
             provinces: response.data.items

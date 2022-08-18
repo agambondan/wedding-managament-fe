@@ -7,7 +7,7 @@ export default function DiscountAdd() {
         {name: '', description: '', percent: 1, is_active: false}
     )
     const data = {
-        url: `${process.env.IP}/api/v1/master/discounts`,
+        url: `${process.env.ENDPOINT_MASTER}/discounts`,
         redirects: `/admin/discount`,
         module_name: `Discount`,
         title: `Save`,

@@ -11,7 +11,7 @@ export default function EventAdd() {
         }
     )
     const data = {
-        url: `${process.env.IP}/api/v1/master/events`,
+        url: `${process.env.ENDPOINT_MASTER}/events`,
         redirects: `/admin/event`,
         module_name: `Event`,
         title: `Save`,

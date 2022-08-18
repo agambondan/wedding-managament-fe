@@ -24,14 +24,12 @@ export function Form(props) {
         if (rx_live.test(event.target.value)) {
             switch (key) {
                 case "percent":
-                    console.log(key)
                     props.setInputFields({
                         ...props.inputFields,
                         [key]: Math.max(0, Math.min(100, Number(event.target.value)))
                     })
                     return
                 default :
-                    console.log(key)
                     props.setInputFields({
                         ...props.inputFields,
                         [key]: Math.max(0, Math.min(1000000, Number(event.target.value)))
@@ -88,7 +86,6 @@ export function Form(props) {
                 Swal.close()
             }, 3000)
         }).catch(err => {
-            console.log(err.response)
             Swal.hideLoading()
             Swal.update({
                 icon: 'error',
@@ -102,7 +99,6 @@ export function Form(props) {
             }, 3000)
         })
     }
-    console.log(props.inputFields)
     return (
         <div className={"bg-gray-200 px-6 py-4"}>
             {

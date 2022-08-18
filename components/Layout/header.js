@@ -4,9 +4,8 @@ import Swal from "sweetalert2";
 import Link from "next/link";
 import {UserContext} from "../../lib/protected_route";
 import {NavMenu} from "../layout/menu";
-import {navbarMenu, sidebarMenu} from "../../lib/const";
+import {navbarMenu} from "../../lib/const";
 import axios from "axios";
-import {useCookies} from "next/dist/client/components/hooks-server";
 
 export default function Header() {
     const user = React.useContext(UserContext);
@@ -19,13 +18,18 @@ export default function Header() {
     const handleBtnClick = () => {
         btnClick ? setBtnClick(false) : setBtnClick(true);
     }
+    let pictureUrl, pictureTitle
+    if (user.picture) {
+        pictureUrl = user.picture.url
+        pictureTitle = user.picture.title
+    }
     return (
-        <header className="w-full items-center bg-white py-2 px-6 hidden sm:flex">
+        <header className="w-full items-center bg-gray-100 py-2 px-6 hidden sm:flex">
             <div className="w-1/2"/>
             <div className="relative w-1/2 flex justify-end">
                 <button className="relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300
                     focus:border-gray-300 focus:outline-none" onClick={handleClick}>
-                    <img src={user.image_url} alt={""}/>
+                    <img src={pictureUrl} alt={pictureTitle}/>
                 </button>
                 {click ? Dropdowns({click, btnClick, handleBtnClick}) : ''}
             </div>
@@ -35,11 +39,10 @@ export default function Header() {
 
 function Dropdowns({click, btnClick, handleBtnClick}) {
     const router = useRouter()
-    const btnClassName = click && btnClick ? "h-full w-full fixed inset-0 cursor-default" : ""
     return (
         <>
             <button onClick={handleBtnClick}
-                    className={`${btnClick ? "h-full w-full fixed inset-0 cursor-default" : btnClassName}`}/>
+                    className={`${btnClick ? "h-full w-full fixed inset-0 cursor-default" : ""}`}/>
             <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
                 <Link href={"/admin/account"}><a
                     className="block px-4 py-2 account-link hover:text-white">Account</a></Link>
@@ -53,6 +56,8 @@ function Dropdowns({click, btnClick, handleBtnClick}) {
     )
 }
 
+// Mobile Phone
+// Down
 export function HeaderMobile() {
     const router = useRouter()
     const [click, setCLick] = useState(false)
@@ -65,7 +70,7 @@ export function HeaderMobile() {
             <div className="flex items-center justify-between">
                 <a href={"/admin"}
                    className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Administrator</a>
-                <button className="text-white text-3xl focus:outline-none" onClick={() => handleClick(router)}>
+                <button className="text-white text-3xl focus:outline-none" onClick={() => handleClick()}>
                     {icon}
                 </button>
             </div>
@@ -95,6 +100,8 @@ function NavHeader({router}) {
         </nav>
     )
 }
+// Up
+// Mobile Phone
 
 const handleSignOut = (props) => {
     Swal.fire({
@@ -114,7 +121,7 @@ const handleSignOut = (props) => {
                 })
                 if (response.status === 200) {
                     Swal.fire({title: 'Success Logout!', icon: 'success', timer: 5000}).then(res => {
-                        props.router.push("/login")
+                        props.router.push("/auth/login")
                     })
                 }
                 // do something to logout

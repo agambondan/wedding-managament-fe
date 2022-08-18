@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import Head from "next/head";
 import React from "react";
 import {WaitForRouter} from "../lib/router";
+import ErrorBoundary from "../components/layout/error";
 
 function MyApp({Component, pageProps}) {
     const Layout = Component.layout || (({children}) => <>{children}</>);

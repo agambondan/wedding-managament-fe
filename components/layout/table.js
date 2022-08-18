@@ -46,9 +46,7 @@ export function Table(props) {
                     })
                     Swal.hideLoading()
                     setTimeout(() => {
-                        router.push(router.pathname).then(r => {
-                            console.log(r)
-                        })
+                        router.push(router.pathname)
                         Swal.close()
                     }, 3000)
                 }).catch(error => {
@@ -65,7 +63,7 @@ export function Table(props) {
         })
     }
     return (
-        <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+        <div className="overflow-x-auto shadow-md sm:rounded-lg">
             <div className="flex justify-between px-4 pt-2 pb-6">
                 <div className="dark:bg-gray-900">
                     <label htmlFor="table-search" className="sr-only">Search</label>
@@ -83,7 +81,7 @@ export function Table(props) {
                                placeholder="Search for items"/>
                     </div>
                 </div>
-                <div className="relative mt-1">
+                <div className="mt-1">
                     <Link href={`${props.detail.redirects}`}>
                         <a className={"inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white " +
                             "dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 px-4 py-2 mx-auto"}>
@@ -141,8 +139,7 @@ export function Table(props) {
                                                     </th>
                                                 )
                                             })}
-                                            <th key={index}
-                                                className="flex items-center justify-center py-4 px-6 space-x-3">
+                                            <th key={index} className="flex justify-center py-4 px-6 space-x-3">
                                                 <Link href={`${router.pathname}/${ids[index]}`}>
                                                     <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                                 </Link>

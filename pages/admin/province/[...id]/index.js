@@ -1,7 +1,7 @@
 import AdminLayout from "../../../../components/Layout/admin";
 import {Form} from "../../../../components/layout/form";
 import {useState} from "react";
-import axios from "axios";
+import {MasterService} from "../../../../lib/http";
 
 export default function StateProvinceEdit(props) {
     const [inputFields, setInputFields] = useState({
@@ -9,7 +9,7 @@ export default function StateProvinceEdit(props) {
         state_province_name: props.data.state_province_name
     })
     const data = {
-        url: `${process.env.IP}/api/v1/master/state-provinces/${props.data.id}`,
+        url: `${process.env.ENDPOINT_MASTER}/state-provinces/${props.data.id}`,
         redirects: `/admin/province`,
         module_name: `StateProvince`,
         title: `Update`,
@@ -29,11 +29,27 @@ export default function StateProvinceEdit(props) {
 
 StateProvinceEdit.layout = AdminLayout
 
-
 export async function getServerSideProps(context) {
-    const response = await axios.get(`${process.env.IP}/api/v1/master/state-provinces/${context.query.id[0]}`, {
-        withCredentials: true
+    const {req, query} = context
+    let request = {
+        url: `state-provinces/${query.id[0]}`,
+        headers: {
+            "Cookie": `token=${req.cookies.token}`
+        },
+    }
+    const response = await MasterService(request).then(res => {
+        return res
+    }).catch(err => {
+        return err
     })
+    if (response.status !== 200) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: '/admin'
+            }
+        }
+    }
     return {
         props: {
             context: {

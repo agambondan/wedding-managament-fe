@@ -9,7 +9,7 @@ export default function ThemeAdd() {
         "name": "", "html": "", "description": "",
     })
     const data = {
-        url: `${process.env.IP}/api/v1/master/themes`,
+        url: `${process.env.ENDPOINT_MASTER}/themes`,
         redirects: `/admin/theme`,
         module_name: `Theme`,
         title: `Save`,

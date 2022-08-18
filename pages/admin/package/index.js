@@ -1,6 +1,6 @@
 import AdminLayout from "../../../components/Layout/admin";
 import {Table} from "../../../components/layout/table";
-import axios from "axios";
+import {MasterService} from "../../../lib/http";
 
 export default function PackageIndex(props) {
     let data = [];
@@ -53,26 +53,43 @@ export default function PackageIndex(props) {
 PackageIndex.layout = AdminLayout
 
 export async function getServerSideProps(context) {
+    const {
+        req,
+        query,
+    } = context
     let size = 10
     let page = 0
     let sort = "sort"
-    if (context.query.size !== undefined) {
-        size = context.query.size
+    if (query.size !== undefined) {
+        size = query.size
     }
-    if (context.query.page !== undefined) {
-        page = context.query.page
+    if (query.page !== undefined) {
+        page = query.page
     }
-    if (context.query.sort !== undefined) {
-        sort = context.query.sort
+    if (query.sort !== undefined) {
+        sort = query.sort
     }
-    const response = await axios.get(`${process.env.IP}/api/v1/master/packages?size=${size}&page=${page}&sort=${sort}`, {
-        withCredentials: true
+    const request = {
+        url: `packages?size=${size}&page=${page}&sort=${sort}`,
+        headers: {
+            "Cookie": `token=${req.cookies.token}`
+        },
+    }
+    const response = await MasterService(request).then(res => {
+        return res
+    }).catch(err => {
+        return err
     })
+    if (response.status !== 200) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: '/admin'
+            }
+        }
+    }
     return {
         props: {
-            context: {
-                query: context.query
-            },
             data: response.data
         }, // will be passed to the page component as props
     }

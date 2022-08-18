@@ -9,7 +9,7 @@ export default function FeatureAdd() {
         }
     )
     const data = {
-        url: `${process.env.IP}/api/v1/master/features`,
+        url: `${process.env.ENDPOINT_MASTER}/features`,
         redirects: `/admin/feature`,
         module_name: `Feature`,
         title: `Save`,

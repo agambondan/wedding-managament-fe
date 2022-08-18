@@ -1,7 +1,7 @@
 import AdminLayout from "../../../../components/Layout/admin";
 import {Form} from "../../../../components/layout/form";
 import {useState} from "react";
-import axios from "axios";
+import {MasterService} from "../../../../lib/http";
 
 export default function ThemeEdit(props) {
     const [inputFields, setInputFields] = useState({
@@ -10,7 +10,7 @@ export default function ThemeEdit(props) {
         description: props.data.description,
     })
     const data = {
-        url: `${process.env.IP}/api/v1/master/themes/${props.data.id}`,
+        url: `${process.env.ENDPOINT_MASTER}/themes/${props.data.id}`,
         redirects: `/admin/theme`,
         module_name: `Theme`,
         title: `Update`,
@@ -30,11 +30,27 @@ export default function ThemeEdit(props) {
 
 ThemeEdit.layout = AdminLayout
 
-
 export async function getServerSideProps(context) {
-    const response = await axios.get(`${process.env.IP}/api/v1/master/themes/${context.query.id[0]}`, {
-        withCredentials: true
+    const {req, query} = context
+    let request = {
+        url: `themes/${query.id[0]}`,
+        headers: {
+            "Cookie": `token=${req.cookies.token}`
+        },
+    }
+    const response = await MasterService(request).then(res => {
+        return res
+    }).catch(err => {
+        return err
     })
+    if (response.status !== 200) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: '/admin'
+            }
+        }
+    }
     return {
         props: {
             context: {

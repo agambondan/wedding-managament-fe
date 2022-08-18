@@ -1,7 +1,7 @@
 import AdminLayout from "../../../../components/Layout/admin";
 import {Form} from "../../../../components/layout/form";
 import {useState} from "react";
-import axios from "axios";
+import {MasterService} from "../../../../lib/http";
 
 export default function PackageEdit(props) {
     const [inputFields, setInputFields] = useState({
@@ -12,7 +12,7 @@ export default function PackageEdit(props) {
         "discount_id": props.data.discount_id
     })
     const data = {
-        url: `${process.env.IP}/api/v1/master/packages/${props.data.id}`,
+        url: `${process.env.ENDPOINT_MASTER}/packages/${props.data.id}`,
         redirects: `/admin/package`,
         module_name: `Package`,
         title: `Update`,
@@ -36,28 +36,37 @@ export default function PackageEdit(props) {
 
 PackageEdit.layout = AdminLayout
 
-
 export async function getServerSideProps(context) {
+    const {req, query} = context
     let size = 1
     let sort = "sort"
-    const [discount, packages] = await Promise.all([
-        axios.get(`${process.env.IP}/api/v1/master/discounts?size=${size}`, {
-            withCredentials: true
-        }),
-        axios.get(`${process.env.IP}/api/v1/master/packages/${context.query.id[0]}`, {
-            withCredentials: true
-        })
-    ])
-    const discounts = await axios.get(`${process.env.IP}/api/v1/master/discounts?size=${discount.data.total}&sort=name,${sort}&fields=id,name`, {
-        withCredentials: true
+    let request = {
+        url: `discounts?size=${size}`,
+        headers: {
+            "Cookie": `token=${req.cookies.token}`
+        },
+    }
+    const province = await MasterService(request).then(res => {
+        return res
+    }).catch(err => {
+        return err
     })
+    if (province.status !== 200) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: '/admin'
+            }
+        }
+    }
+    request.url = `cities/${query.id[0]}`
+    const city = await MasterService(request)
+    request.url = `discounts?size=${province.data.total}&sort=state_province_code,state_province_name,${sort}&fields=id,state_province_name`
+    const provinces = await MasterService(request)
     return {
         props: {
-            context: {
-                query: context.query
-            },
-            data: packages.data,
-            discounts: discounts.data.items
+            data: city.data,
+            provinces: provinces.data.items
         }, // will be passed to the page component as props
     }
 }
