@@ -1,9 +1,9 @@
-import AdminLayout, {AdminContext} from "../../components/admin";
 import React from "react";
 import Link from "next/link";
+import ClientLayout, {ClientContext} from "../../components/client";
 
 export default function Index() {
-    const user = React.useContext(AdminContext);
+    const user = React.useContext(ClientContext);
     const givenName = user.person.given_name
     const middleName = user.person.middle_name
     return (
@@ -19,4 +19,4 @@ export default function Index() {
     )
 }
 
-Index.layout = AdminLayout
+Index.layout = ClientLayout

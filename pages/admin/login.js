@@ -1,30 +1,59 @@
 import React, {useState} from "react";
 import {useRouter} from "next/router";
 import axios from "axios";
+import Swal from "sweetalert2";
 
-export default function Login(props) {
+export default function Login() {
     const router = useRouter()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [rememberMe, setRememberMe] = useState(false)
     const [show, setShow] = useState(false);
     const handleLogin = async (event) => {
         event.preventDefault()
+        Swal.fire({
+                title: "Please Wait",
+                allowOutsideClick: false,
+                timer: 2000
+            }
+        )
+        Swal.showLoading()
         const response = await axios.post(`${process.env.IP}/api/v1/auth/login`, {
-            "email": username, "password": password
+            "email": username, "password": password, "remember_me": rememberMe
         }, {
             // disable with credentials if be not regis your ip to be cors
             withCredentials: true,
         }).then(res => {
             return res
         }).catch(err => {
-            return err
+            return err.response
         })
-        await setTimeout(() => {
-            if (response.status === 200) {
+        if (response.status === 200) {
+            Swal.hideLoading()
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: `Login Success`,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    allowOutsideClick: true
+                })
+            }, 1000)
+            setTimeout(() => {
                 router.push("/admin")
-            }
-        }, 3000)
+            }, 5000)
+        } else {
+            Swal.hideLoading()
+            Swal.update({
+                icon: 'error',
+                title: "Email or password may is wrong",
+                showConfirmButton: false,
+                timer: 3000,
+                allowOutsideClick: true
+            })
+        }
     }
+    console.log(username, password, rememberMe)
     return (
         <div className="bg-blue-400 h-screen w-screen">
             <div className="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
@@ -41,15 +70,20 @@ export default function Login(props) {
                                                    setUsername(event.target.value)
                                                })} required placeholder="username or email"/>
                                     </div>
-                                    <div className="flex flex-col mt-4">
+                                    <div className="flex flex-row mt-4">
                                         <input id="password" type={show ? "text" : "password"} name="password"
-                                               className="flex-grow h-8 px-2 rounded border border-gray-700"
+                                               className="flex-grow h-8 px-2 rounded-l border-t border-b border-l border-gray-700"
                                                onChange={(event => {
                                                    setPassword(event.target.value)
                                                })} required placeholder="Password"/>
+                                        <label onClick={() => setShow(!show)}
+                                               className="flex h-8 px-2 justify-center items-center rounded-r border-r border-t border-b border-gray-700 cursor-pointer">
+                                            {show ? "Hide" : "Show"}
+                                        </label>
                                     </div>
                                     <div className="flex items-center mt-4">
-                                        <input type="checkbox" name="remember" id="remember" className="mr-2"/>
+                                        <input type="checkbox" name="remember" id="remember" className="mr-2"
+                                               onClick={() => setRememberMe(!rememberMe)}/>
                                         <label htmlFor="remember" className="text-sm text-grey-dark">Remember Me</label>
                                     </div>
                                     <div className="flex flex-col mt-8">
@@ -72,8 +106,4 @@ export default function Login(props) {
             </div>
         </div>
     )
-}
-
-export const getStaticProps = async () => {
-    return {props: {}}
 }

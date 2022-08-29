@@ -1,9 +1,9 @@
-import AdminLayout from "../../../components/Layout/admin";
-import {Form} from "../../../components/layout/form";
+import AdminLayout from "../../../components/admin";
+import {Form} from "../../../components/layout/form/form";
 import {useState} from "react";
 import {MasterService} from "../../../lib/http";
 
-export default function PackageAdd(props) {
+export default function PacketAdd(props) {
     const [inputFields, setInputFields] = useState({
             "name": "",
             "sku": "",
@@ -12,9 +12,9 @@ export default function PackageAdd(props) {
         }
     )
     const data = {
-        url: `${process.env.ENDPOINT_MASTER}/packages`,
-        redirects: `/admin/package`,
-        module_name: `Package`,
+        url: `${process.env.ENDPOINT_MASTER}/packets`,
+        redirects: `/admin/packet`,
+        module_name: `Packet`,
         title: `Save`,
         content_type: `application/json`,
         method: "POST"
@@ -34,7 +34,7 @@ export default function PackageAdd(props) {
     )
 }
 
-PackageAdd.layout = AdminLayout
+PacketAdd.layout = AdminLayout
 
 export async function getServerSideProps(context) {
     const {req} = context
@@ -59,11 +59,11 @@ export async function getServerSideProps(context) {
             }
         }
     }
-    request.url = `discounts?size=${res.data.total}&sort=${sort}&fields=id,state_province_name`
+    request.url = `discounts?size=${res.data.total}&sort=${sort}&fields=id,name`
     const response = await MasterService(request)
     return {
         props: {
-            provinces: response.data.items
+            discounts: response.data.items
         }, // will be passed to the page component as props
     }
 }

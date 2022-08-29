@@ -1,9 +1,9 @@
-import AdminLayout from "../../../../components/Layout/admin";
-import {Form} from "../../../../components/layout/form";
+import AdminLayout from "../../../../components/admin";
+import {Form} from "../../../../components/layout/form/form";
 import {useState} from "react";
 import {MasterService} from "../../../../lib/http";
 
-export default function PackageEdit(props) {
+export default function PacketEdit(props) {
     const [inputFields, setInputFields] = useState({
         "name": props.data.name,
         "sku": props.data.sku,
@@ -12,9 +12,9 @@ export default function PackageEdit(props) {
         "discount_id": props.data.discount_id
     })
     const data = {
-        url: `${process.env.ENDPOINT_MASTER}/packages/${props.data.id}`,
-        redirects: `/admin/package`,
-        module_name: `Package`,
+        url: `${process.env.ENDPOINT_MASTER}/packets/${props.data.id}`,
+        redirects: `/admin/packet`,
+        module_name: `Packet`,
         title: `Update`,
         content_type: `application/json`,
         method: "PUT"
@@ -34,7 +34,7 @@ export default function PackageEdit(props) {
     )
 }
 
-PackageEdit.layout = AdminLayout
+PacketEdit.layout = AdminLayout
 
 export async function getServerSideProps(context) {
     const {req, query} = context
@@ -46,12 +46,12 @@ export async function getServerSideProps(context) {
             "Cookie": `token=${req.cookies.token}`
         },
     }
-    const province = await MasterService(request).then(res => {
+    const discount = await MasterService(request).then(res => {
         return res
     }).catch(err => {
         return err
     })
-    if (province.status !== 200) {
+    if (discount.status !== 200) {
         return {
             redirect: {
                 permanent: false,
@@ -59,14 +59,14 @@ export async function getServerSideProps(context) {
             }
         }
     }
-    request.url = `cities/${query.id[0]}`
+    request.url = `packets/${query.id[0]}`
     const city = await MasterService(request)
-    request.url = `discounts?size=${province.data.total}&sort=state_province_code,state_province_name,${sort}&fields=id,state_province_name`
+    request.url = `discounts?size=${discount.data.total}&sort=${sort}&fields=id,name`
     const provinces = await MasterService(request)
     return {
         props: {
             data: city.data,
-            provinces: provinces.data.items
+            discounts: provinces.data.items
         }, // will be passed to the page component as props
     }
 }

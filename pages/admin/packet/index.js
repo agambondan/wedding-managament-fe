@@ -1,8 +1,8 @@
-import AdminLayout from "../../../components/Layout/admin";
-import {Table} from "../../../components/layout/table";
+import AdminLayout from "../../../components/admin";
+import {Table} from "../../../components/layout/form/table";
 import {MasterService} from "../../../lib/http";
 
-export default function PackageIndex(props) {
+export default function PacketIndex(props) {
     let data = [];
     if (props.data.items.length === 0) {
         const obj = {
@@ -41,7 +41,7 @@ export default function PackageIndex(props) {
         })
     }
     const detail = {
-        redirects: `/admin/package/add`,
+        redirects: `/admin/packet/add`,
     }
     return (
         <>
@@ -50,7 +50,7 @@ export default function PackageIndex(props) {
     )
 }
 
-PackageIndex.layout = AdminLayout
+PacketIndex.layout = AdminLayout
 
 export async function getServerSideProps(context) {
     const {
@@ -70,7 +70,7 @@ export async function getServerSideProps(context) {
         sort = query.sort
     }
     const request = {
-        url: `packages?size=${size}&page=${page}&sort=${sort}`,
+        url: `packets?size=${size}&page=${page}&sort=${sort}`,
         headers: {
             "Cookie": `token=${req.cookies.token}`
         },

@@ -97,18 +97,18 @@ export function Table(props) {
                             <thead
                                 className="text-xs text-gray-700 uppercase bg-gray-50 bg-gray-200 dark:bg-gray-900 dark:text-gray-400">
                             <tr>
-                                <th scope="col" className="py-3 px-6 text-center">
+                                <th scope="col" className="border-2 border-gray-400 py-3 px-6 text-center">
                                     No
                                 </th>
                                 {keys.map((key, index) => {
                                     return (
                                         key !== "id" ?
-                                            <th key={index} scope="col" className="text-center py-3 px-6">
+                                            <th key={index} scope="col" className="border-2 border-gray-400 py-3 px-6 text-center">
                                                 {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
                                             </th> : <></>
                                     )
                                 })}
-                                <th scope="col" className="py-3 px-6 text-center">
+                                <th scope="col" className="border-2 border-gray-400 py-3 px-6 text-center">
                                     Action
                                 </th>
                             </tr>
@@ -119,14 +119,14 @@ export function Table(props) {
                                     return ""
                                 } else {
                                     return (
-                                        <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700
+                                        <tr key={index} className="border-2 border-gray-400 bg-white border-b dark:bg-gray-800 dark:border-gray-700
                             hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <th scope="col" className="py-3 px-6 text-center">
                                                 {index + 1}
                                             </th>
                                             {keys.map((key, indexKey) => {
                                                 return (
-                                                    <th key={indexKey} scope="row" className="text-center py-4 px-6">
+                                                    <th key={indexKey} scope="row" className="border-2 border-gray-400 text-center py-4 px-6">
                                                         {typeof item[key] === "boolean" ?
                                                             <input
                                                                 className={"w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"}

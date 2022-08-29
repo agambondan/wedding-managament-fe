@@ -2,13 +2,19 @@ import React, {useState} from "react";
 import {useRouter} from "next/router";
 import Swal from "sweetalert2";
 import Link from "next/link";
-import {UserContext} from "../../lib/protected_route";
-import {NavMenu} from "../layout/menu";
-import {navbarMenu} from "../../lib/const";
+import {NavMenu} from "./form/nav";
+import {mobileMenu, navbarMenu} from "../../lib/const";
 import axios from "axios";
+import {AdminContext} from "../admin";
+import {ClientContext} from "../client";
 
-export default function Header() {
-    const user = React.useContext(UserContext);
+export default function Header(props) {
+    let user = {}
+    if (props.layout === "admin") {
+        user = AdminContext._currentValue
+    } else if (props.layout === "client") {
+        user = ClientContext._currentValue
+    }
     const [click, setCLick] = useState(false)
     const [btnClick, setBtnClick] = useState(true)
     const handleClick = () => {
@@ -24,33 +30,38 @@ export default function Header() {
         pictureTitle = user.picture.title
     }
     return (
-        <header className="w-full items-center bg-gray-100 py-2 px-6 hidden sm:flex">
-            <div className="w-1/2"/>
-            <div className="relative w-1/2 flex justify-end">
+        <header className="w-full items-center bg-gray-100 py-2 px-6 xl:flex">
+            <div className="xl:w-1/2"/>
+            <div className="relative xl:w-1/2 flex justify-end">
                 <button className="relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300
                     focus:border-gray-300 focus:outline-none" onClick={handleClick}>
                     <img src={pictureUrl} alt={pictureTitle}/>
                 </button>
-                {click ? Dropdowns({click, btnClick, handleBtnClick}) : ''}
+                {click ?
+                    <Dropdowns click={click} btnClick={btnClick} handleBtnClick={handleBtnClick} url={props.url}/>
+                    :
+                    <></>
+                }
             </div>
         </header>
     )
 }
 
-function Dropdowns({click, btnClick, handleBtnClick}) {
+function Dropdowns(props) {
     const router = useRouter()
     return (
         <>
-            <button onClick={handleBtnClick}
-                    className={`${btnClick ? "h-full w-full fixed inset-0 cursor-default" : ""}`}/>
+            <button onClick={props.handleBtnClick}
+                    className={`${props.btnClick ? "h-full w-full fixed inset-0 cursor-default" : ""}`}/>
             <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
                 <Link href={"/admin/account"}><a
-                    className="block px-4 py-2 account-link hover:text-white">Account</a></Link>
+                    className="block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Account</a></Link>
                 <Link href={"/admin/support"}><a
-                    className="block px-4 py-2 account-link hover:text-white">Support</a></Link>
-                <Link href="#"><a href="#" className="block px-4 py-2 account-link hover:text-white"
-                                  onClick={() => handleSignOut({router})}>Sign
-                    Out</a></Link>
+                    className="block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Support</a></Link>
+                    <label className="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                       onClick={() => handleSignOut({router})}>
+                        Sign Out
+                    </label>
             </div>
         </>
     )
@@ -58,7 +69,7 @@ function Dropdowns({click, btnClick, handleBtnClick}) {
 
 // Mobile Phone
 // Down
-export function HeaderMobile() {
+export function HeaderMobile(props) {
     const router = useRouter()
     const [click, setCLick] = useState(false)
     const handleClick = () => {
@@ -66,7 +77,7 @@ export function HeaderMobile() {
     }
     const icon = click ? <i className="fas fa-times"/> : <i className="fas fa-bars"/>
     return (
-        <header className={"w-full bg-sidebar py-5 px-6 xl:hidden"}>
+        <header className={"w-full bg-sidebar py-5 px-6 xl:hidden overflow-y-auto"}>
             <div className="flex items-center justify-between">
                 <a href={"/admin"}
                    className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Administrator</a>
@@ -74,32 +85,36 @@ export function HeaderMobile() {
                     {icon}
                 </button>
             </div>
-            {click ? <NavHeader router={router}/> : <></>}
+            <div className={"overflow-auto"}>
+                {click ? <NavHeader router={router} url={props.url}/> : <></>}
+            </div>
         </header>
     )
 }
 
-function NavHeader({router}) {
-    let menus = sidebarMenu.concat(navbarMenu)
+function NavHeader(props) {
     return (
-        <nav className="flex flex-col pt-4">
-            <Link href={"/admin"}>
-                <a className={`flex items-center text-white ${router.pathname === "/admin" ? "active-nav-link" : "opacity-75 hover:opacity-100"} -mx-2 py-2 pl-2 nav-item`}>
-                    <i className="fas fa-tachometer-alt mr-3"/>
-                    Dashboard
-                </a>
-            </Link>
-            <NavMenu menus={menus}/>
-            <Link href={"#"}>
-                <a className="flex items-center text-white opacity-75 hover:opacity-100 -mx-2 py-2 pl-2 nav-item"
-                   onClick={() => handleSignOut({router})}>
-                    <i className="fas fa-sign-out-alt mr-3"/>
-                    Sign Out
-                </a>
-            </Link>
+        <nav className="flex flex-col pt-4 overflow-y-auto">
+            <ul>
+                <li>
+                    <Link href={"/admin"}>
+                        <a className={`flex items-center text-white ${props.router.pathname === "/admin" ? "active-nav-link" : "opacity-75 hover:opacity-100"} py-2 pl-2 nav-item`}>
+                            <i className="fas fa-tachometer-alt"/>
+                            <span className="ml-3">Dashboard</span>
+                        </a>
+                    </Link>
+                </li>
+                <NavMenu menus={mobileMenu}/>
+                <li className="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-2 nav-item"
+                    onClick={() => handleSignOut(props)}>
+                    <i className="fas fa-sign-out-alt"/>
+                    <span className="ml-3">Sign Out</span>
+                </li>
+            </ul>
         </nav>
     )
 }
+
 // Up
 // Mobile Phone
 
@@ -121,7 +136,7 @@ const handleSignOut = (props) => {
                 })
                 if (response.status === 200) {
                     Swal.fire({title: 'Success Logout!', icon: 'success', timer: 5000}).then(res => {
-                        props.router.push("/auth/login")
+                        props.router.push(`${props.url}`)
                     })
                 }
                 // do something to logout

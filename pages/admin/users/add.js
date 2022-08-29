@@ -1,5 +1,5 @@
-import AdminLayout from "../../../components/Layout/admin";
-import {Form} from "../../../components/layout/form";
+import AdminLayout from "../../../components/admin";
+import {Form} from "../../../components/layout/form/form";
 import {MasterService} from "../../../lib/http";
 import {useState} from "react";
 

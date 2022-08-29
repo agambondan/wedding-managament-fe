@@ -1,5 +1,5 @@
-import AdminLayout from "../../../components/Layout/admin";
-import {Table} from "../../../components/layout/table";
+import AdminLayout from "../../../components/admin";
+import {Table} from "../../../components/layout/form/table";
 import {MasterService} from "../../../lib/http";
 
 export default function FeatureIndex(props) {

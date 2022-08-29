@@ -1,9 +1,9 @@
 import {useRouter} from "next/router";
 import Swal from "sweetalert2";
 import axios from "axios";
-import {Select} from "./form/select";
-import {InputNumber, InputText} from "./form/fields";
-import {BorderedCheckBox} from "./form/checkbox";
+import {Select} from "./select";
+import {InputNumber, InputText} from "./fields";
+import {BorderedCheckBox} from "./checkbox";
 
 // Form
 //
