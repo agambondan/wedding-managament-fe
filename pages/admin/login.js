@@ -28,6 +28,19 @@ export default function Login() {
         }).catch(err => {
             return err.response
         })
+        console.log(response)
+        // const response = await fetch(`${process.env.IP}/api/v1/auth/login`, {
+        //     method: "POST",
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({"email": username, "password": password, "remember_me": rememberMe}),
+        //     credentials: "include"
+        // })
+        // console.log(await response.json())
+        // response.headers.forEach(function(value, name) {
+        //     console.log(name + ": " + value);
+        // })
         if (response.status === 200) {
             Swal.hideLoading()
             setTimeout(() => {
@@ -39,9 +52,9 @@ export default function Login() {
                     allowOutsideClick: true
                 })
             }, 1000)
-            setTimeout(() => {
-                router.push("/admin")
-            }, 5000)
+            // setTimeout(() => {
+            //     router.push("/admin")
+            // }, 5000)
         } else {
             Swal.hideLoading()
             Swal.update({
