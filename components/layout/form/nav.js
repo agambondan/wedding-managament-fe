@@ -11,7 +11,7 @@ export function Nav(props) {
                     return (
                         <div key={i}>
                             <Link href={menu.link}>
-                                <a className={`flex items-center text-white ${isRoutePathname(menu.path) ? "active-nav-link" : "opacity-75 hover:opacity-100"} py-4 pl-6 nav-item`}>
+                                <a className={`flex items-center text-white ${isRoutePathname(props.router, menu.path) ? "active-nav-link" : "opacity-75 hover:opacity-100"} py-4 pl-6 nav-item`}>
                                     {menu.icon.match("<") ? <div dangerouslySetInnerHTML={{__html: menu.icon}}/> :
                                         <i className={menu.icon}/>}
                                     {menu.name}
@@ -36,7 +36,7 @@ export function NavMenu(props) {
                     return (
                         <li key={i} style={divStyle}>
                             <Link href={menu.link}>
-                                <a className={`${isRoutePathname(menu.path) ? "active-nav-link" : "opacity-75 hover:opacity-100"} flex items-center text-white py-2 pl-2 nav-item`}>
+                                <a className={`${isRoutePathname(props.router, menu.path) ? "active-nav-link" : "opacity-75 hover:opacity-100"} flex items-center text-white py-2 pl-2 nav-item`}>
                                     {menu.icon.match("<") ?
                                         <div dangerouslySetInnerHTML={{__html: menu.icon}}/>
                                         :
@@ -72,7 +72,7 @@ export function SidebarDropdown(props) {
                         return (
                             <li key={i}>
                                 <Link href={menu.link}>
-                                    <a className={`${isRoutePathname(menu.path) ? "bg-gray-300" : "hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"} flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group`}>
+                                    <a className={`${isRoutePathname(props.router, menu.path) ? "bg-gray-300" : "hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"} flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group`}>
                                         {menu.icon.match("<") ? <div dangerouslySetInnerHTML={{__html: menu.icon}}/> :
                                             <i className={menu.icon}/>}
                                         <span className={"ml-3"}>

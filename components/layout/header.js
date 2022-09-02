@@ -5,8 +5,7 @@ import Link from "next/link";
 import {NavMenu} from "./form/nav";
 import {mobileMenu, navbarMenu} from "../../lib/const";
 import axios from "axios";
-import {AdminContext} from "../admin";
-import {ClientContext} from "../client";
+import {AdminContext, ClientContext} from "../../lib/const";
 
 export default function Header(props) {
     let user = {}
@@ -104,7 +103,7 @@ function NavHeader(props) {
                         </a>
                     </Link>
                 </li>
-                <NavMenu menus={mobileMenu}/>
+                <NavMenu router={props.router} menus={mobileMenu}/>
                 <li className="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-2 nav-item"
                     onClick={() => handleSignOut(props)}>
                     <i className="fas fa-sign-out-alt"/>

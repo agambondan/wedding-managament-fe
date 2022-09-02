@@ -26,21 +26,14 @@ export default function Login() {
         }).then(res => {
             return res
         }).catch(err => {
-            return err.response
+            if (err.response) {
+                return err.response
+            } else if (err.request) {
+                return err.request
+            } else {
+                return err.message
+            }
         })
-        console.log(response)
-        // const response = await fetch(`${process.env.IP}/api/v1/auth/login`, {
-        //     method: "POST",
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({"email": username, "password": password, "remember_me": rememberMe}),
-        //     credentials: "include"
-        // })
-        // console.log(await response.json())
-        // response.headers.forEach(function(value, name) {
-        //     console.log(name + ": " + value);
-        // })
         if (response.status === 200) {
             Swal.hideLoading()
             setTimeout(() => {
@@ -52,9 +45,9 @@ export default function Login() {
                     allowOutsideClick: true
                 })
             }, 1000)
-            // setTimeout(() => {
-            //     router.push("/admin")
-            // }, 5000)
+            setTimeout(() => {
+                router.push("/admin")
+            }, 5000)
         } else {
             Swal.hideLoading()
             Swal.update({
@@ -66,7 +59,6 @@ export default function Login() {
             })
         }
     }
-    console.log(username, password, rememberMe)
     return (
         <div className="bg-blue-400 h-screen w-screen">
             <div className="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
@@ -97,7 +89,8 @@ export default function Login() {
                                     <div className="flex items-center mt-4">
                                         <input type="checkbox" name="remember" id="remember" className="mr-2"
                                                onClick={() => setRememberMe(!rememberMe)}/>
-                                        <label htmlFor="remember" className="text-sm text-grey-dark">Remember Me</label>
+                                        <label htmlFor="remember" className="text-sm text-grey-dark">Remember
+                                            Me</label>
                                     </div>
                                     <div className="flex flex-col mt-8">
                                         <button type="submit"

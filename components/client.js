@@ -9,8 +9,7 @@ import {SidebarDropdown} from "./layout/form/nav";
 import {masterMenu, userMenu} from "../lib/const";
 import Header, {HeaderMobile} from "./layout/header";
 import {Content} from "./layout/section";
-
-export const ClientContext = React.createContext({});
+import {ClientContext} from "../lib/const"
 
 function ClientLayout(props) {
     const router = useRouter()
@@ -61,9 +60,9 @@ function ClientLayout(props) {
                                             </a>
                                         </Link>
                                     </li>
-                                    <SidebarDropdown label={"Master"} labelIcon={"fa-brands fa-buffer"}
+                                    <SidebarDropdown router={router} label={"Master"} labelIcon={"fa-brands fa-buffer"}
                                                      menus={masterMenu}/>
-                                    <SidebarDropdown label={"User"} labelIcon={"fas fa-user"} menus={userMenu}/>
+                                    <SidebarDropdown router={router} label={"User"} labelIcon={"fas fa-user"} menus={userMenu}/>
                                 </ul>
                             </Sidebar>
                             <Main>

@@ -10,43 +10,31 @@ import {masterMenu, userMenu} from "../lib/const";
 import Meta from "./layout/meta";
 import Header, {HeaderMobile} from "./layout/header";
 import {Content} from "./layout/section";
-
-export const AdminContext = React.createContext({});
+import {AdminContext} from "../lib/const"
 
 function AdminLayout(props) {
     const router = useRouter()
-    const [user, setUser] = useState({})
     const [verified, setVerified] = useState(false);
-    useEffect(() => {
+    const [user, setUser] = useState({});
+    // hooks when router change
+    useEffect(()=> {
         (async () => {
-            const response = await axios.get(`${process.env.IP}/api/v1/auth/verify-user`, {withCredentials: true}).then(res => {
+            const currentDatetime = new Date();
+            axios.put(`${process.env.IP}/api/v1/users/token/ROLE_ADMIN`, {
+                "last_access": FormatDate(currentDatetime),
+                "last_page": router.pathname,
+            }, {withCredentials: true}).then(res => {
+                setVerified(true)
+                setUser(res.data)
                 return res
             }).catch(err => {
-                return err.response
-            })
-            console.log(response)
-            if (response !== undefined && response.status === 200) {
-                setVerified(true)
-                setUser(response.data)
-                const currentDatetime = new Date();
-                axios.put(`${process.env.IP}/api/v1/users/${response.data.id}`, {
-                    "login": response.data.login,
-                    "email": response.data.email,
-                    "password": response.data.password,
-                    "last_access": FormatDate(currentDatetime),
-                    "last_page": router.pathname,
-                }, {withCredentials: true}).then(res => {
-                    return res
-                }).catch(err => {
-                    return err
-                })
-            } else {
                 setTimeout(() => {
                     router.push("/admin/login?redirect=true");
                 }, 3000)
-            }
+                return err
+            })
         })();
-    }, [router]);
+    }, [router])
     if (verified) {
         return (
             <AdminContext.Provider value={user}>
@@ -64,9 +52,10 @@ function AdminLayout(props) {
                                             </a>
                                         </Link>
                                     </li>
-                                    <SidebarDropdown label={"Master"} labelIcon={"fa-brands fa-buffer"}
+                                    <SidebarDropdown router={router} label={"Master"} labelIcon={"fa-brands fa-buffer"}
                                                      menus={masterMenu}/>
-                                    <SidebarDropdown label={"User"} labelIcon={"fas fa-user"} menus={userMenu}/>
+                                    <SidebarDropdown router={router} label={"User"} labelIcon={"fas fa-user"}
+                                                     menus={userMenu}/>
                                 </ul>
                             </Sidebar>
                             <Main>
@@ -87,3 +76,14 @@ function AdminLayout(props) {
 }
 
 export default AdminLayout
+
+export const getServerSideProps = async (ctx) => {
+    const {req, res, query} = ctx
+    return {
+        props: {
+            req,
+            res,
+            query
+        },
+    };
+};

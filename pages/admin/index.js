@@ -1,4 +1,5 @@
-import AdminLayout, {AdminContext} from "../../components/admin";
+import AdminLayout from "../../components/admin";
+import {AdminContext} from "../../lib/const";
 import React from "react";
 import Link from "next/link";
 
