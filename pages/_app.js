@@ -8,14 +8,16 @@ function MyApp({Component, pageProps}) {
     const Layout = Component.layout || (({children}) => <>{children}</>);
     return (
         <WaitForRouter>
-            <React.Fragment>
-                <Head>
-                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-                </Head>
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </React.Fragment>
+            <ErrorBoundary>
+                <React.Fragment>
+                    <Head>
+                        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+                    </Head>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </React.Fragment>
+            </ErrorBoundary>
         </WaitForRouter>
     )
 }

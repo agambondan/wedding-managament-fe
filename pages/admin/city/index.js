@@ -4,6 +4,7 @@ import {MasterService} from "../../../lib/http";
 import {useEffect, useState} from "react";
 
 export default function CityIndex(props) {
+    console.log(props)
     const [data, setData] = useState([{
         "id": "dummy",
         "city_code": "",
