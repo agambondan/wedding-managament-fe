@@ -121,7 +121,7 @@ export function Table(props) {
                                     return (
                                         <tr key={index} className="border-2 border-gray-400 bg-white border-b dark:bg-gray-800 dark:border-gray-700
                             hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <th scope="col" className="py-3 px-6 text-center">
+                                            <th scope="col" className="border-2 border-gray-400 py-3 px-6 text-center">
                                                 {index + 1}
                                             </th>
                                             {keys.map((key, indexKey) => {
@@ -139,7 +139,7 @@ export function Table(props) {
                                                     </th>
                                                 )
                                             })}
-                                            <th key={index} className="flex justify-center py-4 px-6 space-x-3">
+                                            <th key={index} className="flex justify-center py-4 px-6 space-x-3 border-b-1 border-gray-400">
                                                 <Link href={`${router.pathname}/${ids[index]}`}>
                                                     <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                                 </Link>

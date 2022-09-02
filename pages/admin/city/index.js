@@ -1,41 +1,45 @@
 import AdminLayout from "../../../components/admin";
 import {Table} from "../../../components/layout/form/table";
 import {MasterService} from "../../../lib/http";
+import {useEffect, useState} from "react";
 
 export default function CityIndex(props) {
-    let data = [];
-    if (props.data.items.length === 0) {
-        const obj = {
-            "id": "dummy",
-            "city_code": "",
-            "city_name": "",
-            "created_at": "",
-            "state_province": "",
-            "action": "",
-            "state_province_id": "",
-        }
-        data.push(obj)
-    } else {
-        data = props.data.items.map((item) => {
-            let stateProvince = {
-                "id": "",
-                "state_province_name": "",
+    const [data, setData] = useState([{
+        "id": "dummy",
+        "city_code": "",
+        "city_name": "",
+        "created_at": "",
+        "state_province": "",
+        "action": "",
+        "state_province_id": "",
+    }]);
+    useEffect(() => {
+        (async () => {
+            const request = {
+                url: `cities?size=${props.size}&page=${props.page}&sort=${props.sort}`,
             }
-            if (item.state_province !== undefined) {
-                stateProvince = item.state_province
-            }
-            let date = new Date(item.created_at)
-            return {
-                "id": item.id,
-                "city_code": item.city_code,
-                "city_name": item.city_name,
-                "created_at": date.toLocaleString(),
-                "state_province": stateProvince.state_province_name,
-                "action": "",
-                "state_province_id": stateProvince.id,
-            }
-        })
-    }
+            const res = await MasterService(request).then(res => res).catch(err => err)
+            setData(res.data.items.map((item) => {
+                let stateProvince = {
+                    "id": "",
+                    "state_province_name": "",
+                }
+                if (item.state_province !== undefined) {
+                    stateProvince = item.state_province
+                }
+                let date = new Date(item.created_at)
+                return {
+                    "id": item.id,
+                    "city_code": item.city_code,
+                    "city_name": item.city_name,
+                    "created_at": date.toLocaleString(),
+                    "state_province": stateProvince.state_province_name,
+                    "action": "",
+                    "state_province_id": stateProvince.id,
+                }
+            }))
+        })();
+    }, [])
     const detail = {
         redirects: `/admin/city/add`,
     }
@@ -65,28 +69,32 @@ export async function getServerSideProps(context) {
     if (query.sort !== undefined) {
         sort = query.sort
     }
-    const request = {
-        url: `cities?size=${size}&page=${page}&sort=${sort}`,
-        headers: {
-            "Cookie": `token=${req.cookies.token}`
-        },
-    }
-    const response = await MasterService(request).then(res => {
-        return res
-    }).catch(err => {
-        return err
-    })
-    if (response.status !== 200) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: '/admin'
-            }
-        }
-    }
+    // const request = {
+    //     url: `cities?size=${size}&page=${page}&sort=${sort}`,
+    //     headers: {
+    //         "Cookie": `token=${req.cookies.token}`
+    //     },
+    // }
+    // const response = await MasterService(request).then(res => {
+    //     return res
+    // }).catch(err => {
+    //     return err
+    // })
+    // if (response.status !== 200) {
+    //     return {
+    //         redirect: {
+    //             permanent: false,
+    //             destination: '/admin'
+    //         }
+    //     }
+    // }
     return {
         props: {
-            data: response.data
+            // data: response.data
+            cookies: req.cookies,
+            size,
+            page,
+            sort
         }, // will be passed to the page component as props
     }
 }
