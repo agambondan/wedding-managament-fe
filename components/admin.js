@@ -59,8 +59,8 @@ function AdminLayout(props) {
                                 </ul>
                             </Sidebar>
                             <Main>
-                                <Header layout={"admin"} url={"/admin/login"}/>
-                                <HeaderMobile url={"/admin/login"}/>
+                                <Header layout={"admin"} url={"/admin/login"} router={router}/>
+                                <HeaderMobile url={"/admin/login"} router={router}/>
                                 <Content>
                                     {props.children}
                                 </Content>

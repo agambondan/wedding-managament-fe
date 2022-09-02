@@ -2,9 +2,13 @@ import AdminLayout from "../../../components/admin";
 import {Table} from "../../../components/layout/form/table";
 import {MasterService} from "../../../lib/http";
 import {useEffect, useState} from "react";
+import {useRouter} from "next/router";
 
 export default function CityIndex(props) {
-    console.log(props)
+    const router = useRouter()
+    let size = 10
+    let page = 0
+    let sort = "sort"
     const [data, setData] = useState([{
         "id": "dummy",
         "city_code": "",
@@ -15,11 +19,22 @@ export default function CityIndex(props) {
         "state_province_id": "",
     }]);
     useEffect(() => {
+        const {query} = router
+        if (query.size !== undefined) {
+            size = query.size
+        }
+        if (query.page !== undefined) {
+            page = query.page
+        }
+        if (query.sort !== undefined) {
+            sort = query.sort
+        }
         (async () => {
             const request = {
-                url: `cities?size=${props.size}&page=${props.page}&sort=${props.sort}`,
+                url: `cities?size=${size}&page=${page}&sort=${sort}`,
             }
             const res = await MasterService(request).then(res => res).catch(err => err)
+            console.log(res)
             setData(res.data.items.map((item) => {
                 let stateProvince = {
                     "id": "",
@@ -52,50 +67,3 @@ export default function CityIndex(props) {
 }
 
 CityIndex.layout = AdminLayout
-
-export async function getServerSideProps(context) {
-    const {
-        req,
-        query,
-    } = context
-    let size = 10
-    let page = 0
-    let sort = "sort"
-    if (query.size !== undefined) {
-        size = query.size
-    }
-    if (query.page !== undefined) {
-        page = query.page
-    }
-    if (query.sort !== undefined) {
-        sort = query.sort
-    }
-    // const request = {
-    //     url: `cities?size=${size}&page=${page}&sort=${sort}`,
-    //     headers: {
-    //         "Cookie": `token=${req.cookies.token}`
-    //     },
-    // }
-    // const response = await MasterService(request).then(res => {
-    //     return res
-    // }).catch(err => {
-    //     return err
-    // })
-    // if (response.status !== 200) {
-    //     return {
-    //         redirect: {
-    //             permanent: false,
-    //             destination: '/admin'
-    //         }
-    //     }
-    // }
-    return {
-        props: {
-            // data: response.data
-            cookies: req.cookies,
-            size,
-            page,
-            sort
-        }, // will be passed to the page component as props
-    }
-}

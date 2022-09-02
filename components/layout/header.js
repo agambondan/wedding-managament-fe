@@ -47,7 +47,6 @@ export default function Header(props) {
 }
 
 function Dropdowns(props) {
-    const router = useRouter()
     return (
         <>
             <button onClick={props.handleBtnClick}
@@ -57,10 +56,11 @@ function Dropdowns(props) {
                     className="block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Account</a></Link>
                 <Link href={"/admin/support"}><a
                     className="block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Support</a></Link>
-                    <label className="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                       onClick={() => handleSignOut({router})}>
-                        Sign Out
-                    </label>
+                <label
+                    className="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    onClick={() => handleSignOut(props)}>
+                    Sign Out
+                </label>
             </div>
         </>
     )
@@ -69,7 +69,6 @@ function Dropdowns(props) {
 // Mobile Phone
 // Down
 export function HeaderMobile(props) {
-    const router = useRouter()
     const [click, setCLick] = useState(false)
     const handleClick = () => {
         click ? setCLick(false) : setCLick(true);
@@ -85,7 +84,7 @@ export function HeaderMobile(props) {
                 </button>
             </div>
             <div className={"overflow-auto"}>
-                {click ? <NavHeader router={router} url={props.url}/> : <></>}
+                {click ? <NavHeader router={props.router} url={props.url}/> : <></>}
             </div>
         </header>
     )
@@ -117,7 +116,7 @@ function NavHeader(props) {
 // Up
 // Mobile Phone
 
-const handleSignOut = (props) => {
+const handleSignOut = ({router, url}) => {
     Swal.fire({
         title: 'Do you want to logout?',
         showCancelButton: true,
@@ -135,10 +134,9 @@ const handleSignOut = (props) => {
                 })
                 if (response.status === 200) {
                     Swal.fire({title: 'Success Logout!', icon: 'success', timer: 5000}).then(res => {
-                        props.router.push(`${props.url}`)
+                        router.push(`${url}`)
                     })
                 }
-                // do something to logout
             })()
         }
     })

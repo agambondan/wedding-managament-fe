@@ -66,8 +66,8 @@ function ClientLayout(props) {
                                 </ul>
                             </Sidebar>
                             <Main>
-                                <Header layout={"client"} url={"/client/login"}/>
-                                <HeaderMobile url={"/client/login"}/>
+                                <Header layout={"client"} url={"/client/login"} router={router}/>
+                                <HeaderMobile url={"/client/login"} router={router}/>
                                 <Content>
                                     {props.children}
                                 </Content>
