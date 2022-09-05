@@ -3,7 +3,6 @@ import {useRouter} from "next/router";
 
 export default function Index(props) {
     const router = useRouter()
-    console.log(router.query)
     return (
         <main id="content" role="main" className="w-full h-screen max-w-md mx-auto grid grid-cols-1 gap-4 content-center">
             <div className="mt-7 bg-white  rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700">

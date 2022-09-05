@@ -1,6 +1,6 @@
 import AdminLayout from "../../../components/admin";
 import {Table} from "../../../components/layout/form/table";
-import {MasterService} from "../../../lib/http";
+import {AxiosInstance, MasterService} from "../../../lib/http";
 
 export default function DiscountIndex(props) {
     let data = [];
@@ -58,22 +58,28 @@ export async function getServerSideProps(context) {
     if (query.sort !== undefined) {
         sort = query.sort
     }
-    const request = {
-        url: `discounts?size=${size}&page=${page}&sort=${sort}`,
-        headers: {
-            "Cookie": `token=${req.cookies.token}`
-        },
-    }
-    const response = await MasterService(request).then(res => {
+    const response = await AxiosInstance({
+        url: `${process.env.ENDPOINT_MASTER}/discounts?size=${size}&page=${page}&sort=${sort}`
+    }).then(res => {
         return res
     }).catch(err => {
-        return err
+        if (err.response) {
+            return err.response
+        } else if (err.request) {
+            return err.request
+        } else {
+            return err.message
+        }
     })
     if (response.status !== 200) {
         return {
-            redirect: {
-                permanent: false,
-                destination: '/admin'
+            // redirect: {
+            //     permanent: false,
+            //     destination: '/admin'
+            // }
+            props: {
+                // cookies: req.cookies,
+                data: `${process.env.ENDPOINT_MASTER}/discounts?size=${size}&page=${page}&sort=${sort}`
             }
         }
     }

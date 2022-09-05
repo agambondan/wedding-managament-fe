@@ -33,7 +33,6 @@ function AdminLayout(props) {
                 }, 3000)
                 return err
             })
-            console.log(response)
         })();
     }, [router])
     if (verified) {
@@ -63,6 +62,8 @@ function AdminLayout(props) {
                                 <Header layout={"admin"} url={"/admin/login"} router={router}/>
                                 <HeaderMobile url={"/admin/login"} router={router}/>
                                 <Content>
+                                    {/*<props.children >*/}
+                                    {/*</props.children>*/}
                                     {props.children}
                                 </Content>
                             </Main>

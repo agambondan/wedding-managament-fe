@@ -2,9 +2,12 @@ import React, {useState} from "react";
 import {useRouter} from "next/router";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {AxiosInstance} from "../../lib/http";
+import {Authorization} from "../../lib/const";
 
 export default function Login() {
     const router = useRouter()
+    const [authorization, setAuthorization] = useState({})
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [rememberMe, setRememberMe] = useState(false)
@@ -24,6 +27,7 @@ export default function Login() {
             // disable with credentials if be not regis your ip to be cors
             withCredentials: true,
         }).then(res => {
+            setAuthorization(res.data)
             return res
         }).catch(err => {
             if (err.response) {
@@ -34,7 +38,7 @@ export default function Login() {
                 return err.message
             }
         })
-        console.log(response)
+        AxiosInstance.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
         if (response.status === 200) {
             Swal.hideLoading()
             setTimeout(() => {
@@ -61,6 +65,7 @@ export default function Login() {
         }
     }
     return (
+        <Authorization.Provider value={authorization}>
         <div className="bg-blue-400 h-screen w-screen">
             <div className="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
                 <div className="flex rounded-lg shadow-lg w-full sm:w-3/4 lg:w-1/2 bg-white sm:mx-0 h-4/6">
@@ -112,5 +117,6 @@ export default function Login() {
                 </div>
             </div>
         </div>
+        </Authorization.Provider>
     )
 }

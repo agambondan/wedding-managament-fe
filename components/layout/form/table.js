@@ -5,10 +5,11 @@ import axios from "axios";
 
 export function Table(props) {
     const router = useRouter()
-    const data = props.data
+    const data = props.data.length !== 0 ? props.data : [];
     let item = props.data[0]
+    console.log(props, "LINE 10")
     console.log(item)
-    let isDummy = item.id === ""
+    let isDummy = item.id === "dummy"
     let keys = Object.keys(item).filter(function (element) {
         return !element.match("id") && element !== "action"
     });
@@ -104,7 +105,8 @@ export function Table(props) {
                                 {keys.map((key, index) => {
                                     return (
                                         key !== "id" ?
-                                            <th key={index} scope="col" className="border-2 border-gray-400 py-3 px-6 text-center">
+                                            <th key={index} scope="col"
+                                                className="border-2 border-gray-400 py-3 px-6 text-center">
                                                 {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
                                             </th> : <></>
                                     )
@@ -127,7 +129,8 @@ export function Table(props) {
                                             </th>
                                             {keys.map((key, indexKey) => {
                                                 return (
-                                                    <th key={indexKey} scope="row" className="border-2 border-gray-400 text-center py-4 px-6">
+                                                    <th key={indexKey} scope="row"
+                                                        className="border-2 border-gray-400 text-center py-4 px-6">
                                                         {typeof item[key] === "boolean" ?
                                                             <input
                                                                 className={"w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"}
@@ -140,7 +143,8 @@ export function Table(props) {
                                                     </th>
                                                 )
                                             })}
-                                            <th key={index} className="flex justify-center py-4 px-6 space-x-3 border-b-1 border-gray-400">
+                                            <th key={index}
+                                                className="flex justify-center py-4 px-6 space-x-3 border-b-1 border-gray-400">
                                                 <Link href={`${router.pathname}/${ids[index]}`}>
                                                     <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                                 </Link>
