@@ -37,7 +37,7 @@ export default function Header(props) {
                     <img src={pictureUrl} alt={pictureTitle}/>
                 </button>
                 {click ?
-                    <Dropdowns click={click} btnClick={btnClick} handleBtnClick={handleBtnClick} url={props.url}/>
+                    <Dropdowns click={click} btnClick={btnClick} handleBtnClick={handleBtnClick} url={props.url} router={props.router}/>
                     :
                     <></>
                 }
@@ -84,7 +84,7 @@ export function HeaderMobile(props) {
                 </button>
             </div>
             <div className={"overflow-auto"}>
-                {click ? <NavHeader router={props.router} url={props.url}/> : <></>}
+                {click ? <NavHeader props={props} router={props.router} url={props.url}/> : <></>}
             </div>
         </header>
     )
@@ -116,7 +116,7 @@ function NavHeader(props) {
 // Up
 // Mobile Phone
 
-const handleSignOut = ({router, url}) => {
+const handleSignOut = (props) => {
     Swal.fire({
         title: 'Do you want to logout?',
         showCancelButton: true,
@@ -134,7 +134,7 @@ const handleSignOut = ({router, url}) => {
                 })
                 if (response.status === 200) {
                     Swal.fire({title: 'Success Logout!', icon: 'success', timer: 5000}).then(res => {
-                        router.push(`${url}`)
+                        props.router.push(`${props.url}`)
                     })
                 }
             })()

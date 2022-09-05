@@ -20,7 +20,7 @@ function AdminLayout(props) {
     useEffect(()=> {
         (async () => {
             const currentDatetime = new Date();
-            axios.put(`${process.env.IP}/api/v1/users/token/ROLE_ADMIN`, {
+            const response = axios.put(`${process.env.IP}/api/v1/users/token/ROLE_ADMIN`, {
                 "last_access": FormatDate(currentDatetime),
                 "last_page": router.pathname,
             }, {withCredentials: true}).then(res => {
@@ -33,6 +33,7 @@ function AdminLayout(props) {
                 }, 3000)
                 return err
             })
+            console.log(response)
         })();
     }, [router])
     if (verified) {

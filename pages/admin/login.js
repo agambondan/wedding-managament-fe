@@ -34,6 +34,7 @@ export default function Login() {
                 return err.message
             }
         })
+        console.log(response)
         if (response.status === 200) {
             Swal.hideLoading()
             setTimeout(() => {
