@@ -7,7 +7,8 @@ export function Table(props) {
     const router = useRouter()
     const data = props.data
     let item = props.data[0]
-    let isDummy = item.id === "dummy"
+    console.log(item)
+    let isDummy = item.id === ""
     let keys = Object.keys(item).filter(function (element) {
         return !element.match("id") && element !== "action"
     });

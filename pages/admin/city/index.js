@@ -10,7 +10,7 @@ export default function CityIndex(props) {
     let page = 0
     let sort = "sort"
     const [data, setData] = useState([{
-        "id": "dummy",
+        "id": "",
         "city_code": "",
         "city_name": "",
         "created_at": "",
@@ -55,7 +55,7 @@ export default function CityIndex(props) {
                 }
             }))
         })();
-    }, [])
+    }, [router])
     const detail = {
         redirects: `/admin/city/add`,
     }
