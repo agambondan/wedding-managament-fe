@@ -1,12 +1,52 @@
 import AdminLayout from "../../../components/admin";
 import {Form} from "../../../components/layout/form/form";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {MasterService} from "../../../lib/http";
+import {useRouter} from "next/router";
+import {Spinner1} from "../../../components/layout/spinner";
 
-export default function CityAdd(props) {
+export default function CityAdd() {
+    const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
+    const [stateProvince, setStateProvince] = useState([{id: "", state_province_name: ""}])
     const [inputFields, setInputFields] = useState(
         {city_code: '', city_name: ''}
     )
+    useEffect(() => {
+        setIsLoading(true)
+
+        async function fetch() {
+            let size = 10
+            let sort = "sort"
+            const request = {
+                url: `state-provinces?size=${size}`,
+            }
+            const res = await MasterService(request).then(res => {
+                return res
+            }).catch(err => {
+                return err
+            })
+            request.url = `state-provinces?size=${res.data.total}&sort=state_province_code,state_province_name,${sort}&fields=id,state_province_name`
+            const response = await MasterService(request).then(res => {
+                return res
+            }).catch(err => {
+                return err
+            })
+            if (response.data.items.length !== 0) {
+                setStateProvince([])
+            }
+            response.data.items.map((item) => {
+                setStateProvince((prevState) => [
+                    ...prevState, {
+                        "id": item.id,
+                        "state_province_name": item.state_province_name
+                    },
+                ]);
+            })
+        }
+
+        fetch().then(() => setIsLoading(false));
+    }, [router])
     const data = {
         url: `${process.env.ENDPOINT_MASTER}/cities`,
         redirects: `/admin/city`,
@@ -16,8 +56,9 @@ export default function CityAdd(props) {
         method: "POST"
     }
     let selectItem = {
-        "state_province": props.provinces
+        "state_province": stateProvince
     }
+    if (isLoading) return <Spinner1/>
     return (
         <Form
             inputFields={inputFields}
@@ -29,35 +70,3 @@ export default function CityAdd(props) {
 }
 
 CityAdd.layout = AdminLayout
-
-export async function getServerSideProps(context) {
-    const {req} = context
-    let size = 1
-    let sort = "sort"
-    let request = {
-        url: `state-provinces?size=${size}`,
-        headers: {
-            "Cookie": `token=${req.cookies.token}`
-        },
-    }
-    const res = await MasterService(request).then(res => {
-        return res
-    }).catch(err => {
-        return err
-    })
-    if (res.status !== 200) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: '/admin'
-            }
-        }
-    }
-    request.url = `state-provinces?size=${res.data.total}&sort=${sort}&fields=id,state_province_name`
-    const response = await MasterService(request)
-    return {
-        props: {
-            provinces: response.data.items
-        }, // will be passed to the page component as props
-    }
-}

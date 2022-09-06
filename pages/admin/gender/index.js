@@ -38,7 +38,6 @@ export default function GenderIndex() {
                 setData([])
                 res.data.items.map((item) => {
                     let date = new Date(item.created_at)
-                    console.log(item)
                     setData((prevData) => [
                         ...prevData,
                         {
@@ -52,16 +51,10 @@ export default function GenderIndex() {
                 })
                 return res
             }).catch(err => {
-                setData({
-                    "id": "dummy",
-                    "gender_code": 0,
-                    "gender_name": "",
-                    "created_at": "",
-                    "action": "",
-                })
                 return err
             })
-        };
+        }
+
         fetch().then(() => setIsLoading(false));
     }, [router])
     const detail = {
@@ -69,9 +62,7 @@ export default function GenderIndex() {
     }
     if (isLoading) return <p>Loading...</p>
     return (
-        <>
-            <Table data={data} detail={detail}/>
-        </>
+        <Table data={data} detail={detail}/>
     )
 }
 

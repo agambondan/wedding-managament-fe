@@ -41,7 +41,7 @@ export default function ResetPassword(props) {
             </div>
             <p className="mt-3 flex justify-center items-center text-center divide-x divide-gray-300 dark:divide-gray-700">
                 <a className="pr-3.5 inline-flex items-center gap-x-2 text-sm text-gray-600 decoration-2 hover:underline hover:text-blue-600 dark:text-gray-500 dark:hover:text-gray-200"
-                   href="pages/client/forgot-password/forgot-password#index.js" target="_blank">
+                   href="pages/client/forgot-password/forgot-password#[...id].js" target="_blank">
                     <svg className="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                          fill="currentColor" viewBox="0 0 16 16">
                         <path

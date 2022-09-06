@@ -3,12 +3,12 @@ import {Table} from "../../../components/layout/form/table";
 import {MasterService} from "../../../lib/http";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import {Spinner1} from "../../../components/layout/spinner";
 
 export default function CityIndex() {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
-    let data = []
-    data.push({
+    const [data, setData] = useState([{
         "id": "dummy",
         "city_code": "",
         "city_name": "",
@@ -16,7 +16,7 @@ export default function CityIndex() {
         "state_province": "",
         "action": "",
         "state_province_id": "",
-    })
+    }])
     useEffect(() => {
         setIsLoading(true)
         const {query} = router
@@ -35,9 +35,13 @@ export default function CityIndex() {
         const request = {
             url: `cities?size=${size}&page=${page}&sort=${sort}`,
         }
-        (async () => {
+
+        async function fetch() {
             await MasterService(request).then(res => {
-                const cities = res.data.items.map((item) => {
+                if (res.data.items.length !== 0) {
+                    setData([])
+                }
+                res.data.items.map((item) => {
                     let stateProvince = {
                         "id": "",
                         "state_province_name": "",
@@ -46,26 +50,32 @@ export default function CityIndex() {
                         stateProvince = item.state_province
                     }
                     let date = new Date(item.created_at)
-                    return {
-                        "id": item.id,
-                        "city_code": item.city_code,
-                        "city_name": item.city_name,
-                        "created_at": date.toLocaleString(),
-                        "state_province": stateProvince.state_province_name,
-                        "action": "",
-                        "state_province_id": stateProvince.id,
-                    }
+                    setData((prevData) => [
+                        ...prevData,
+                        {
+                            "id": item.id,
+                            "city_code": item.city_code,
+                            "city_name": item.city_name,
+                            "created_at": date.toLocaleString(),
+                            "state_province": stateProvince.state_province_name,
+                            "action": "",
+                            "state_province_id": stateProvince.id,
+                        },
+                    ]);
                 })
-                data.push(cities)
                 return res
-            }).catch(err => err)
-        })();
-        setIsLoading(false)
-    }, [data, router])
+            }).catch(err => {
+                return err
+            })
+        }
+
+        fetch().then(() => setIsLoading(false));
+    }, [router])
     const detail = {
         redirects: `/admin/city/add`,
     }
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <Spinner1/>
+
     return (
         <Table data={data} detail={detail}/>
     )

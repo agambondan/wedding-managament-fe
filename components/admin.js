@@ -17,10 +17,10 @@ function AdminLayout(props) {
     const [verified, setVerified] = useState(false);
     const [user, setUser] = useState({});
     // hooks when router change
-    useEffect(()=> {
+    useEffect(() => {
         (async () => {
             const currentDatetime = new Date();
-            const response = axios.put(`${process.env.IP}/api/v1/users/token/ROLE_ADMIN`, {
+            await axios.put(`${process.env.IP}/api/v1/users/token/ROLE_ADMIN`, {
                 "last_access": FormatDate(currentDatetime),
                 "last_page": router.pathname,
             }, {withCredentials: true}).then(res => {
@@ -62,8 +62,6 @@ function AdminLayout(props) {
                                 <Header layout={"admin"} url={"/admin/login"} router={router}/>
                                 <HeaderMobile url={"/admin/login"} router={router}/>
                                 <Content>
-                                    {/*<props.children >*/}
-                                    {/*</props.children>*/}
                                     {props.children}
                                 </Content>
                             </Main>
@@ -78,14 +76,3 @@ function AdminLayout(props) {
 }
 
 export default AdminLayout
-
-export const getServerSideProps = async (ctx) => {
-    const {req, res, query} = ctx
-    return {
-        props: {
-            req,
-            res,
-            query
-        },
-    };
-};

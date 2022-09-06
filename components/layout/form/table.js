@@ -5,10 +5,8 @@ import axios from "axios";
 
 export function Table(props) {
     const router = useRouter()
-    const data = props.data.length !== 0 ? props.data : [];
+    const data = props.data
     let item = props.data[0]
-    console.log(props, "LINE 10")
-    console.log(item)
     let isDummy = item.id === "dummy"
     let keys = Object.keys(item).filter(function (element) {
         return !element.match("id") && element !== "action"

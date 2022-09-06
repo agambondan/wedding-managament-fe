@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default function Index() {
     const user = React.useContext(AdminContext);
-    const givenName = user.person.given_name
-    const middleName = user.person.middle_name
+    const givenName = user.person !== undefined ? user.person.given_name : ""
+    const middleName = user.person !== undefined ? user.person.middle_name : ""
     return (
         <>
             <Link href={"https://go-blog.vercel.app/"}>
