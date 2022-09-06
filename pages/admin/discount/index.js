@@ -1,14 +1,15 @@
 import AdminLayout from "../../../components/admin";
 import {Table} from "../../../components/layout/form/table";
-import {AxiosInstance, MasterService} from "../../../lib/http";
+import {MasterService} from "../../../lib/http";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
+import {Spinner1} from "../../../components/layout/spinner";
 
-export default function DiscountIndex(props) {
+export default function DiscountIndex() {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
     const [data, setData] = useState([{
-        "id": "dummy",
+        "id": "",
         "name": "",
         "description": "",
         "percent": 0,
@@ -37,7 +38,9 @@ export default function DiscountIndex(props) {
 
         async function fetch() {
             await MasterService(request).then(res => {
-                setData([])
+                if (res.data.items.length !== 0) {
+                    setData([])
+                }
                 res.data.items.map((item) => {
                     let date = new Date(item.created_at)
                     setData((prevData) => [
@@ -64,7 +67,7 @@ export default function DiscountIndex(props) {
     const detail = {
         redirects: `/admin/discount/add`,
     }
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <Spinner1/>
     return (
         <Table data={data} detail={detail}/>
     )

@@ -5,11 +5,11 @@ import {MasterService} from "../../../lib/http";
 import {useRouter} from "next/router";
 import {Spinner1} from "../../../components/layout/spinner";
 
-export default function CityEdit() {
+export default function NamePrefixEdit(props) {
     const router = useRouter()
     const {query} = router
     const [isLoading, setIsLoading] = useState(false)
-    const [stateProvince, setStateProvince] = useState([{id: "", state_province_name: ""}])
+    const [gender, setGender] = useState([{id: "", gender_name: ""}])
     const [inputFields, setInputFields] = useState({})
     useEffect(() => {
         setIsLoading(true)
@@ -18,43 +18,43 @@ export default function CityEdit() {
             let size = 10
             let sort = "sort"
             const request = {
-                url: `cities/${query.id[0]}`,
+                url: `name-prefixes/${query.id[0]}`,
             }
-            const city = await MasterService(request).then(res => {
+            const namePrefix = await MasterService(request).then(res => {
                 return res
             }).catch(err => {
                 return err
             })
-            if (city.status !== 200) {
-                await router.push("/city")
+            if (namePrefix.status !== 200) {
+                await router.push("/name-prefixes")
             }
             setInputFields({
                 ...inputFields, ...{
-                    "city_code": city.data.city_code,
-                    "city_name": city.data.city_name,
-                    "state_province_id": city.data.state_province_id,
+                    "name_prefix_code": namePrefix.data.name_prefix_code,
+                    "name_prefix_name": namePrefix.data.name_prefix_name,
+                    "gender_id": namePrefix.data.gender_id
                 }
             })
-            request.url = `state-provinces?size=${size}`
-            const province = await MasterService(request).then(res => {
+            request.url = `genders?size=${size}`
+            const gender = await MasterService(request).then(res => {
                 return res
             }).catch(err => {
                 return err
             })
-            request.url = `state-provinces?size=${province.data.total}&sort=state_province_code,state_province_name,${sort}&fields=id,state_province_name`
-            const provinces = await MasterService(request).then(res => {
+            request.url = `genders?size=${gender.data.total}&sort=gender_code,gender_name,${sort}&fields=id,gender_name`
+            const genders = await MasterService(request).then(res => {
                 return res
             }).catch(err => {
                 return err
             })
-            if (provinces.data.items.length !== 0) {
-                setStateProvince([])
+            if (genders.data.items.length !== 0) {
+                setGender([])
             }
-            provinces.data.items.map((item) => {
-                setStateProvince((prevState) => [
+            genders.data.items.map((item) => {
+                setGender((prevState) => [
                     ...prevState, {
                         "id": item.id,
-                        "state_province_name": item.state_province_name
+                        "gender_name": item.gender_name
                     },
                 ]);
             })
@@ -63,15 +63,15 @@ export default function CityEdit() {
         fetch().then(() => setIsLoading(false));
     }, [router])
     const data = {
-        url: `${process.env.ENDPOINT_MASTER}/cities/${query.id[0]}`,
-        redirects: `/admin/city`,
-        module_name: `City`,
+        url: `${process.env.ENDPOINT_MASTER}/name-prefixes/${query.id[0]}`,
+        redirects: `/admin/name-prefix`,
+        module_name: `Name Prefix`,
         title: `Update`,
         content_type: `application/json`,
         method: "PUT"
     }
     let selectItem = {
-        "state_province": stateProvince
+        "gender": gender
     }
     if (isLoading) return <Spinner1/>
     return (
@@ -86,4 +86,4 @@ export default function CityEdit() {
     )
 }
 
-CityEdit.layout = AdminLayout
+NamePrefixEdit.layout = AdminLayout

@@ -5,15 +5,12 @@ import {MasterService} from "../../../lib/http";
 import {useRouter} from "next/router";
 import {Spinner1} from "../../../components/layout/spinner";
 
-export default function PacketAdd() {
+export default function PacketEdit() {
     const router = useRouter()
+    const {query} = router
     const [isLoading, setIsLoading] = useState(false)
     const [discount, setDiscount] = useState([{id: "", name: ""}])
-    const [inputFields, setInputFields] = useState({
-        "name": "",
-        "price": 0,
-        "description": "",
-    })
+    const [inputFields, setInputFields] = useState({})
     useEffect(() => {
         setIsLoading(true)
 
@@ -21,23 +18,40 @@ export default function PacketAdd() {
             let size = 10
             let sort = "sort"
             const request = {
-                url: `discounts?size=${size}`,
+                url: `packets/${query.id[0]}`,
             }
-            const res = await MasterService(request).then(res => {
+            const packet = await MasterService(request).then(res => {
                 return res
             }).catch(err => {
                 return err
             })
-            request.url = `discounts?size=${res.data.total}&sort=name,${sort}&fields=id,name`
-            const response = await MasterService(request).then(res => {
+            if (packet.status !== 200) {
+                await router.push("/packet")
+            }
+            setInputFields({
+                ...inputFields, ...{
+                    "name": packet.data.name,
+                    "price": packet.data.price,
+                    "description": packet.data.description,
+                    "discount_id": packet.data.discount_id
+                }
+            })
+            request.url = `discounts?size=${size}`
+            const discount = await MasterService(request).then(res => {
                 return res
             }).catch(err => {
                 return err
             })
-            if (response.data.items.length !== 0) {
+            request.url = `discounts?size=${discount.data.total}&sort=name,${sort}&fields=id,name`
+            const discounts = await MasterService(request).then(res => {
+                return res
+            }).catch(err => {
+                return err
+            })
+            if (discounts.data.items.length !== 0) {
                 setDiscount([])
             }
-            response.data.items.map((item) => {
+            discounts.data.items.map((item) => {
                 setDiscount((prevState) => [
                     ...prevState, {
                         "id": item.id,
@@ -50,12 +64,12 @@ export default function PacketAdd() {
         fetch().then(() => setIsLoading(false));
     }, [router])
     const data = {
-        url: `${process.env.ENDPOINT_MASTER}/packets`,
+        url: `${process.env.ENDPOINT_MASTER}/packets/${query.id[0]}`,
         redirects: `/admin/packet`,
         module_name: `City`,
-        title: `Save`,
+        title: `Update`,
         content_type: `application/json`,
-        method: "POST"
+        method: "PUT"
     }
     let selectItem = {
         "discount": discount
@@ -73,4 +87,4 @@ export default function PacketAdd() {
     )
 }
 
-PacketAdd.layout = AdminLayout
+PacketEdit.layout = AdminLayout

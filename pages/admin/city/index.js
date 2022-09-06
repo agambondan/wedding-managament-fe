@@ -9,7 +9,7 @@ export default function CityIndex() {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
     const [data, setData] = useState([{
-        "id": "dummy",
+        "id": "",
         "city_code": "",
         "city_name": "",
         "created_at": "",
@@ -75,7 +75,6 @@ export default function CityIndex() {
         redirects: `/admin/city/add`,
     }
     if (isLoading) return <Spinner1/>
-
     return (
         <Table data={data} detail={detail}/>
     )

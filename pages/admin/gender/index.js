@@ -3,12 +3,13 @@ import {Table} from "../../../components/layout/form/table";
 import {MasterService} from "../../../lib/http";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
+import {Spinner1} from "../../../components/layout/spinner";
 
 export default function GenderIndex() {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
     const [data, setData] = useState([{
-        "id": "dummy",
+        "id": "",
         "gender_code": 0,
         "gender_name": "",
         "created_at": "",
@@ -35,7 +36,9 @@ export default function GenderIndex() {
 
         async function fetch() {
             await MasterService(request).then(res => {
-                setData([])
+                if (res.data.items.length !== 0) {
+                    setData([])
+                }
                 res.data.items.map((item) => {
                     let date = new Date(item.created_at)
                     setData((prevData) => [
@@ -60,7 +63,7 @@ export default function GenderIndex() {
     const detail = {
         redirects: `/admin/gender/add`,
     }
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <Spinner1/>
     return (
         <Table data={data} detail={detail}/>
     )

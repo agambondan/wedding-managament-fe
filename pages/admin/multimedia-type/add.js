@@ -11,7 +11,7 @@ export default function MultimediaTypeAdd() {
     const data = {
         url: `${process.env.ENDPOINT_MASTER}/multimedia-types`,
         redirects: `/admin/multimedia-type`,
-        module_name: `MultimediaType`,
+        module_name: `Multimedia Type`,
         title: `Save`,
         content_type: `application/json`,
         method: "POST"

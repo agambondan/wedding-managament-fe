@@ -9,7 +9,7 @@ export default function StateProvinceAdd(props) {
     const data = {
         url: `${process.env.ENDPOINT_MASTER}/state-provinces`,
         redirects: `/admin/province`,
-        module_name: `StateProvince`,
+        module_name: `State Province`,
         title: `Save`,
         content_type: `application/json`,
         method: "POST"
