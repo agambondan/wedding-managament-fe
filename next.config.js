@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const path = require('path')
+// const path = require('path')
 require('dotenv').config()
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
     },
     require: ("tinymce/tinymce"),
     reactStrictMode: false, // false for not render twice
-    swcMinify: true,
+    swcMinify: false,
     env: {
         IP: process.env.IP,
         ENDPOINT_MASTER: `${process.env.IP}/api/v1/master`,

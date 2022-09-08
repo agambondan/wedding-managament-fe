@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function ResetPassword(props) {
+export default function Reset(props) {
     return (
         <main id="content" role="main" className="flex flex-col justify-center items-center w-full h-screen p-6">
             <div className="mt-7 bg-white  rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700">
@@ -49,7 +49,7 @@ export default function ResetPassword(props) {
                     </svg>
                     View Github
                 </a>
-                <Link href="pages/client/forgot-password/index#">
+                <Link href="pages/client/forgot-password#">
                     <a className="pl-3 inline-flex items-center gap-x-2 text-sm text-gray-600 decoration-2 hover:underline hover:text-blue-600 dark:text-gray-500 dark:hover:text-gray-200">
                         Contact us!
                     </a>

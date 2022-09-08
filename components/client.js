@@ -5,45 +5,39 @@ import {useRouter} from "next/router";
 import axios from "axios";
 import {FormatDate} from "../lib/date";
 import Link from "next/link";
-import {SidebarDropdown} from "./layout/form/nav";
-import {masterMenu, userMenu} from "../lib/const";
-import Header, {HeaderMobile} from "./layout/header";
+import Header, {HeaderMobile, NavHeader} from "./layout/header";
 import {Content} from "./layout/section";
-import {ClientContext} from "../lib/const"
+import {ClientContext, mobileMenu} from "../lib/const"
+import {NavMenu} from "./layout/form/nav";
 
 function ClientLayout(props) {
     const router = useRouter()
-    const [user, setUser] = useState({})
     const [verified, setVerified] = useState(false);
+    const [user, setUser] = useState({});
+    const [click, setCLick] = useState(false)
+    const handleClick = () => {
+        click ? setCLick(false) : setCLick(true);
+    }
+    // hooks when router change
     useEffect(() => {
         (async () => {
-            const response = await axios.get(`${process.env.IP}/api/v1/auth/verify-user`, {withCredentials: true}).then(res => {
+            const currentDatetime = new Date();
+            axios.put(`${process.env.IP}/api/v1/users/token/ROLE_CLIENT`, {
+                "last_access": FormatDate(currentDatetime),
+                "last_page": router.pathname,
+            }, {withCredentials: true}).then(res => {
+                setVerified(true)
+                setUser(res.data)
                 return res
             }).catch(err => {
-                return err.response
-            })
-            if (response.status === 200) {
-                setVerified(true)
-                setUser(response.data)
-                const currentDatetime = new Date();
-                axios.put(`${process.env.IP}/api/v1/users/${response.data.id}`, {
-                    "login": response.data.login,
-                    "email": response.data.email,
-                    "password": response.data.password,
-                    "last_access": FormatDate(currentDatetime),
-                    "last_page": router.pathname,
-                }, {withCredentials: true}).then(res => {
-                    return res
-                }).catch(err => {
-                    return err
-                })
-            } else {
                 setTimeout(() => {
                     router.push("/client/login?redirect=true");
                 }, 3000)
-            }
+                return err
+            })
         })();
-    }, [router]);
+    }, [router])
+    console.log(click)
     if (verified) {
         return (
             <ClientContext.Provider value={user}>
@@ -60,14 +54,16 @@ function ClientLayout(props) {
                                             </a>
                                         </Link>
                                     </li>
-                                    <SidebarDropdown router={router} label={"Master"} labelIcon={"fa-brands fa-buffer"}
-                                                     menus={masterMenu}/>
-                                    <SidebarDropdown router={router} label={"User"} labelIcon={"fas fa-user"} menus={userMenu}/>
+                                    {/*<SidebarDropdown router={router} label={"Master"} labelIcon={"fa-brands fa-buffer"}*/}
+                                    {/*                 menus={masterMenu}/>*/}
+                                    {/*<SidebarDropdown router={router} label={"User"} labelIcon={"fas fa-user"} menus={userMenu}/>*/}
                                 </ul>
                             </Sidebar>
                             <Main>
-                                <Header layout={"client"} url={"/client/login"} router={router}/>
-                                <HeaderMobile url={"/client/login"} router={router}/>
+                                <Header layout={"client"} url={"/client/login"} router={router} url_account={"/client/account"} url_support={"/client/support"}/>
+                                <HeaderMobile url={"/client/login"} router={router} handleClick={handleClick} click={click} url_dashboard={"/client"}>
+                                    <NavMenu router={router} menus={mobileMenu}/>
+                                </HeaderMobile>
                                 <Content>
                                     {props.children}
                                 </Content>

@@ -37,7 +37,9 @@ export default function Header(props) {
                     <img src={pictureUrl} alt={pictureTitle}/>
                 </button>
                 {click ?
-                    <Dropdowns click={click} btnClick={btnClick} handleBtnClick={handleBtnClick} url={props.url} router={props.router}/>
+                    <Dropdowns click={click} btnClick={btnClick} handleBtnClick={handleBtnClick}
+                               url_account={props.url_account} url_support={props.url_support} url={props.url}
+                               router={props.router}/>
                     :
                     <></>
                 }
@@ -52,9 +54,9 @@ function Dropdowns(props) {
             <button onClick={props.handleBtnClick}
                     className={`${props.btnClick ? "h-full w-full fixed inset-0 cursor-default" : ""}`}/>
             <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                <Link href={"/admin/account"}><a
+                <Link href={props.url_account}><a
                     className="block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Account</a></Link>
-                <Link href={"/admin/support"}><a
+                <Link href={props.url_support}><a
                     className="block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Support</a></Link>
                 <label
                     className="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -69,50 +71,42 @@ function Dropdowns(props) {
 // Mobile Phone
 // Down
 export function HeaderMobile(props) {
-    const [click, setCLick] = useState(false)
-    const handleClick = () => {
-        click ? setCLick(false) : setCLick(true);
-    }
-    const icon = click ? <i className="fas fa-times"/> : <i className="fas fa-bars"/>
+    const icon = props.click ? <i className="fas fa-times"/> : <i className="fas fa-bars"/>
     return (
         <header className={"w-full bg-sidebar py-5 px-6 xl:hidden overflow-y-auto"}>
             <div className="flex items-center justify-between">
                 <a href={"/admin"}
                    className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Administrator</a>
-                <button className="text-white text-3xl focus:outline-none" onClick={() => handleClick()}>
+                <button className="text-white text-3xl focus:outline-none" onClick={props.handleClick}>
                     {icon}
                 </button>
             </div>
             <div className={"overflow-auto"}>
-                {click ? <NavHeader props={props} router={props.router} url={props.url}/> : <></>}
+                {props.click ? <NavHeader url_dashboard={props.url_dashboard} router={props.router} url={props.url}>
+                    {props.children}
+                </NavHeader> : <></>}
             </div>
         </header>
     )
 }
 
-function NavHeader(props) {
+export function NavHeader(props) {
     return (
         <nav className="flex flex-col pt-4 overflow-y-auto">
             <ul>
                 <li>
-                    <Link href={"/admin"}>
+                    <Link href={props.url_dashboard}>
                         <a className={`flex items-center text-white ${props.router.pathname === "/admin" ? "active-nav-link" : "opacity-75 hover:opacity-100"} py-2 pl-2 nav-item`}>
                             <i className="fas fa-tachometer-alt"/>
                             <span className="ml-3">Dashboard</span>
                         </a>
                     </Link>
                 </li>
-                <NavMenu router={props.router} menus={mobileMenu}/>
-                <li className="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-2 nav-item"
-                    onClick={() => handleSignOut(props)}>
-                    <i className="fas fa-sign-out-alt"/>
-                    <span className="ml-3">Sign Out</span>
-                </li>
+                {props.children}
             </ul>
         </nav>
     )
 }
-
 // Up
 // Mobile Phone
 
