@@ -1,5 +1,5 @@
 import {useState} from "react";
-import axios from "axios";
+import {AuthService} from "../../../lib/http";
 
 export default function VerifyForgotPassword(props) {
     const [user, setUser] = useState({})
@@ -20,7 +20,10 @@ export default function VerifyForgotPassword(props) {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = await axios.post(``, {})
+        const request = {
+
+        }
+        const response = await AuthService(request)
     }
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
