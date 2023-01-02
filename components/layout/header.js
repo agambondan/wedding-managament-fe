@@ -1,9 +1,6 @@
 import React, {useState} from "react";
-import {useRouter} from "next/router";
 import Swal from "sweetalert2";
 import Link from "next/link";
-import {NavMenu} from "./form/nav";
-import {mobileMenu, navbarMenu} from "../../lib/const";
 import axios from "axios";
 import {AdminContext, ClientContext} from "../../lib/const";
 
@@ -27,6 +24,9 @@ export default function Header(props) {
     if (user.picture) {
         pictureUrl = user.picture.url
         pictureTitle = user.picture.title
+    } else {
+        pictureTitle = "anonymous character"
+        pictureUrl = "https://www.pngitem.com/pimgs/m/522-5220445_anonymous-profile-grey-person-sticker-glitch-empty-profile.png"
     }
     return (
         <header className="w-full items-center bg-gray-100 py-2 px-6 xl:flex">

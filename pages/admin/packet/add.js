@@ -11,7 +11,7 @@ export default function PacketAdd() {
     const [discount, setDiscount] = useState([{id: "", name: ""}])
     const [inputFields, setInputFields] = useState({
         "name": "",
-        "price": 0,
+        "price": "",
         "description": "",
     })
     useEffect(() => {
@@ -52,7 +52,7 @@ export default function PacketAdd() {
     const data = {
         url: `${process.env.ENDPOINT_MASTER}/packets`,
         redirects: `/admin/packet`,
-        module_name: `City`,
+        module_name: `Packet`,
         title: `Save`,
         content_type: `application/json`,
         method: "POST"

@@ -5,10 +5,10 @@ import {useRouter} from "next/router";
 import axios from "axios";
 import {FormatDate} from "../lib/date";
 import Link from "next/link";
-import Header, {HeaderMobile, NavHeader} from "./layout/header";
+import Header, {HeaderMobile} from "./layout/header";
 import {Content} from "./layout/section";
-import {ClientContext, mobileMenu} from "../lib/const"
-import {NavMenu} from "./layout/form/nav";
+import {ClientContext, clientUserMenu} from "../lib/const"
+import {SidebarNav, NavMenu} from "./layout/form/nav";
 
 function ClientLayout(props) {
     const router = useRouter()
@@ -37,7 +37,6 @@ function ClientLayout(props) {
             })
         })();
     }, [router])
-    console.log(click)
     if (verified) {
         return (
             <ClientContext.Provider value={user}>
@@ -49,20 +48,20 @@ function ClientLayout(props) {
                                     <li>
                                         <Link href={"/client"}>
                                             <a className={`${router.pathname === "/client" ? "bg-gray-300" : "hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"} flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white`}>
-                                                <i className="fas fa-chart-pie"/>
+                                                <i className="fas fa-chart-pie fa-fw"/>
                                                 <span className="ml-3">Dashboard</span>
                                             </a>
                                         </Link>
                                     </li>
-                                    {/*<SidebarDropdown router={router} label={"Master"} labelIcon={"fa-brands fa-buffer"}*/}
-                                    {/*                 menus={masterMenu}/>*/}
-                                    {/*<SidebarDropdown router={router} label={"User"} labelIcon={"fas fa-user"} menus={userMenu}/>*/}
+                                    <SidebarNav router={router} menus={clientUserMenu}/>
                                 </ul>
                             </Sidebar>
                             <Main>
-                                <Header layout={"client"} url={"/client/login"} router={router} url_account={"/client/account"} url_support={"/client/support"}/>
-                                <HeaderMobile url={"/client/login"} router={router} handleClick={handleClick} click={click} url_dashboard={"/client"}>
-                                    <NavMenu router={router} menus={mobileMenu}/>
+                                <Header layout={"client"} url={"/client/login"} router={router}
+                                        url_account={"/client/account"} url_support={"/client/support"}/>
+                                <HeaderMobile url={"/client/login"} router={router} handleClick={handleClick}
+                                              click={click} url_dashboard={"/client"}>
+                                    <NavMenu router={router} menus={clientUserMenu}/>
                                 </HeaderMobile>
                                 <Content>
                                     {props.children}
@@ -73,9 +72,10 @@ function ClientLayout(props) {
                 </div>
             </ClientContext.Provider>
         )
-    } else {
-        return <></>;
+    } else
+        {
+            return <></>;
+        }
     }
-}
 
-export default ClientLayout
+    export default ClientLayout

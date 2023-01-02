@@ -5,8 +5,8 @@ import {useRouter} from "next/router";
 import axios from "axios";
 import {FormatDate} from "../lib/date";
 import Link from "next/link";
-import {SidebarDropdown} from "./layout/form/nav";
-import {masterMenu, userMenu} from "../lib/const";
+import {NavMenu, SidebarDropdown} from "./layout/form/nav";
+import {adminMasterMenu, adminUserMenu, adminMobileMenu} from "../lib/const";
 import Meta from "./layout/meta";
 import Header, {HeaderMobile} from "./layout/header";
 import {Content} from "./layout/section";
@@ -16,6 +16,10 @@ function AdminLayout(props) {
     const router = useRouter()
     const [verified, setVerified] = useState(false);
     const [user, setUser] = useState({});
+    const [click, setCLick] = useState(false)
+    const handleClick = () => {
+        click ? setCLick(false) : setCLick(true);
+    }
     // hooks when router change
     useEffect(() => {
         (async () => {
@@ -26,15 +30,13 @@ function AdminLayout(props) {
             }, {withCredentials: true}).then(res => {
                 setVerified(true)
                 setUser(res.data)
-                return res
-            }).catch(err => {
+            }).catch(() => {
                 setTimeout(() => {
                     router.push("/admin/login?redirect=true");
                 }, 3000)
-                return err
             })
         })();
-    }, [router])
+    }, [verified])
     if (verified) {
         return (
             <AdminContext.Provider value={user}>
@@ -53,14 +55,18 @@ function AdminLayout(props) {
                                         </Link>
                                     </li>
                                     <SidebarDropdown router={router} label={"Master"} labelIcon={"fa-brands fa-buffer"}
-                                                     menus={masterMenu}/>
+                                                     menus={adminMasterMenu}/>
                                     <SidebarDropdown router={router} label={"User"} labelIcon={"fas fa-user"}
-                                                     menus={userMenu}/>
+                                                     menus={adminUserMenu}/>
                                 </ul>
                             </Sidebar>
                             <Main>
-                                <Header layout={"admin"} url={"/admin/login"} router={router}/>
-                                <HeaderMobile url={"/admin/login"} router={router}/>
+                                <Header layout={"admin"} url={"/admin/login"} router={router}
+                                        url_account={"/admin/user"} url_support={"/admin/support"}/>
+                                <HeaderMobile url={"/admin/login"} router={router} handleClick={handleClick}
+                                              click={click} url_dashboard={"/admin"}>
+                                    <NavMenu router={router} menus={adminMobileMenu}/>
+                                </HeaderMobile>
                                 <Content>
                                     {props.children}
                                 </Content>

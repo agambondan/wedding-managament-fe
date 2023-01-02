@@ -2,13 +2,15 @@ import {useRouter} from "next/router";
 import Swal from "sweetalert2";
 import axios from "axios";
 import {Select} from "./select";
-import {InputNumber, InputText} from "./fields";
+import {InputFormatRupiah, InputNumber, InputText} from "./fields";
 import {BorderedCheckBox} from "./checkbox";
+import {formatRupiah} from "../../../lib/helper";
 
 // Form
 //
 // if default form is false then you must add handle submit for form
 export function Form(props) {
+    console.log(props.inputFields)
     const rx_live = /^[+-]?\d*(?:[.,]\d*)?$/;
     const router = useRouter()
     let keyInputFields = Object.keys(props.inputFields).filter(function (element) {
@@ -19,24 +21,6 @@ export function Form(props) {
     }
     const handleChangeText = (key, event) => {
         props.setInputFields({...props.inputFields, [key]: event.target.value})
-    }
-    const handleInputNumber = (key, event) => {
-        if (rx_live.test(event.target.value)) {
-            switch (key) {
-                case "percent":
-                    props.setInputFields({
-                        ...props.inputFields,
-                        [key]: Math.max(0, Math.min(100, Number(event.target.value)))
-                    })
-                    return
-                default :
-                    props.setInputFields({
-                        ...props.inputFields,
-                        [key]: Math.max(0, Math.min(1000000, Number(event.target.value)))
-                    })
-                    return;
-            }
-        }
     }
     const handleChangeNumber = (key, event) => {
         if (rx_live.test(event.target.value)) {
@@ -55,6 +39,9 @@ export function Form(props) {
                     return;
             }
         }
+    }
+    const handleFormatRupiah = (key, event) => {
+        props.setInputFields({...props.inputFields, [key]: formatRupiah(event.target.value, "")})
     }
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -126,16 +113,26 @@ export function Form(props) {
                                                                       defaultChecked={props.inputFields[key]}
                                                                       handleChangeCheckBox={handleChangeCheckBox}/>
                                                 </div>
-                                                :
-                                                <>
-                                                    <div className={"py-2 my-1 text-2xl"}>
-                                                        {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
-                                                    </div>
-                                                    <InputNumber max={max} key={key} keyInput={key}
-                                                                 inputFields={props.inputFields[key]}
-                                                                 handleInputNumber={handleInputNumber}
-                                                                 handleChangeNumber={handleChangeNumber}/>
-                                                </>
+                                                : typeof props.inputFields[key] === "number" ?
+                                                    <>
+                                                        <div className={"py-2 my-1 text-2xl"}>
+                                                            {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
+                                                        </div>
+                                                        <InputFormatRupiah key={key} keyInput={key}
+                                                                           inputFields={props.inputFields[key]}
+                                                                           handleFormatRupiah={handleFormatRupiah}
+                                                        />
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <div className={"py-2 my-1 text-2xl"}>
+                                                            {(key.match(/[a-zA-Z0-9]+/g) || []).map(w => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ')}
+                                                        </div>
+                                                        <InputNumber max={max} key={key} keyInput={key}
+                                                                     inputFields={props.inputFields[key]}
+                                                                     handleInputNumber={handleChangeNumber}
+                                                                     handleChangeNumber={handleChangeNumber}/>
+                                                    </>
                                     }
                                 </div>
                             )

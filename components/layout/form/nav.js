@@ -1,54 +1,41 @@
 import Link from "next/link";
 import {isRoutePathname} from "../../../lib/router";
 import React, {useState} from "react";
-import {masterMenu} from "../../../lib/const";
 
-export function Nav(props) {
+export function SidebarNav(props) {
     return (
         <>
-            {
-                props.menus.map((menu, i) => {
-                    return (
-                        <div key={i}>
-                            <Link href={menu.link}>
-                                <a className={`flex items-center text-white ${isRoutePathname(props.router, menu.path) ? "active-nav-link" : "opacity-75 hover:opacity-100"} py-4 pl-6 nav-item`}>
-                                    {menu.icon.match("<") ? <div dangerouslySetInnerHTML={{__html: menu.icon}}/> :
-                                        <i className={menu.icon}/>}
-                                    {menu.name}
-                                </a>
-                            </Link>
-                        </div>
-                    )
-                })
-            }
+            {props.menus.map((value, index) => {
+                return (
+                    <li key={index}>
+                        <Link href={value.link}>
+                            <a className={`${props.router.pathname === value.path ? "bg-gray-300" : "hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"} flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white`}>
+                                <i className={`${value.icon} fa-fw`}/>
+                                <span className={"ml-3"}>{value.name}</span>
+                            </a>
+                        </Link>
+                    </li>
+                )
+            })}
         </>
     )
 }
 
 export function NavMenu(props) {
-    const divStyle = {
-        fontSize: "16px"
-    }
     return (
         <>
-            {
-                props.menus.map((menu, i) => {
-                    return (
-                        <li key={i} style={divStyle}>
-                            <Link href={menu.link}>
-                                <a className={`${isRoutePathname(props.router, menu.path) ? "active-nav-link" : "opacity-75 hover:opacity-100"} flex items-center text-white py-2 pl-2 nav-item`}>
-                                    {menu.icon.match("<") ?
-                                        <div dangerouslySetInnerHTML={{__html: menu.icon}}/>
-                                        :
-                                        <i className={menu.icon}/>
-                                    }
-                                    <span className="pl-auto ml-3">{menu.name}</span>
-                                </a>
-                            </Link>
-                        </li>
-                    )
-                })
-            }
+            {props.menus.map((value, i) => {
+                return (
+                    <li key={i}>
+                        <Link href={value.link}>
+                            <a className={`flex items-center text-white ${props.router.pathname === value.path ? "active-nav-link" : "opacity-75 hover:opacity-100"} py-2 pl-2 nav-item`}>
+                                <i className={value.icon}/>
+                                <span className="ml-3">{value.name}</span>
+                            </a>
+                        </Link>
+                    </li>
+                )
+            })}
         </>
     )
 }
@@ -66,7 +53,7 @@ export function SidebarDropdown(props) {
                 <span className="flex-1 ml-3 text-left whitespace-nowrap">{props.label}</span>
                 <i className={"fas fa-chevron-down"}/>
             </button>
-            <ul id="dropdown-example" className={`${click ? "block" : "hidden"} py-2 space-y-2`}>
+            <ul id="sidebar-dropdown" className={`${click ? "block" : "hidden"} py-2 space-y-2`}>
                 {
                     props.menus.map((menu, i) => {
                         return (

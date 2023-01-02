@@ -66,7 +66,7 @@ export default function PacketEdit() {
     const data = {
         url: `${process.env.ENDPOINT_MASTER}/packets/${query.id[0]}`,
         redirects: `/admin/packet`,
-        module_name: `City`,
+        module_name: `Packet`,
         title: `Update`,
         content_type: `application/json`,
         method: "PUT"

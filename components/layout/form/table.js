@@ -2,6 +2,7 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import Swal from "sweetalert2";
 import axios from "axios";
+import {rupiah} from "../../../lib/helper";
 
 export function Table(props) {
     const router = useRouter()
@@ -136,13 +137,15 @@ export function Table(props) {
                                                                 type="checkbox"
                                                                 disabled={true}
                                                             />
-                                                            :
-                                                            item[key]}
+                                                            : typeof item[key] === "number" && item[key] > 10000 ?
+                                                                rupiah(item[key])
+                                                                :
+                                                                item[key]}
                                                     </th>
                                                 )
                                             })}
                                             <th key={index}
-                                                className="flex justify-center py-4 px-6 space-x-3 border-b-1 border-gray-400">
+                                                className="border-2 border-gray-400 text-center py-4 px-6 space-x-3">
                                                 <Link href={`${router.pathname}/${ids[index]}`}>
                                                     <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                                 </Link>
