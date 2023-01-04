@@ -10,7 +10,6 @@ import {formatRupiah} from "../../../lib/helper";
 //
 // if default form is false then you must add handle submit for form
 export function Form(props) {
-    console.log(props.inputFields)
     const rx_live = /^[+-]?\d*(?:[.,]\d*)?$/;
     const router = useRouter()
     let keyInputFields = Object.keys(props.inputFields).filter(function (element) {

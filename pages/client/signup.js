@@ -32,7 +32,6 @@ export default function Signup() {
                 return
         }
     }
-    console.log(user)
     const handleSignup = async (event) => {
         event.preventDefault()
         await Swal.fire({

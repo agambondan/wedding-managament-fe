@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import Link from "next/link";
 import axios from "axios";
 import {AdminContext, ClientContext} from "../../lib/const";
+import {toPascalCase} from "../../lib/helper";
 
 export default function Header(props) {
     let user = {}
@@ -30,7 +31,9 @@ export default function Header(props) {
     }
     return (
         <header className="w-full items-center bg-gray-100 py-2 px-6 xl:flex">
-            <div className="xl:w-1/2"/>
+            <div className="xl:w-1/2 justify-start">
+                <h6>Hi, {toPascalCase(user.person.given_name)} {toPascalCase(user.person.middle_name)}</h6>
+            </div>
             <div className="relative xl:w-1/2 flex justify-end">
                 <button className="relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300
                     focus:border-gray-300 focus:outline-none" onClick={handleClick}>
@@ -55,11 +58,11 @@ function Dropdowns(props) {
                     className={`${props.btnClick ? "h-full w-full fixed inset-0 cursor-default" : ""}`}/>
             <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
                 <Link href={props.url_account}><a
-                    className="block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Account</a></Link>
+                    className="block px-4 py-2 hover:bg-gray-100 dark:text-black dark:hover:bg-gray-700">Account</a></Link>
                 <Link href={props.url_support}><a
-                    className="block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Support</a></Link>
+                    className="block px-4 py-2 hover:bg-gray-100 dark:text-black dark:hover:bg-gray-700">Support</a></Link>
                 <label
-                    className="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    className="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:text-black dark:hover:bg-gray-700"
                     onClick={() => handleSignOut(props)}>
                     Sign Out
                 </label>
@@ -71,18 +74,32 @@ function Dropdowns(props) {
 // Mobile Phone
 // Down
 export function HeaderMobile(props) {
-    const icon = props.click ? <i className="fas fa-times"/> : <i className="fas fa-bars"/>
+    const [click, setClick] = useState(false);
+    const [click1, setClick1] = useState(true);
     return (
-        <header className={"w-full bg-sidebar py-5 px-6 xl:hidden overflow-y-auto"}>
+        <header className={"w-full bg-gray-500 py-5 px-6 xl:hidden overflow-y-auto"}>
             <div className="flex items-center justify-between">
                 <a href={"/admin"}
-                   className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Administrator</a>
-                <button className="text-white text-3xl focus:outline-none" onClick={props.handleClick}>
-                    {icon}
-                </button>
+                   className="text-black text-3xl font-semibold uppercase hover:text-gray-300">Administrator</a>
+                {click ?
+                    <button className="text-black text-3xl focus:outline-none" onClick={() => {
+                        setClick1(true)
+                        setClick(false)
+                    }}>
+                        <i className="fas fa-times"/>
+                    </button> : <></>
+                }
+                {click1 ?
+                    <button className="text-black text-3xl focus:outline-none" onClick={() => {
+                        setClick(true)
+                        setClick1(false)
+                    }}>
+                        <i className="fas fa-bars"/>
+                    </button>: <></>
+                }
             </div>
             <div className={"overflow-auto"}>
-                {props.click ? <NavHeader url_dashboard={props.url_dashboard} router={props.router} url={props.url}>
+                {click ? <NavHeader url_dashboard={props.url_dashboard} router={props.router} url={props.url}>
                     {props.children}
                 </NavHeader> : <></>}
             </div>
@@ -96,9 +113,9 @@ export function NavHeader(props) {
             <ul>
                 <li>
                     <Link href={props.url_dashboard}>
-                        <a className={`flex items-center text-white ${props.router.pathname === "/admin" ? "active-nav-link" : "opacity-75 hover:opacity-100"} py-2 pl-2 nav-item`}>
+                        <a className={`flex items-center text-black ${props.router.pathname === "/admin" ? "bg-gray-200" : "opacity-75 hover:opacity-100"} py-2 pl-2 hover:bg-gray-50`}>
                             <i className="fas fa-tachometer-alt"/>
-                            <span className="ml-3">Dashboard</span>
+                            <span className="ml-3 text-black">Dashboard</span>
                         </a>
                     </Link>
                 </li>
@@ -107,6 +124,7 @@ export function NavHeader(props) {
         </nav>
     )
 }
+
 // Up
 // Mobile Phone
 

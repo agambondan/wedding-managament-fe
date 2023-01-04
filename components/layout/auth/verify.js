@@ -37,7 +37,6 @@ export function VerifyForgotPassword(props) {
             data: user
         }
         await AuthService(request).then(res => {
-            console.log(res)
             Swal.fire({
                 icon: "success",
                 title: res.data.message,
@@ -59,7 +58,6 @@ export function VerifyForgotPassword(props) {
             return err
         })
     }
-    console.log(user, checkTerm)
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

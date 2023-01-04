@@ -28,7 +28,7 @@ export function NavMenu(props) {
                 return (
                     <li key={i}>
                         <Link href={value.link}>
-                            <a className={`flex items-center text-white ${props.router.pathname === value.path ? "active-nav-link" : "opacity-75 hover:opacity-100"} py-2 pl-2 nav-item`}>
+                            <a className={`flex items-center text-black ${props.router.pathname === value.path ? "bg-gray-200" : "opacity-75 hover:opacity-100"} py-2 pl-2 hover:bg-gray-50`}>
                                 <i className={value.icon}/>
                                 <span className="ml-3">{value.name}</span>
                             </a>

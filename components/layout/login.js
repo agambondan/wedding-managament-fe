@@ -27,7 +27,6 @@ export default function Login(props) {
             // disable with credentials if be not regis your ip to be cors
             withCredentials: true,
         }).then(res => {
-            console.log(res)
             setAuthorization(res.data)
             Swal.hideLoading()
             setTimeout(() => {
