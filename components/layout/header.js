@@ -109,12 +109,12 @@ export function HeaderMobile(props) {
 
 export function NavHeader(props) {
     return (
-        <nav className="flex flex-col pt-4 overflow-y-auto">
+        <nav className="flex flex-col pt-4">
             <ul>
                 <li>
                     <Link href={props.url_dashboard}>
                         <a className={`flex items-center text-black ${props.router.pathname === "/admin" ? "bg-gray-200" : "opacity-75 hover:opacity-100"} py-2 pl-2 hover:bg-gray-50`}>
-                            <i className="fas fa-tachometer-alt"/>
+                            <i className="fas fa-tachometer-alt fa-fw"/>
                             <span className="ml-3 text-black">Dashboard</span>
                         </a>
                     </Link>

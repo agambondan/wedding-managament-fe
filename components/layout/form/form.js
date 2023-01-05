@@ -15,7 +15,7 @@ export function Form(props) {
     let keyInputFields = Object.keys(props.inputFields).filter(function (element) {
         return !element.match("id") && element !== "action" && element !== "html"
     });
-    const handleChangeCheckBox = (key, event) => {
+    const handleChangeCheckBox = (key) => {
         props.setInputFields({...props.inputFields, [key]: !props.inputFields[key]})
     }
     const handleChangeText = (key, event) => {
