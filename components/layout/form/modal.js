@@ -213,9 +213,9 @@ export function BaseModal(props) {
                     <div className="relative inline-block w-full p-5 py-8 sm:p-8 sm:pt-10 text-left align-middle
                      transition-all transform bg-white dark:bg-black rounded-md max-w-xl">
                         <div
-                            className="border-b border-solid rounded-t">
+                            className="border-b border-solid rounded-t pb-2">
                             <h3 className="uppercase text-3xl font-semibold">
-                                Profile {props.title}
+                                {props.title}
                             </h3>
                         </div>
                         <div className={"py-2"}/>
@@ -234,7 +234,7 @@ export function BaseModal(props) {
                         {props.button !== undefined ?
                             props.button :
                             <div
-                                className="flex items-center justify-end mt-3 pt-2 border-t border-solid border-slate-200 rounded-b">
+                                className="flex items-center justify-end mt-3 pt-3 border-t border-solid border-slate-200 rounded-b">
                                 <button
                                     className="bg-red-400 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                     type="button" onClick={() => props.setClick(false)}>

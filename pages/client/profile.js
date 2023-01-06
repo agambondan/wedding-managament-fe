@@ -1,12 +1,13 @@
 import ClientLayout from "../../components/client";
 import {useEffect, useState} from "react";
-import {FormModal, BaseModal} from "../../components/layout/form/modal";
-import {CardProfileHalfWidth, CardUserProfile} from "../../components/layout/card";
+import {BaseModal} from "../../components/layout/form/modal";
+import {CardUserProfile} from "../../components/layout/card";
 import {useRouter} from "next/router";
 import {Spinner1} from "../../components/layout/spinner";
 import {MasterService} from "../../lib/http";
 import {InputText, InputTextArea} from "../../components/layout/form/fields";
 import {Select} from "../../components/layout/form/select";
+import {ImagePopUp} from "../../components/layout/form/pop-up";
 
 export default function Profile() {
     const router = useRouter()
@@ -116,10 +117,6 @@ export default function Profile() {
                 :
                 <></>
             }
-            {/*<div className={"flex justify-between space-x-3 -m-3"}>*/}
-            {/*    <CardProfileHalfWidth title={"Groom"} setClick={setClick} click={click}/>*/}
-            {/*    <CardProfileHalfWidth title={"Bride"} setClick={setClick1} click={click1}/>*/}
-            {/*</div>*/}
             <div
                 className={"bg-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-center max-w-full overflow-auto"}>
                 <CardUserProfile title={"Groom"} setClick={setClick} click={click}/>
@@ -134,6 +131,8 @@ Profile.layout = ClientLayout
 
 function FormModalProfile(props) {
     const [city, setCity] = useState([{id: "", city_name: ""}])
+    const [file, setFile] = useState(null)
+    const [selectedFile, setSelectedFile] = useState(null)
     const handleChangeText = (key, event) => {
         props.setInputFields({...props.inputFields, [key]: event.target.value})
     }
@@ -155,7 +154,6 @@ function FormModalProfile(props) {
             }).catch(err => {
                 return err
             })
-            console.log(response1.data, response1.data.items.length)
             if (response1.data.items.length !== 0) {
                 setCity([])
             } else {
@@ -173,6 +171,11 @@ function FormModalProfile(props) {
 
         fetch().then()
     }, [props.inputFields.state_province_id])
+    useEffect(() => {
+        if (file) {
+            setSelectedFile(URL.createObjectURL(file))
+        }
+    }, [file])
     return (
         <BaseModal title={props.title} setClick={props.setClick}>
             <div className="flex flex-wrap -mx-3">
@@ -244,14 +247,16 @@ function FormModalProfile(props) {
                     }
                 </div>
             </div>
-            <dd id="sosmed" className="h-full opacity-100 overflow-hidden transition-all ease-in-out duration-300 mt-2">
+            <div id="sosmed"
+                 className="h-full opacity-100 overflow-hidden transition-all ease-in-out duration-300 mt-2">
                 <div className="grid grid-cols-2 gap-4">
                     <div className="col-span-2 sm:col-span-1">
                         <div><label htmlFor="twitter" className="flex justify-between"><span
                             className="block text-sm font-medium text-gray-700">Twitter</span> <span
                             className="text-sm text-gray-400">optional</span></label>
                             <div className="mt-1 flex rounded-md shadow-sm">
-                                <span className="inline-flex items-center px-2 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                <span
+                                    className="inline-flex items-center px-2 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
                                     <i className="fa-brands fa-twitter"/>
                                 </span>
                                 <input id="twitter" type="text" name="twitter" placeholder="tulis tanpa @"
@@ -266,7 +271,8 @@ function FormModalProfile(props) {
                             className="block text-sm font-medium text-gray-700">LinkedIn</span> <span
                             className="text-sm text-gray-400">optional</span></label>
                             <div className="mt-1 flex rounded-md shadow-sm">
-                                <span className="inline-flex items-center px-2 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                <span
+                                    className="inline-flex items-center px-2 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
                                     <i className="fa-brands fa-linkedin"/>
                                 </span>
                                 <input id="linkedin" type="text" name="linkedin" placeholder="tulis tanpa @"
@@ -281,7 +287,8 @@ function FormModalProfile(props) {
                             className="block text-sm font-medium text-gray-700">instagram</span> <span
                             className="text-sm text-gray-400">optional</span></label>
                             <div className="mt-1 flex rounded-md shadow-sm">
-                                <span className="inline-flex items-center px-2 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                <span
+                                    className="inline-flex items-center px-2 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
                                     <i className="fa-brands fa-instagram"/>
                                 </span>
                                 <input id="instagram" type="text" name="instagram" placeholder="tulis tanpa @"
@@ -296,7 +303,8 @@ function FormModalProfile(props) {
                             className="block text-sm font-medium text-gray-700">Facebook</span> <span
                             className="text-sm text-gray-400">optional</span></label>
                             <div className="mt-1 flex rounded-md shadow-sm">
-                                <span className="inline-flex items-center px-2 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                <span
+                                    className="inline-flex items-center px-2 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
                                     <i className="fa-brands fa-facebook"/>
                                 </span>
                                 <input id="facebook" type="text" name="facebook" placeholder="tulis tanpa @"
@@ -307,7 +315,49 @@ function FormModalProfile(props) {
                         </div>
                     </div>
                 </div>
-            </dd>
+            </div>
+            <div className={"mt-4 flex flex-wrap"}>
+                <div className={"w-full h-fill xl:w-2/6 xl:pr-1"}>
+                    <label className="w-full flex flex-col items-center px-4 py-6 bg-white rounded-md shadow-md tracking-wide
+                            uppercase border border-blue cursor-pointer hover:bg-purple-600 hover:text-white text-purple-600 ease-linear transition-all duration-150">
+                        <i className="fas fa-cloud-upload-alt fa-3x mt-2"/>
+                        <span className="mt-2 text-base leading-normal">Select a file</span>
+                        <input accept="image/*" type='file' className="hidden"
+                               onChange={(event) => {
+                                   setFile(event.target.files[0])
+                               }}/>
+                    </label>
+                    {selectedFile !== null ?
+                        <>
+                            <button onClick={(event) => {
+                                event.preventDefault()
+                                setFile(null)
+                                setSelectedFile(null)
+                            }}
+                                    className={"mt-2 text-center w-full bg-red-500 rounded-md text-white py-3 font-medium"}>Delete
+                                File
+                            </button>
+                        </>
+                        :
+                        <></>
+                    }
+                </div>
+                <div className={"w-full xl:w-4/6 xl:pl-1"}>
+                    {selectedFile !== null ?
+                        <>
+                            <p className={"pl-2.5 uppercase text-sm font-semibold"}>Preview</p>
+                            <button type={"button"} className="relative mt-2 xl:mt-0 xl:ml-2">
+                                <img src={selectedFile} className={"w-full h-min-screen"}
+                                     onClick={() => {
+                                         ImagePopUp("", selectedFile)
+                                     }} alt={"image"}/>
+                            </button>
+                        </>
+                        :
+                        <></>
+                    }
+                </div>
+            </div>
         </BaseModal>
-)
+    )
 }

@@ -80,7 +80,7 @@ export function CardUserProfile(props) {
     return (
         <div className="flex flex-wrap justify-center items-center">
             <div
-                className="container max-w-lg bg-white rounded dark:bg-gray-800 shadow-lg transform duration-200 easy-in-out m-10">
+                className="container max-w-lg bg-white rounded dark:bg-gray-800 shadow-lg transform duration-200 easy-in-out 2xl:m-10 xl:m-8 lg:m-6 m-2">
                 <div className="h-2/4 sm:h-64 overflow-hidden">
                     <img className="w-full rounded-t"
                          src="https://images.unsplash.com/photo-1638803040283-7a5ffd48dad5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
