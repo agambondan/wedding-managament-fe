@@ -6,7 +6,7 @@ import {MasterService} from "../../lib/http";
 import {BaseModal} from "../../components/layout/form/modal";
 import {InputDate, InputText, InputTextArea, InputTime} from "../../components/layout/form/fields";
 import {Select} from "../../components/layout/form/select";
-import {CardUserProfile} from "../../components/layout/card";
+import {SwalDelete} from "../../lib/helper";
 
 export default function Event() {
     const router = useRouter()
@@ -20,7 +20,6 @@ export default function Event() {
     })
     const [isLoading, setIsLoading] = useState(false)
     const [click, setClick] = useState(false)
-    const [click1, setClick1] = useState(false)
     const [stateProvince, setStateProvince] = useState([{id: "", state_province_name: ""}])
     useEffect(() => {
         setIsLoading(true)
@@ -87,7 +86,7 @@ export default function Event() {
                 Add Event
             </button>
             <div className="lg:flex shadow rounded-l-lg border border-gray-400">
-                <div className="bg-blue-600 rounded-lg lg:w-2/12 py-4 block h-full shadow-inner">
+                <div className="bg-blue-600 rounded-lg lg:w-2/12 py-6 block h-full shadow-inner">
                     <div className="text-center tracking-wide">
                         <div className="text-white font-bold text-4xl ">24</div>
                         <div className="text-white font-normal text-2xl">Sept</div>
@@ -108,24 +107,27 @@ export default function Event() {
                     <div className="text-gray-600 font-medium text-sm pt-1 text-center lg:text-left px-2">
                         A-142/1, A-142, Ganesh Nagar, Tilak Nagar, New Delhi, 110018
                     </div>
+                    <div className={"text-center lg:text-left lg:pt-0 pt-3"}>
+                    <span className="tracking-wider text-gray-600 bg-gray-200 px-2 text-sm rounded
+                    leading-loose mx-1 font-semibold">
+                        Going
+                    </span>
+                    </div>
                 </div>
                 <div className="flex lg:flex-col flex-row lg:items-end items-center w-full lg:w-1/3 bg-white
-                    lg:justify-end justify-center px-2 py-4 lg:px-0">
+                    lg:justify-end justify-center px-2 lg:py-2 pb-4 lg:px-0">
                     <button className="tracking-wider text-white text-opacity-80 bg-blue-500
-                    px-2 text-md rounded leading-loose mx-1 my-1 font-semibold">
-                        <i className="fa-solid fa-pen"></i>
+                    px-2 text-md rounded leading-loose mx-1 lg:mr-3 my-2 font-semibold"
+                            onClick={() => setClick(true)}>
+                        <i className="fa-solid fa-pen fa-fw"></i>
                     </button>
                     <button className="tracking-wider text-white text-opacity-80 bg-red-600
-                    px-2 text-md rounded leading-loose mx-1 font-semibold">
-                        <i className="fa-regular fa-trash-can"></i>
+                    px-2 text-md rounded leading-loose mx-1 lg:mr-3 my-2.5 font-semibold"
+                            onClick={() => SwalDelete({url: "", router: router})}>
+                        <i className="fa-regular fa-trash-can fa-fw"></i>
                     </button>
                 </div>
             </div>
-            {/*<div*/}
-            {/*    className={"bg-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-center max-w-full overflow-auto"}>*/}
-            {/*    <CardUserProfile title={"Event"} setClick={setClick} click={click}/>*/}
-            {/*    <CardUserProfile title={"Event"} setClick={setClick1} click={click1}/>*/}
-            {/*</div>*/}
         </>
     )
 }
