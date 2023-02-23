@@ -1,6 +1,8 @@
 import React from "react";
 import ClientLayout from "../../components/client";
 import {ClientContext} from "../../lib/const";
+import Profile from "./profile";
+import Event from "./event";
 
 export default function Index() {
     const user = React.useContext(ClientContext);
@@ -9,6 +11,8 @@ export default function Index() {
     return (
         <>
             Dashboard
+            <Profile/>
+            <Event/>
         </>
     )
 }

@@ -9,6 +9,7 @@ import Header, {HeaderMobile} from "./layout/header";
 import {Content} from "./layout/section";
 import {ClientContext, clientUserMenu} from "../lib/const"
 import {SidebarNav, NavMenu} from "./layout/form/nav";
+import Meta from "./layout/meta";
 
 function ClientLayout(props) {
     const router = useRouter()
@@ -38,6 +39,7 @@ function ClientLayout(props) {
     if (verified) {
         return (
             <ClientContext.Provider value={user}>
+                <Meta/>
                 <div className="flex">
                     <div className="relative w-full flex flex-col h-screen overflow-y-hidden">
                         <div className="flex">
@@ -73,7 +75,7 @@ function ClientLayout(props) {
                                         <SidebarNav router={router} menus={clientUserMenu}/>
                                     }
                                 </ul>
-                                <ul className={`fixed bottom-0 border-t-4`}>
+                                <ul className={`fixed bottom-0 border-t-4 -ml-0.5`}>
                                     {click ?
                                         <button onClick={() => {
                                             setClick1(true)

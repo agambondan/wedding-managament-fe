@@ -41,18 +41,36 @@ export function NavMenu(props) {
 }
 
 export function SidebarDropdown(props) {
-    const [click, setCLick] = useState(false)
-    const handleClick = () => {
-        setCLick(!click)
-    }
+    const [click, setClick] = useState(false)
+    const [click1, setClick1] = useState(true)
     return (
         <li>
-            <button type="button" onClick={handleClick} className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition
+            {click ?
+                <button type="button" onClick={() => {
+                    setClick1(true)
+                    setClick(false)
+                }} className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition
                                 duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                <i className={props.labelIcon}></i>
-                <span className="flex-1 ml-3 text-left whitespace-nowrap">{props.label}</span>
-                <i className={"fas fa-chevron-down"}/>
-            </button>
+                    <i className={props.labelIcon}></i>
+                    <span className="flex-1 ml-3 text-left whitespace-nowrap">{props.label}</span>
+                    <i className={"fas fa-chevron-down"}/>
+                </button>
+                :
+                ""
+            }
+            {click1 ?
+                <button type="button" onClick={() => {
+                    setClick(true)
+                    setClick1(false)
+                }} className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition
+                                duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                    <i className={props.labelIcon}></i>
+                    <span className="flex-1 ml-3 text-left whitespace-nowrap">{props.label}</span>
+                    <i className={"fas fa-chevron-up"}/>
+                </button>
+                :
+                ""
+            }
             <ul id="sidebar-dropdown" className={`${click ? "block" : "hidden"} py-2 space-y-2`}>
                 {
                     props.menus.map((menu, i) => {

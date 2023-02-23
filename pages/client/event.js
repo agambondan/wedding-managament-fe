@@ -6,7 +6,7 @@ import {MasterService} from "../../lib/http";
 import {BaseModal} from "../../components/layout/form/modal";
 import {InputDate, InputText, InputTextArea, InputTime} from "../../components/layout/form/fields";
 import {Select} from "../../components/layout/form/select";
-import {SwalDelete} from "../../lib/helper";
+import {SwalDeletePopUp} from "../../components/layout/form/pop-up";
 
 export default function Event() {
     const router = useRouter()
@@ -123,7 +123,7 @@ export default function Event() {
                     </button>
                     <button className="tracking-wider text-white text-opacity-80 bg-red-600
                     px-2 text-md rounded leading-loose mx-1 lg:mr-3 my-2.5 font-semibold"
-                            onClick={() => SwalDelete({url: "", router: router})}>
+                            onClick={() => SwalDeletePopUp({url: "", router: router})}>
                         <i className="fa-regular fa-trash-can fa-fw"></i>
                     </button>
                 </div>
