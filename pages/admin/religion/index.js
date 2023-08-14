@@ -45,8 +45,8 @@ export default function ReligionIndex() {
                         ...prevData,
                         {
                             "id": item.id,
-                            "religion_code": item.religion_code,
-                            "religion_name": item.religion_name,
+                            "religion_code": item.code,
+                            "religion_name": item.name,
                             "created_at": date.toLocaleString(),
                             "action": "",
                         },

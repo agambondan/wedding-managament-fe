@@ -5,6 +5,7 @@ import ErrorBoundary from "../lib/error";
 import Script from "next/script";
 
 function MyApp({Component, pageProps}) {
+    // console.log(process.env)
     const Layout = Component.layout || (({children}) => <>{children}</>);
     return (
         <WaitForRouter>
