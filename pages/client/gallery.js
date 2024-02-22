@@ -128,6 +128,7 @@ export default function Gallery() {
 			{activeStatus === 0 ? <MultipleUploadImage /> : <></>}
 			{activeStatus === 1 ? <NasheedTable /> : <></>}
 			{activeStatus === 2 ? <VideoTable /> : <></>}
+			{activeStatus === 3 ? <StreamingTable /> : <></>}
 		</>
 	);
 }
@@ -213,274 +214,91 @@ export const NasheedTable = () => {
 };
 
 export const VideoTable = () => {
+	const fruits = [];
+
+	for (let i = 1; i <= 10; i++) {
+		fruits.push(i);
+	}
 	return (
 		<div className='holder w-full grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4'>
-			<div className='each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative'>
-				<img
-					className='w-full'
-					src='https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg'
-					alt=''
-				/>
-				<div className='badge absolute top-0 right-0 bg-red-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded'>
-					Live
-				</div>
-				{/* <div className='info-box text-xs flex p-1 font-semibold text-gray-500 bg-gray-300'>
-					<span className='mr-1 p-1 px-2 font-bold'>105 Watching</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Likes
-					</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Dislikes
-					</span>
-				</div> */}
-				<div className='desc p-4 text-gray-800'>
-					<a
-						href='https://www.youtube.com/watch?v=dvqT-E74Qlo'
-						target='_new'
-						className='title font-bold block cursor-pointer hover:underline'
+			{fruits.map((index) => {
+				return (
+					<div
+						key={index}
+						className='each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative'
 					>
-						Pubg Mobile Custom Room (Unlimited)
-					</a>
-					<a
-						href='https://www.youtube.com/user/sam14319'
-						target='_new'
-						className='badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer'
+						<img
+							className='w-full'
+							src='https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg'
+							alt=''
+						/>
+						<div className='badge absolute top-0 right-0 bg-red-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded'>
+							Live
+						</div>
+						<div className='info-box text-xs flex p-1 font-semibold text-gray-500 bg-gray-300'>
+							<span className='mr-1 p-1 px-2 font-bold'>105 Watching</span>
+							<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
+								105 Likes
+							</span>
+							<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
+								105 Dislikes
+							</span>
+						</div>
+						<div className='desc p-4 text-gray-800'>
+							<a
+								href='https://www.youtube.com/watch?v=dvqT-E74Qlo'
+								target='_new'
+								className='title font-bold block cursor-pointer hover:underline'
+							>
+								Pubg Mobile Custom Room (Unlimited)
+							</a>
+							<a
+								href='https://www.youtube.com/user/sam14319'
+								target='_new'
+								className='badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer'
+							>
+								@dynamo_gaming
+							</a>
+							<span className='description text-sm block py-2 border-gray-400 mb-2'>
+								lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !
+							</span>
+						</div>
+					</div>
+				);
+			})}
+		</div>
+	);
+};
+
+export const StreamingTable = () => {
+	const fruits = [];
+
+	for (let i = 1; i <= 10; i++) {
+		fruits.push(i);
+	}
+	return (
+		<div className='holder w-full grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4'>
+			{fruits.map((index) => {
+				return (
+					<div
+						key={index}
+						className='my-1 mx-2 shadow-lg border-gray-800 bg-gray-100 relative'
 					>
-						@dynamo_gaming
-					</a>
-					<span className='description text-sm block py-2 border-gray-400 mb-2'>
-						lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !
-					</span>
-				</div>
-			</div>
-			<div className='each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative'>
-				<img
-					className='w-full'
-					src='https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg'
-					alt=''
-				/>
-				<div className='badge absolute top-0 right-0 bg-red-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded'>
-					Live
-				</div>
-				<div className='info-box text-xs flex p-1 font-semibold text-gray-500 bg-gray-300'>
-					<span className='mr-1 p-1 px-2 font-bold'>105 Watching</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Likes
-					</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Dislikes
-					</span>
-				</div>
-				<div className='desc p-4 text-gray-800'>
-					<a
-						href='https://www.youtube.com/watch?v=dvqT-E74Qlo'
-						target='_new'
-						className='title font-bold block cursor-pointer hover:underline'
-					>
-						Pubg Mobile Custom Room (Unlimited)
-					</a>
-					<a
-						href='https://www.youtube.com/user/sam14319'
-						target='_new'
-						className='badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer'
-					>
-						@dynamo_gaming
-					</a>
-					<span className='description text-sm block py-2 border-gray-400 mb-2'>
-						lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !
-					</span>
-				</div>
-			</div>
-			<div className='each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative'>
-				<img
-					className='w-full'
-					src='https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg'
-					alt=''
-				/>
-				<div className='badge absolute top-0 right-0 bg-red-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded'>
-					Live
-				</div>
-				<div className='info-box text-xs flex p-1 font-semibold text-gray-500 bg-gray-300'>
-					<span className='mr-1 p-1 px-2 font-bold'>105 Watching</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Likes
-					</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Dislikes
-					</span>
-				</div>
-				<div className='desc p-4 text-gray-800'>
-					<a
-						href='https://www.youtube.com/watch?v=dvqT-E74Qlo'
-						target='_new'
-						className='title font-bold block cursor-pointer hover:underline'
-					>
-						Pubg Mobile Custom Room (Unlimited)
-					</a>
-					<a
-						href='https://www.youtube.com/user/sam14319'
-						target='_new'
-						className='badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer'
-					>
-						@dynamo_gaming
-					</a>
-					<span className='description text-sm block py-2 border-gray-400 mb-2'>
-						lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !
-					</span>
-				</div>
-			</div>
-			<div className='each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative'>
-				<img
-					className='w-full'
-					src='https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg'
-					alt=''
-				/>
-				<div className='badge absolute top-0 right-0 bg-red-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded'>
-					Live
-				</div>
-				<div className='info-box text-xs flex p-1 font-semibold text-gray-500 bg-gray-300'>
-					<span className='mr-1 p-1 px-2 font-bold'>105 Watching</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Likes
-					</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Dislikes
-					</span>
-				</div>
-				<div className='desc p-4 text-gray-800'>
-					<a
-						href='https://www.youtube.com/watch?v=dvqT-E74Qlo'
-						target='_new'
-						className='title font-bold block cursor-pointer hover:underline'
-					>
-						Pubg Mobile Custom Room (Unlimited)
-					</a>
-					<a
-						href='https://www.youtube.com/user/sam14319'
-						target='_new'
-						className='badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer'
-					>
-						@dynamo_gaming
-					</a>
-					<span className='description text-sm block py-2 border-gray-400 mb-2'>
-						lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !
-					</span>
-				</div>
-			</div>
-			<div className='each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative'>
-				<img
-					className='w-full'
-					src='https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg'
-					alt=''
-				/>
-				<div className='badge absolute top-0 right-0 bg-red-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded'>
-					Live
-				</div>
-				<div className='info-box text-xs flex p-1 font-semibold text-gray-500 bg-gray-300'>
-					<span className='mr-1 p-1 px-2 font-bold'>105 Watching</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Likes
-					</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Dislikes
-					</span>
-				</div>
-				<div className='desc p-4 text-gray-800'>
-					<a
-						href='https://www.youtube.com/watch?v=dvqT-E74Qlo'
-						target='_new'
-						className='title font-bold block cursor-pointer hover:underline'
-					>
-						Pubg Mobile Custom Room (Unlimited)
-					</a>
-					<a
-						href='https://www.youtube.com/user/sam14319'
-						target='_new'
-						className='badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer'
-					>
-						@dynamo_gaming
-					</a>
-					<span className='description text-sm block py-2 border-gray-400 mb-2'>
-						lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !
-					</span>
-				</div>
-			</div>
-			<div className='each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative'>
-				<img
-					className='w-full'
-					src='https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg'
-					alt=''
-				/>
-				<div className='badge absolute top-0 right-0 bg-red-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded'>
-					Live
-				</div>
-				<div className='info-box text-xs flex p-1 font-semibold text-gray-500 bg-gray-300'>
-					<span className='mr-1 p-1 px-2 font-bold'>105 Watching</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Likes
-					</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Dislikes
-					</span>
-				</div>
-				<div className='desc p-4 text-gray-800'>
-					<a
-						href='https://www.youtube.com/watch?v=dvqT-E74Qlo'
-						target='_new'
-						className='title font-bold block cursor-pointer hover:underline'
-					>
-						Pubg Mobile Custom Room (Unlimited)
-					</a>
-					<a
-						href='https://www.youtube.com/user/sam14319'
-						target='_new'
-						className='badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer'
-					>
-						@dynamo_gaming
-					</a>
-					<span className='description text-sm block py-2 border-gray-400 mb-2'>
-						lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !
-					</span>
-				</div>
-			</div>
-			<div className='each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative'>
-				<img
-					className='w-full'
-					src='https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg'
-					alt=''
-				/>
-				<div className='badge absolute top-0 right-0 bg-red-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded'>
-					Live
-				</div>
-				<div className='info-box text-xs flex p-1 font-semibold text-gray-500 bg-gray-300'>
-					<span className='mr-1 p-1 px-2 font-bold'>105 Watching</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Likes
-					</span>
-					<span className='mr-1 p-1 px-2 font-bold border-l border-gray-400'>
-						105 Dislikes
-					</span>
-				</div>
-				<div className='desc p-4 text-gray-800'>
-					<a
-						href='https://www.youtube.com/watch?v=dvqT-E74Qlo'
-						target='_new'
-						className='title font-bold block cursor-pointer hover:underline'
-					>
-						Pubg Mobile Custom Room (Unlimited)
-					</a>
-					<a
-						href='https://www.youtube.com/user/sam14319'
-						target='_new'
-						className='badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer'
-					>
-						@dynamo_gaming
-					</a>
-					<span className='description text-sm block py-2 border-gray-400 mb-2'>
-						lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !
-					</span>
-				</div>
-			</div>
+						<div className='desc p-4 text-gray-800'>
+							<iframe
+								// className='vh-100'
+								width='100%'
+								height='100%'
+								src='https://www.youtube-nocookie.com/embed/i7i8hNKzF3k?si=refnkhZexDrG0hfE'
+								title='YouTube video player'
+								frameBorder='0'
+								allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+								allowFullScreen
+							></iframe>
+						</div>
+					</div>
+				);
+			})}
 		</div>
 	);
 };

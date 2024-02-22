@@ -31,14 +31,14 @@ export default function Header(props) {
 			'https://www.pngitem.com/pimgs/m/522-5220445_anonymous-profile-grey-person-sticker-glitch-empty-profile.png';
 	}
 	return (
-		<header className='w-full items-center bg-gray-100 py-2 px-6 xl:flex'>
-			<div className='xl:w-1/2 justify-start'>
+		<header className='w-full items-center bg-gray-100 py-2 px-6 flex flex-row justify-between'>
+			<div className='xl:w-1/2 justify-between'>
 				<h6>
 					Hi, {toPascalCase(user.person.given_name)}{' '}
 					{toPascalCase(user.person.middle_name)}
 				</h6>
 			</div>
-			<div className='relative xl:w-1/2 flex justify-end'>
+			<div className=' xl:w-1/2 flex justify-end'>
 				<button
 					className='relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300
                     focus:border-gray-300 focus:outline-none'
