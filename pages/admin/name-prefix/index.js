@@ -16,14 +16,14 @@ export default function NamePrefixIndex() {
 			created_at: '',
 			gender: '',
 			action: '',
-			id: '',
+			gender_id: '',
 		},
 	]);
 	useEffect(() => {
 		setIsLoading(true);
 		const { query } = router;
-		let size = 10;
-		let page = 0;
+		let size = '10';
+		let page = '0';
 		let sort = 'sort';
 		if (query.size !== undefined) {
 			size = query.size;
@@ -44,6 +44,7 @@ export default function NamePrefixIndex() {
 					if (res.data.items.length !== 0) {
 						setData([]);
 					}
+					console.log(res.data)
 					res.data.items.map((item) => {
 						let gender = {
 							id: '',
@@ -62,7 +63,7 @@ export default function NamePrefixIndex() {
 								created_at: date.toLocaleString(),
 								gender: gender.name,
 								action: '',
-								id: gender.id,
+								gender_id: gender.id,
 							},
 						]);
 					});
@@ -78,6 +79,7 @@ export default function NamePrefixIndex() {
 	const detail = {
 		redirects: `/admin/name-prefix/add`,
 	};
+	console.log(data);
 	if (isLoading) return <Spinner1 />;
 	return (
 		<>

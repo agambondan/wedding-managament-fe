@@ -33,8 +33,8 @@ const nextConfig = withPWA({
 				pathname: '/wp-content/uploads/**',
 			},
 		],
+		domains: ['berita.99.co'],
 	},
-	domains: ['berita.99.co'],
 });
 
 module.exports = nextConfig;

@@ -7,7 +7,10 @@ import {
 	InputTextArea,
 } from '../../components/layout/form/fields';
 import { BaseModal } from '../../components/layout/form/modal';
-import { ImagePopUp } from '../../components/layout/form/pop-up';
+import {
+	ImagePopUp,
+	SwalDeletePopUp,
+} from '../../components/layout/form/pop-up';
 import { Select } from '../../components/layout/form/select';
 import { Spinner1 } from '../../components/layout/spinner';
 import { MasterService } from '../../lib/http';
@@ -15,7 +18,7 @@ import { MasterService } from '../../lib/http';
 export default function Story() {
 	const router = useRouter();
 	const [inputFields, setInputFields] = useState({
-		nama: '',
+		title: '',
 		address: '',
 		date: '',
 		description: '',
@@ -76,6 +79,60 @@ export default function Story() {
 	let selectItem = {
 		province: stateProvince,
 	};
+	const dummyStory = [
+		{
+			title: 'First Meet',
+			date: '01-01-2017',
+			province: 'DKI Jakarta',
+			city: 'Jakarta Timur',
+			address: 'Cakung Timur Kayu Tinggi',
+			place: 'Aeon Mall Jakarta Timur',
+			link_location: '',
+			story:
+				'Love Story With : lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !',
+			image:
+				'https://berita.99.co/wp-content/uploads/2021/04/contoh-cv-taaruf.jpg',
+		},
+		{
+			title: 'First Meet',
+			date: '01-01-2017',
+			province: 'DKI Jakarta',
+			city: 'Jakarta Timur',
+			address: 'Cakung Timur Kayu Tinggi',
+			place: 'Aeon Mall Jakarta Timur',
+			link_location: '',
+			story:
+				'Love Story With : lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !',
+			image:
+				'https://berita.99.co/wp-content/uploads/2021/04/contoh-cv-taaruf.jpg',
+		},
+		{
+			title: 'First Meet',
+			date: '01-01-2017',
+			province: 'DKI Jakarta',
+			city: 'Jakarta Timur',
+			address: 'Cakung Timur Kayu Tinggi',
+			place: 'Aeon Mall Jakarta Timur',
+			link_location: '',
+			story:
+				'Love Story With : lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !',
+			image:
+				'https://berita.99.co/wp-content/uploads/2021/04/contoh-cv-taaruf.jpg',
+		},
+		{
+			title: 'First Meet',
+			date: '01-01-2017',
+			province: 'DKI Jakarta',
+			city: 'Jakarta Timur',
+			address: 'Cakung Timur Kayu Tinggi',
+			place: 'Aeon Mall Jakarta Timur',
+			link_location: '',
+			story:
+				'Love Story With : lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !',
+			image:
+				'https://berita.99.co/wp-content/uploads/2021/04/contoh-cv-taaruf.jpg',
+		},
+	];
 	if (isLoading) return <Spinner1 />;
 	return (
 		<>

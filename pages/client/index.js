@@ -11,8 +11,6 @@ export default function Index() {
     return (
         <>
             Dashboard
-            <Profile/>
-            <Event/>
         </>
     )
 }

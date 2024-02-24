@@ -78,6 +78,7 @@ export function InputTextArea(props) {
 			className={
 				'px-3 py-3 my-1 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full'
 			}
+			row={50}
 			name={props.keyInput}
 			placeholder={
 				props.placeholder !== undefined

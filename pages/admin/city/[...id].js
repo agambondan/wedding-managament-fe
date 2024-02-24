@@ -15,7 +15,7 @@ export default function CityEdit() {
 		setIsLoading(true);
 
 		async function fetch() {
-			let size = 10;
+			let size = 1;
 			let sort = 'sort';
 			const request = {
 				url: `cities/${query.id[0]}`,
@@ -28,7 +28,7 @@ export default function CityEdit() {
 					return err;
 				});
 			if (city.status !== 200) {
-				await router.push('/city');
+				await router.push('/admin/city');
 			}
 			setInputFields({
 				...inputFields,

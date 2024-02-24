@@ -16,14 +16,14 @@ export default function CityIndex() {
 			created_at: '',
 			province: '',
 			action: '',
-			id: '',
+			province_id: '',
 		},
 	]);
 	useEffect(() => {
 		setIsLoading(true);
 		const { query } = router;
-		let size = 10;
-		let page = 0;
+		let size = '10';
+		let page = '0';
 		let sort = 'sort';
 		if (query.size !== undefined) {
 			size = query.size;
@@ -44,6 +44,7 @@ export default function CityIndex() {
 					if (res.data.items.length !== 0) {
 						setData([]);
 					}
+					console.log(res.data);
 					res.data.items.map((item) => {
 						let stateProvince = {
 							id: '',
@@ -62,7 +63,7 @@ export default function CityIndex() {
 								created_at: date.toLocaleString(),
 								province: stateProvince.name,
 								action: '',
-								id: stateProvince.id,
+								province_id: stateProvince.id,
 							},
 						]);
 					});

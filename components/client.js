@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ClientContext, clientUserMenu } from '../lib/const';
 import { FormatDate } from '../lib/date';
 import { Main } from './layout/article';
@@ -37,7 +37,7 @@ function ClientLayout(props) {
 				})
 				.catch((err) => {
 					setTimeout(() => {
-						router.push('/client/login?redirect=true');
+						router.push('/client/login?redirect=' + router.asPath);
 					}, 3000);
 					return err;
 				});
@@ -46,11 +46,15 @@ function ClientLayout(props) {
 	if (verified) {
 		return (
 			<ClientContext.Provider value={user}>
-				<Meta />
+				<Meta
+					title={'undefined'}
+					keywords={'undefined'}
+					description={'undefined'}
+				/>
 				<div className='flex'>
 					<div className='relative w-full flex flex-col h-screen overflow-y-hidden'>
 						<div className='flex'>
-							<Sidebar click={click}>
+							<Sidebar click={click} custom={"w-48"}>
 								<ul className='space-y-2'>
 									<li>
 										<Link href={'/client'}>
@@ -117,8 +121,6 @@ function ClientLayout(props) {
 												setClick1(false);
 											}}
 										>
-											<i className='fa-solid fa-angles-left fa-2x' />
-											<i className='fa-solid fa-angles-left fa-2x' />
 											<i className='fa-solid fa-angles-left fa-2x' />
 											<i className='fa-solid fa-angles-left fa-2x' />
 											<i className='fa-solid fa-angles-left fa-2x' />

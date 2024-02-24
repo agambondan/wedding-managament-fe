@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { AdminContext, ClientContext } from '../../lib/const';
 import { toPascalCase } from '../../lib/helper';
@@ -64,7 +64,7 @@ export default function Header(props) {
 	);
 }
 
-function Dropdowns(props) {
+export function Dropdowns(props) {
 	return (
 		<>
 			<button

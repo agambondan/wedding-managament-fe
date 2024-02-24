@@ -1,5 +1,4 @@
 import { Editor } from '@tinymce/tinymce-react';
-import React from 'react';
 
 export function RichEditor(props) {
 	return (
@@ -28,8 +27,7 @@ export function RichEditor(props) {
 					tinycomments_mode: 'embedded',
 					tinycomments_author: 'Author name',
 					skin_url: '/assets/libs/tinymce/skins/ui/oxide',
-					content_css:
-						'/assets/libs/tinymce/skins/content/default/content.min.css',
+					content_css: '/assets/libs/tinymce/skins/content/default/content.min.css',
 				}}
 			/>
 		</>

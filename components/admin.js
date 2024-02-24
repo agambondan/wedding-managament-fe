@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	AdminContext,
 	adminMasterMenu,
@@ -62,7 +62,11 @@ function AdminLayout(props) {
 	if (verified) {
 		return (
 			<AdminContext.Provider value={user}>
-				<Meta />
+				<Meta
+					title={'undefined'}
+					keywords={'undefined'}
+					description={'undefined'}
+				/>
 				<div className='flex'>
 					<div className='relative w-full flex flex-col h-screen overflow-y-hidden'>
 						<div className='flex'>
