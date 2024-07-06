@@ -150,92 +150,88 @@ export const BaseModal1 = (props) => {
 					return !element.match('id') && element !== 'action' && element !== 'html';
 			  })
 			: '';
-	return (
-		<>
-			<div
-				// className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-				className='align-middle justify-center items-center flex overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none'
-			>
-				<div className='relative w-full h-full max-w-md md:h-auto'>
-					<div className='bg-white rounded-lg shadow-xl dark:bg-gray-700 -mx-10'>
-						{/*header*/}
-						<div className='px-4 py-2 border-b border-solid rounded-t'>
-							<h3 className='uppercase text-3xl font-semibold'>{props.title}</h3>
-							<button
-								type='button'
-								onClick={() => {
-									props.setClick(false);
-								}}
-								className='absolute top-2 -mr-4 right-0 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg
-                            text-sm py-2 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white'
-							>
-								<svg
-									aria-hidden='true'
-									className='w-5 h-5'
-									fill='currentColor'
-									viewBox='0 0 20 20'
-									xmlns='http://www.w3.org/2000/svg'
-								>
-									<path
-										fillRule='evenodd'
-										d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
-										clipRule='evenodd'
-									></path>
-								</svg>
-								<span className='sr-only'>Close modal</span>
-							</button>
-						</div>
-						{/*body*/}
-						<div className='relative p-2'>
-							{props.children !== undefined ? (
-								props.children
-							) : (
-								<div className={'flex flex-row'}>
-									{keyInputFields.map((key, index) => {
-										return (
-											<>
-												<div key={index} className={'flex-shrink px-1 text-xl'}>
-													{(key.match(/[a-zA-Z0-9]+/g) || [])
-														.map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
-														.join(' ')}
-													<InputText
-														key={key}
-														keyInput={key}
-														inputFields={props.inputFields[key]}
-														handleChangeText={() => {}}
-													/>
-												</div>
-											</>
-										);
-									})}
-								</div>
-							)}
-						</div>
-						{/*footer*/}
-						<div className='flex items-center justify-center py-3 border-t border-solid border-slate-200 rounded-b'>
-							<button
-								className='bg-red-400 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
-								type='button'
-								onClick={() => props.setClick(false)}
-							>
-								Close
-							</button>
-							<button
-								className='bg-blue-400 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
-								type='button'
-								onClick={() => {
-									props.setClick(false);
-								}}
-							>
-								Save Changes
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className='opacity-25 fixed inset-0 z-40 bg-black'></div>
-		</>
-	);
+	return <>
+        <div
+            // className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+            className='align-middle justify-center items-center flex overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none'
+        >
+            <div className='relative w-full h-full max-w-md md:h-auto'>
+                <div className='bg-white rounded-lg shadow-xl dark:bg-gray-700 -mx-10'>
+                    {/*header*/}
+                    <div className='px-4 py-2 border-b border-solid rounded-t'>
+                        <h3 className='uppercase text-3xl font-semibold'>{props.title}</h3>
+                        <button
+                            type='button'
+                            onClick={() => {
+                                props.setClick(false);
+                            }}
+                            className='absolute top-2 -mr-4 right-0 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg
+                        text-sm py-2 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white'
+                        >
+                            <svg
+                                aria-hidden='true'
+                                className='w-5 h-5'
+                                fill='currentColor'
+                                viewBox='0 0 20 20'
+                                xmlns='http://www.w3.org/2000/svg'
+                            >
+                                <path
+                                    fillRule='evenodd'
+                                    d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+                                    clipRule='evenodd'
+                                ></path>
+                            </svg>
+                            <span className='sr-only'>Close modal</span>
+                        </button>
+                    </div>
+                    {/*body*/}
+                    <div className='relative p-2'>
+                        {props.children !== undefined ? (
+                            props.children
+                        ) : (
+                            <div className={'flex flex-row'}>
+                                {keyInputFields.map((key, index) => {
+                                    return <>
+                                        <div key={index} className={'flex-shrink px-1 text-xl'}>
+                                            {(key.match(/[a-zA-Z0-9]+/g) || [])
+                                                .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
+                                                .join(' ')}
+                                            <InputText
+                                                key={key}
+                                                keyInput={key}
+                                                inputFields={props.inputFields[key]}
+                                                handleChangeText={() => {}}
+                                            />
+                                        </div>
+                                    </>;
+                                })}
+                            </div>
+                        )}
+                    </div>
+                    {/*footer*/}
+                    <div className='flex items-center justify-center py-3 border-t border-solid border-slate-200 rounded-b'>
+                        <button
+                            className='bg-red-400 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                            type='button'
+                            onClick={() => props.setClick(false)}
+                        >
+                            Close
+                        </button>
+                        <button
+                            className='bg-blue-400 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                            type='button'
+                            onClick={() => {
+                                props.setClick(false);
+                            }}
+                        >
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className='opacity-25 fixed inset-0 z-40 bg-black'></div>
+    </>;
 };
 
 export function BaseModal(props) {

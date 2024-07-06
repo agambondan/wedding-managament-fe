@@ -61,7 +61,7 @@ export function VerifyForgotPassword(props) {
 			});
 	};
 	return (
-		<section className='bg-gray-50 dark:bg-gray-900'>
+        <section className='bg-gray-50 dark:bg-gray-900'>
 			<div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
 				<a
 					target={'_blank'}
@@ -226,10 +226,12 @@ export function VerifyForgotPassword(props) {
 									className='font-light text-gray-500 dark:text-gray-300'
 								>
 									I accept the
-									<Link href={'/client/terms'}>
-										<a className='font-medium text-blue-600 hover:underline dark:text-blue-500'>
+									<Link
+                                        href={'/client/terms'}
+                                        className='font-medium text-blue-600 hover:underline dark:text-blue-500'>
+										
 											&nbsp;Terms and Conditions
-										</a>
+										
 									</Link>
 								</label>
 							</div>
@@ -244,5 +246,5 @@ export function VerifyForgotPassword(props) {
 				</div>
 			</div>
 		</section>
-	);
+    );
 }

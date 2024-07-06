@@ -45,10 +45,12 @@ export default function Forgot() {
                         <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">Forgot password?</h1>
                         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                             Remember your password?&nbsp;
-                            <Link href="/client/login">
-                                <a className="text-blue-600 decoration-2 hover:underline font-medium">
+                            <Link
+                                href="/client/login"
+                                className="text-blue-600 decoration-2 hover:underline font-medium">
+                                
                                     Login here
-                                </a>
+                                
                             </Link>
                         </p>
                     </div>
@@ -79,12 +81,14 @@ export default function Forgot() {
                 </div>
             </div>
             <p className="mt-3 flex justify-center items-center text-center divide-x divide-gray-300 dark:divide-gray-700">
-                <Link href="/client">
-                    <a className="pl-3 inline-flex items-center gap-x-2 text-sm text-gray-600 decoration-2 hover:underline hover:text-blue-600 dark:text-gray-500 dark:hover:text-gray-200">
+                <Link
+                    href="/client"
+                    className="pl-3 inline-flex items-center gap-x-2 text-sm text-gray-600 decoration-2 hover:underline hover:text-blue-600 dark:text-gray-500 dark:hover:text-gray-200">
+                    
                         Contact us!
-                    </a>
+                    
                 </Link>
             </p>
         </main>
-    )
+    );
 }

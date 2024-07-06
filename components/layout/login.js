@@ -71,7 +71,7 @@ export default function Login(props) {
 			});
 	};
 	return (
-		<Authorization.Provider value={authorization}>
+        <Authorization.Provider value={authorization}>
 			<section className='h-screen'>
 				<div className='px-6 h-full text-gray-800'>
 					<div className='flex flex-wrap justify-center lg:justify-between xl:justify-center items-center h-full gap-6'>
@@ -171,8 +171,8 @@ export default function Login(props) {
 												Remember me
 											</label>
 										</div>
-										<Link href='/client/password/forgot'>
-											<a className='text-gray-800'>Forgot password?</a>
+										<Link href='/client/password/forgot' className='text-gray-800'>
+											Forgot password?
 										</Link>
 									</div>
 
@@ -185,12 +185,12 @@ export default function Login(props) {
 										</button>
 										<p className='text-sm font-semibold mt-2 pt-1 mb-0'>
 											Dont have an account?
-											<Link href='/client/signup'>
-												<a className='text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out'>
-													{' '}
-													Register
-												</a>
-											</Link>
+											<Link
+                                                href='/client/signup'
+                                                className='text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out'>
+
+                                                {' '}Register
+                                            </Link>
 										</p>
 									</div>
 								</form>
@@ -200,5 +200,5 @@ export default function Login(props) {
 				</div>
 			</section>
 		</Authorization.Provider>
-	);
+    );
 }

@@ -1,6 +1,6 @@
 export function InputText(props) {
 	return (
-		<input
+        <input
 			type={'text'}
 			className={
 				'px-3 py-3 my-1 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full'
@@ -16,12 +16,12 @@ export function InputText(props) {
 			value={props.inputFields}
 			onChange={(event) => props.handleChangeText(props.keyInput, event)}
 		/>
-	);
+    );
 }
 
 export function InputEmail(props) {
 	return (
-		<input
+        <input
 			type={'email'}
 			className={
 				'px-3 py-3 my-1 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full'
@@ -37,7 +37,7 @@ export function InputEmail(props) {
 			value={props.inputFields}
 			onChange={(event) => props.handleChangeText(props.keyInput, event)}
 		/>
-	);
+    );
 }
 
 export function InputDate(props) {
@@ -74,7 +74,7 @@ export function InputTime(props) {
 
 export function InputTextArea(props) {
 	return (
-		<textarea
+        <textarea
 			className={
 				'px-3 py-3 my-1 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full'
 			}
@@ -90,12 +90,12 @@ export function InputTextArea(props) {
 			value={props.inputFields}
 			onChange={(event) => props.handleChangeText(props.keyInput, event)}
 		/>
-	);
+    );
 }
 
 export function InputNumber(props) {
 	return (
-		<input
+        <input
 			// onKeyPress={event => event.preventDefault()} // disabled input from keyboard
 			type={'number'}
 			min={0}
@@ -111,12 +111,12 @@ export function InputNumber(props) {
 			onInput={(event) => props.handleInputNumber(props.keyInput, event)}
 			onChange={(event) => props.handleChangeNumber(props.keyInput, event)}
 		/>
-	);
+    );
 }
 
 export function InputFormatRupiah(props) {
 	return (
-		<input
+        <input
 			// onKeyPress={event => event.preventDefault()} // disabled input from keyboard
 			type={'text'}
 			className={
@@ -130,5 +130,5 @@ export function InputFormatRupiah(props) {
 			onInput={(event) => props.handleFormatRupiah(props.keyInput, event)}
 			onChange={(event) => props.handleFormatRupiah(props.keyInput, event)}
 		/>
-	);
+    );
 }

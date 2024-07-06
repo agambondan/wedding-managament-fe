@@ -171,9 +171,10 @@ export default function Signup() {
                                 <div className="text-center lg:text-left">
                                     <p className="text-sm font-semibold mt-2 pt-1 mb-0">
                                         have an account?
-                                        <Link href="/client/login">
-                                            <a className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
-                                            > Login</a>
+                                        <Link
+                                            href="/client/login"
+                                            className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
+                                             Login
                                         </Link>
                                     </p>
                                 </div>
@@ -183,5 +184,5 @@ export default function Signup() {
                 </div>
             </div>
         </section>
-    )
+    );
 }

@@ -41,6 +41,7 @@ export default function CityIndex() {
 		async function fetch() {
 			await MasterService(request)
 				.then((res) => {
+					console.log(res);
 					if (res.data.items.length !== 0) {
 						setData([]);
 					}

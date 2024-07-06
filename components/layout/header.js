@@ -65,34 +65,36 @@ export default function Header(props) {
 }
 
 export function Dropdowns(props) {
-	return (
-		<>
-			<button
-				onClick={props.handleBtnClick}
-				className={`${
-					props.btnClick ? 'h-full w-full fixed inset-0 cursor-default' : ''
-				}`}
-			/>
-			<div className='absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16'>
-				<Link href={props.url_account}>
-					<a className='block px-4 py-2 hover:bg-gray-100 dark:text-black dark:hover:bg-gray-700'>
-						Account
-					</a>
-				</Link>
-				<Link href={props.url_support}>
-					<a className='block px-4 py-2 hover:bg-gray-100 dark:text-black dark:hover:bg-gray-700'>
-						Support
-					</a>
-				</Link>
-				<label
-					className='cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:text-black dark:hover:bg-gray-700'
-					onClick={() => handleSignOut(props)}
-				>
-					Sign Out
-				</label>
-			</div>
-		</>
-	);
+	return <>
+        <button
+            onClick={props.handleBtnClick}
+            className={`${
+                props.btnClick ? 'h-full w-full fixed inset-0 cursor-default' : ''
+            }`}
+        />
+        <div className='absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16'>
+            <Link
+                href={props.url_account}
+                className='block px-4 py-2 hover:bg-gray-100 dark:text-black dark:hover:bg-gray-700'>
+                
+                    Account
+                
+            </Link>
+            <Link
+                href={props.url_support}
+                className='block px-4 py-2 hover:bg-gray-100 dark:text-black dark:hover:bg-gray-700'>
+                
+                    Support
+                
+            </Link>
+            <label
+                className='cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:text-black dark:hover:bg-gray-700'
+                onClick={() => handleSignOut(props)}
+            >
+                Sign Out
+            </label>
+        </div>
+    </>;
 }
 
 // Mobile Phone
@@ -155,26 +157,26 @@ export function HeaderMobile(props) {
 
 export function NavHeader(props) {
 	return (
-		<nav className='flex flex-col pt-4'>
+        <nav className='flex flex-col pt-4'>
 			<ul>
 				<li>
-					<Link href={props.url_dashboard}>
-						<a
-							className={`flex items-center text-black ${
-								props.router.pathname === '/admin'
-									? 'bg-gray-200'
-									: 'opacity-75 hover:opacity-100'
-							} py-2 pl-2 hover:bg-gray-50`}
-						>
-							<i className='fas fa-tachometer-alt fa-fw' />
-							<span className='ml-3 text-black'>Dashboard</span>
-						</a>
-					</Link>
+					<Link
+                        href={props.url_dashboard}
+                        className={`flex items-center text-black ${
+                            props.router.pathname === '/admin'
+                                ? 'bg-gray-200'
+                                : 'opacity-75 hover:opacity-100'
+                        } py-2 pl-2 hover:bg-gray-50`}>
+
+                        <i className='fas fa-tachometer-alt fa-fw' />
+                        <span className='ml-3 text-black'>Dashboard</span>
+
+                    </Link>
 				</li>
 				{props.children}
 			</ul>
 		</nav>
-	);
+    );
 }
 
 // Up

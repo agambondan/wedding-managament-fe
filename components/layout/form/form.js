@@ -93,13 +93,13 @@ export function Form(props) {
 			});
 	};
 	return (
-		<div className={'bg-gray-200 px-6 py-4'}>
+        <div className={'bg-gray-200 px-6 py-4'}>
 			{props.default === undefined || props.default === true ? (
 				<form onSubmit={handleSubmit}>
 					{keyInputFields.map((key, index) => {
 						let max = key === 'percent' ? 100 : 1000000;
 						return (
-							<div key={index}>
+                            <div key={index}>
 								{typeof props.inputFields[key] === 'string' ? (
 									<>
 										<div className={'py-2 my-1 text-2xl'}>
@@ -157,7 +157,7 @@ export function Form(props) {
 									</>
 								)}
 							</div>
-						);
+                        );
 					})}
 					{props.select !== undefined ? (
 						Object.keys(props.select).map((key, index) => {
@@ -196,5 +196,5 @@ export function Form(props) {
 				</form>
 			)}
 		</div>
-	);
+    );
 }

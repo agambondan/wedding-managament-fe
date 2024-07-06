@@ -45,7 +45,7 @@ function ClientLayout(props) {
 	}, [router]);
 	if (verified) {
 		return (
-			<ClientContext.Provider value={user}>
+            <ClientContext.Provider value={user}>
 				<Meta
 					title={'undefined'}
 					keywords={'undefined'}
@@ -57,43 +57,43 @@ function ClientLayout(props) {
 							<Sidebar click={click} custom={"w-48"}>
 								<ul className='space-y-2'>
 									<li>
-										<Link href={'/client'}>
-											<a
-												className={`${
-													router.pathname === '/client'
-														? 'bg-gray-300'
-														: 'hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
-												} flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white`}
-											>
-												<i className='fas fa-chart-pie fa-fw' />
-												{click ? '' : <span className='ml-3'>Dashboard</span>}
-											</a>
-										</Link>
+										<Link
+                                            href={'/client'}
+                                            className={`${
+                                                router.pathname === '/client'
+                                                    ? 'bg-gray-300'
+                                                    : 'hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
+                                            } flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white`}>
+
+                                            <i className='fas fa-chart-pie fa-fw' />
+                                            {click ? '' : <span className='ml-3'>Dashboard</span>}
+
+                                        </Link>
 									</li>
 									{click ? (
 										clientUserMenu.map((value, index) => {
 											return (
-												<li key={index}>
-													<Link href={value.link}>
-														<a
-															title={value.name}
-															className={`${
-																router.pathname === value.path
-																	? 'bg-gray-300'
-																	: 'hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
-															} flex items-center pb-3 pt-3 pr-2 pl-2 text-base font-normal text-gray-900 rounded-lg dark:text-white`}
-															onClick={() => {
-																if (value.link === '') {
-																	setClick1(true);
-																	setClick(false);
-																}
-															}}
-														>
-															<i className={value.icon} />
-														</a>
-													</Link>
+                                                <li key={index}>
+													<Link
+                                                        href={value.link}
+                                                        title={value.name}
+                                                        className={`${
+                                                            router.pathname === value.path
+                                                                ? 'bg-gray-300'
+                                                                : 'hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
+                                                        } flex items-center pb-3 pt-3 pr-2 pl-2 text-base font-normal text-gray-900 rounded-lg dark:text-white`}
+                                                        onClick={() => {
+                                                            if (value.link === '') {
+                                                                setClick1(true);
+                                                                setClick(false);
+                                                            }
+                                                        }}>
+
+                                                        <i className={value.icon} />
+
+                                                    </Link>
 												</li>
-											);
+                                            );
 										})
 									) : (
 										<SidebarNav router={router} menus={clientUserMenu} />
@@ -153,7 +153,7 @@ function ClientLayout(props) {
 					</div>
 				</div>
 			</ClientContext.Provider>
-		);
+        );
 	} else {
 		return <></>;
 	}
