@@ -243,7 +243,7 @@ function FormModalAgenda(props) {
 					<InputText
 						key={'title'}
 						keyInput={'title'}
-						placeholder={'Resepsi'}
+						placeholder={'Reception'}
 						inputFields={props.inputFields.title}
 						handleChangeText={handleChangeText}
 					/>
@@ -348,7 +348,11 @@ function FormModalAgenda(props) {
 						handleChangeText={handleChangeText}
 					/>
 				</div>
-				{embedUrl !== '' && <GoogleMapEmbed lat={lat} long={lng} />}
+				{embedUrl !== '' && (
+					<div className='w-full pt-2'>
+						<GoogleMapEmbed lat={lat} long={lng} />
+					</div>
+				)}
 			</div>
 		</BaseModal>
 	);
