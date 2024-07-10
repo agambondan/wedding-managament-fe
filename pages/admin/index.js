@@ -1,23 +1,30 @@
-import AdminLayout from "../../components/admin";
-import {AdminContext} from "../../lib/const";
-import React from "react";
-import Link from "next/link";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import AdminLayout from '../../components/admin';
+import { AdminContext } from '../../lib/const';
 
 export default function Index() {
-    const user = React.useContext(AdminContext);
-    const givenName = user.person !== undefined ? user.person.given_name : ""
-    const middleName = user.person !== undefined ? user.person.middle_name : ""
-    return (
-        <>
-            <Link href={"https://go-blog.vercel.app/"}>
-                <a>
-                    https://go-blog.vercel.app/
-                </a>
+	const [hadith, setHadith] = useState([]);
 
-            </Link>
-            <p>Selamat Datang, <b><i>{givenName} {middleName}</i></b> di web administrator !</p>
-        </>
-    )
+	useEffect(() => {
+		fetchHadith();
+	}, []);
+
+	const fetchHadith = async () => {
+		try {
+			const response = await axios.get(
+				'http://localhost:9900/books/bukhari?page=2&size=20'
+			);
+			setHadith(response.data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+	console.log(hadith);
+	const user = React.useContext(AdminContext);
+	const givenName = user.person !== undefined ? user.person.given_name : '';
+	const middleName = user.person !== undefined ? user.person.middle_name : '';
+	return <>Dashboard</>;
 }
 
-Index.layout = AdminLayout
+Index.layout = AdminLayout;

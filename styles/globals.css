@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap'); /* ./styles/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +11,7 @@
 
 }
 .font-family-karla {
-  font-family: karla, serif;
+  font-family: karla, 'Poppins', serif;
 }
 
 .bg-sidebar {
@@ -145,7 +146,7 @@ body {
 }
 
 .svg-inline--fa.fa-w-14 {
-  width: 1em
+  /*width: 0.75em*/
   /*width: .875em*/
 }
 

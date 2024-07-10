@@ -1,24 +1,61 @@
-/** @type {import('next').NextConfig} */
-// const path = require('path')
-require('dotenv').config()
+// Import required modules
+const path = require('path');
+const runtimeCaching = require('next-pwa/cache');
+const withPWA = require('next-pwa')({
+	dest: 'public',
+	register: true,
+	skipWaiting: true,
+	runtimeCaching,
+	buildExcludes: [/middleware-manifest.json$/],
+});
 
-module.exports = {
-    async redirects() {
-        return [
-            {
-                source: '/',
-                destination: '/client/login',
-                permanent: true,
-            },
-        ]
-    },
-    require: ("tinymce/tinymce"),
-    reactStrictMode: false, // false for not render twice
-    swcMinify: false,
-    env: {
-        IP: process.env.IP,
-        ENDPOINT_MASTER: `${process.env.IP}/api/v1/master`,
-        ENDPOINT_USERS: `${process.env.IP}/api/v1/users`,
-        ENDPOINT_AUTH: `${process.env.IP}/api/v1/auth`,
-    },
-}
+// Load environment variables early
+require('dotenv').config();
+require('dotenv').config({
+	path: `.env.${process.env.NEXT_PUBLIC_ENV}`,
+});
+
+// Define Next.js configuration with conditional PWA
+const isDev = process.env.NODE_ENV === 'development'; // Check for development mode
+
+const nextConfig = withPWA({
+	// Redirect configuration
+	async redirects() {
+		return [
+			{
+				source: '/',
+				destination: '/client/login',
+				permanent: true,
+			},
+		];
+	},
+	reactStrictMode: false, // Set to false to avoid rendering twice in dev mode
+	swcMinify: true,
+	webpack: (config, { isServer }) => {
+		if (!isServer) {
+			config.resolve.fallback = {
+				fs: false,
+				path: false,
+				os: false,
+			};
+		}
+		return config;
+	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'berita.99.co',
+				port: '',
+				pathname: '/wp-content/uploads/**',
+			},
+		],
+		domains: ['berita.99.co'],
+	},
+	// Disable PWA in development mode
+	pwa: {
+		disable: isDev, // Set disable based on development environment
+	},
+});
+
+module.exports = nextConfig;

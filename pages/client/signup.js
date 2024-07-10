@@ -32,7 +32,6 @@ export default function Signup() {
                 return
         }
     }
-    console.log(user)
     const handleSignup = async (event) => {
         event.preventDefault()
         await Swal.fire({
@@ -84,9 +83,9 @@ export default function Signup() {
         <section className="h-screen">
             <div className="px-6 h-full text-gray-800">
                 <div
-                    className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
+                    className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full gap-6">
                     <div
-                        className="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0">
+                        className="flex-grow flex-shrink md:flex-shrink-0 xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0">
                         <img
                             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                             className="w-full"
@@ -172,9 +171,10 @@ export default function Signup() {
                                 <div className="text-center lg:text-left">
                                     <p className="text-sm font-semibold mt-2 pt-1 mb-0">
                                         have an account?
-                                        <Link href="/client/login">
-                                            <a className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
-                                            > Login</a>
+                                        <Link
+                                            href="/client/login"
+                                            className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
+                                             Login
                                         </Link>
                                     </p>
                                 </div>
@@ -184,5 +184,5 @@ export default function Signup() {
                 </div>
             </div>
         </section>
-    )
+    );
 }
