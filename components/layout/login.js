@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import { Authorization } from '../../lib/const';
 
 export default function Login(props) {
-	console.log(process.env.NEXT_PUBLIC_IP);
 	const router = useRouter();
 	const [authorization, setAuthorization] = useState({});
 	const [username, setUsername] = useState('');
@@ -31,7 +30,6 @@ export default function Login(props) {
 					remember_me: rememberMe,
 				},
 				{
-					// disable with credentials if be not regis your ip to be cors
 					withCredentials: true,
 				}
 			)
@@ -71,7 +69,7 @@ export default function Login(props) {
 			});
 	};
 	return (
-        <Authorization.Provider value={authorization}>
+		<Authorization.Provider value={authorization}>
 			<section className='h-screen'>
 				<div className='px-6 h-full text-gray-800'>
 					<div className='flex flex-wrap justify-center lg:justify-between xl:justify-center items-center h-full gap-6'>
@@ -186,11 +184,11 @@ export default function Login(props) {
 										<p className='text-sm font-semibold mt-2 pt-1 mb-0'>
 											Dont have an account?
 											<Link
-                                                href='/client/signup'
-                                                className='text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out'>
-
-                                                {' '}Register
-                                            </Link>
+												href='/client/signup'
+												className='text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out'
+											>
+												&nbsp;Register
+											</Link>
 										</p>
 									</div>
 								</form>
@@ -200,5 +198,5 @@ export default function Login(props) {
 				</div>
 			</section>
 		</Authorization.Provider>
-    );
+	);
 }

@@ -18,8 +18,7 @@ require('dotenv').config({
 // Define Next.js configuration with conditional PWA
 const isDev = process.env.NODE_ENV === 'development'; // Check for development mode
 
-const nextConfig = withPWA({
-	// Redirect configuration
+const nextConfig = {
 	async redirects() {
 		return [
 			{
@@ -52,10 +51,6 @@ const nextConfig = withPWA({
 		],
 		domains: ['berita.99.co'],
 	},
-	// Disable PWA in development mode
-	pwa: {
-		disable: isDev, // Set disable based on development environment
-	},
-});
+};
 
-module.exports = nextConfig;
+module.exports = isDev ? nextConfig : withPWA(nextConfig);
