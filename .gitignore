@@ -28,4 +28,4 @@
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
 .vercel
-.env*.local
+!.env*.local
