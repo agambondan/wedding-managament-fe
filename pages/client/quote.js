@@ -17,7 +17,7 @@ export default function Quote() {
 	const [clickThreeDot, setClickThreeDot] = useState(false);
 	useEffect(() => {});
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}`, // TODO
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}`, // TODO
 		redirects: `/client/quote`,
 		module_name: `Quote`,
 		title: `Save`,

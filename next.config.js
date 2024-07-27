@@ -10,7 +10,7 @@ const withPWA = require('next-pwa')({
 });
 
 // Define Next.js configuration with conditional PWA
-const isDev = process.env.NODE_ENV === 'development'; // Check for development mode
+const isDev = process.env.NEXT_PUBLIC_NODE_ENV === 'development'; // Check for development mode
 
 const nextConfig = {
 	async redirects() {

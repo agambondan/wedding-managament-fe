@@ -71,7 +71,7 @@ export default function CityEdit() {
 		fetch().then(() => setIsLoading(false));
 	}, []);
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}/cities/${query.id[0]}`,
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/cities/${query.id[0]}`,
 		redirects: `/admin/city`,
 		module_name: `City`,
 		title: `Update`,

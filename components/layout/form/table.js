@@ -162,7 +162,7 @@ export function Table(props) {
 															}
 															onClick={() => {
 																SwalDeletePopUp({
-																	url: `${process.env.IP}/master/cities/${ids[index]}/soft`,
+																	url: `${process.env.NEXT_PUBLIC_IP}/master/cities/${ids[index]}/soft`,
 																	router: router,
 																});
 															}}

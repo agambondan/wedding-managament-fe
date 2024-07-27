@@ -135,7 +135,7 @@ function FormModalGift(props) {
 		props.setInputFields({ ...props.inputFields, [key]: event.target.value });
 	};
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}`, // TODO
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}`, // TODO
 		redirects: `/client/profile`,
 		module_name: `Profile`,
 		title: `Save`,

@@ -28,7 +28,7 @@ function AdminLayout(props) {
 			const currentDateTime = new Date();
 			axios
 				.put(
-					`${process.env.IP}/users/token/ROLE_ADMIN`,
+					`${process.env.NEXT_PUBLIC_IP}/users/token/ROLE_ADMIN`,
 					{
 						last_access: FormatDate(currentDateTime),
 						last_page: router.pathname,

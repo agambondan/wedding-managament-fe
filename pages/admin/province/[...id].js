@@ -39,7 +39,7 @@ export default function StateProvinceEdit() {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}/state-provinces/${query.id[0]}`,
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/state-provinces/${query.id[0]}`,
 		redirects: `/admin/province`,
 		module_name: `State Province`,
 		title: `Update`,

@@ -72,7 +72,7 @@ export default function PacketEdit() {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}/packets/${query.id[0]}`,
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/packets/${query.id[0]}`,
 		redirects: `/admin/packet`,
 		module_name: `Packet`,
 		title: `Update`,

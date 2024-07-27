@@ -10,7 +10,7 @@ export default function DiscountAdd() {
 		is_active: false,
 	});
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}/discounts`,
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/discounts`,
 		redirects: `/admin/discount`,
 		module_name: `Discount`,
 		title: `Save`,

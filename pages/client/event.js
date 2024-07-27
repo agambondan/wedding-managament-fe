@@ -67,7 +67,7 @@ export default function Event() {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}`, // TODO
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}`, // TODO
 		redirects: `/client/profile`,
 		module_name: `Profile`,
 		title: `Save`,

@@ -39,7 +39,7 @@ export default function MultimediaTypeEdit() {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}/multimedia-types/${query.id[0]}`,
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/multimedia-types/${query.id[0]}`,
 		redirects: `/admin/multimedia-type`,
 		module_name: `Multimedia Type`,
 		title: `Update`,

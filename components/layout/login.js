@@ -22,7 +22,7 @@ export default function Login(props) {
 		Swal.showLoading();
 		await axios
 			.post(
-				`${process.env.IP}/auth/login`,
+				`${process.env.NEXT_PUBLIC_IP}/auth/login`,
 				{
 					login: username,
 					email: username,

@@ -54,7 +54,7 @@ export default function NamePrefixAdd(props) {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}/name-prefixes`,
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/name-prefixes`,
 		redirects: `/admin/name-prefix`,
 		module_name: `Name Prefix`,
 		title: `Save`,

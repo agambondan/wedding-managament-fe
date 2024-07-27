@@ -39,7 +39,7 @@ export default function GenderEdit() {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}/genders/${query.id[0]}`,
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/genders/${query.id[0]}`,
 		redirects: `/admin/gender`,
 		module_name: `Gender`,
 		title: `Update`,

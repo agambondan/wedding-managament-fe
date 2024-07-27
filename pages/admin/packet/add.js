@@ -55,7 +55,7 @@ export default function PacketAdd() {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}/packets`,
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/packets`,
 		redirects: `/admin/packet`,
 		module_name: `Packet`,
 		title: `Save`,

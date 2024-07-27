@@ -39,7 +39,7 @@ export default function FeatureEdit() {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}/features/${query.id[0]}`,
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/features/${query.id[0]}`,
 		redirects: `/admin/feature`,
 		module_name: `Feature`,
 		title: `Update`,

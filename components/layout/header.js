@@ -190,7 +190,7 @@ const handleSignOut = (props) => {
 		if (result.isConfirmed) {
 			(async () => {
 				const response = await axios
-					.get(`${process.env.IP}/auth/logout`, {
+					.get(`${process.env.NEXT_PUBLIC_IP}/auth/logout`, {
 						// disable with credentials if be not regis your ip to be cors
 						withCredentials: true,
 					})

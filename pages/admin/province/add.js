@@ -8,7 +8,7 @@ export default function StateProvinceAdd(props) {
 		name: '',
 	});
 	const data = {
-		url: `${process.env.ENDPOINT_MASTER}/state-provinces`,
+		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/state-provinces`,
 		redirects: `/admin/province`,
 		module_name: `State Province`,
 		title: `Save`,
