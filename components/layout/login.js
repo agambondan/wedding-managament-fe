@@ -6,8 +6,6 @@ import Swal from 'sweetalert2';
 import { Authorization } from '../../lib/const';
 
 export default function Login(props) {
-	console.log(process.env);
-	console.log(process.env.NEXT_PUBLIC_IP);
 	const router = useRouter();
 	const [authorization, setAuthorization] = useState({});
 	const [username, setUsername] = useState('');
