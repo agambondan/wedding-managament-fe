@@ -8,7 +8,7 @@ export default function GenderAdd() {
 		name: '',
 	});
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/genders`,
+		url: `${process.env.ENDPOINT_MASTER}/genders`,
 		redirects: `/admin/gender`,
 		module_name: `Gender`,
 		title: `Save`,

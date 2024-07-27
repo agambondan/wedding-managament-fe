@@ -10,7 +10,7 @@ export default function EventAdd() {
 		description: '',
 	});
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/events`,
+		url: `${process.env.ENDPOINT_MASTER}/events`,
 		redirects: `/admin/event`,
 		module_name: `Event`,
 		title: `Save`,

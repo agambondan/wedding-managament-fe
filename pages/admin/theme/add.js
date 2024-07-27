@@ -11,7 +11,7 @@ export default function ThemeAdd() {
 		description: '',
 	});
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/themes`,
+		url: `${process.env.ENDPOINT_MASTER}/themes`,
 		redirects: `/admin/theme`,
 		module_name: `Theme`,
 		title: `Save`,

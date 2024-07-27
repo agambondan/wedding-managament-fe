@@ -23,7 +23,7 @@ function ClientLayout(props) {
 			const currentDatetime = new Date();
 			axios
 				.put(
-					`${process.env.NEXT_PUBLIC_IP}/users/token/ROLE_CLIENT`,
+					`${process.env.IP}/users/token/ROLE_CLIENT`,
 					{
 						last_access: FormatDate(currentDatetime),
 						last_page: router.pathname,

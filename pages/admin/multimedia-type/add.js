@@ -8,7 +8,7 @@ export default function MultimediaTypeAdd() {
 		slug: '',
 	});
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/multimedia-types`,
+		url: `${process.env.ENDPOINT_MASTER}/multimedia-types`,
 		redirects: `/admin/multimedia-type`,
 		module_name: `Multimedia Type`,
 		title: `Save`,

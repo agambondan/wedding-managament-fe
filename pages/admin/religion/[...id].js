@@ -39,7 +39,7 @@ export default function ReligionEdit() {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/religions/${query.id[0]}`,
+		url: `${process.env.ENDPOINT_MASTER}/religions/${query.id[0]}`,
 		redirects: `/admin/religion`,
 		module_name: `Religion`,
 		title: `Update`,

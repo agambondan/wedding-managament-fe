@@ -8,7 +8,7 @@ export default function FeatureAdd() {
 		feature_name: '',
 	});
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/features`,
+		url: `${process.env.ENDPOINT_MASTER}/features`,
 		redirects: `/admin/feature`,
 		module_name: `Feature`,
 		title: `Save`,

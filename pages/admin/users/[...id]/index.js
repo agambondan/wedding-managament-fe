@@ -10,7 +10,7 @@ export default function UserEdit(props) {
 		id: props.data.id,
 	});
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/${props.data.id}`,
+		url: `${process.env.ENDPOINT_MASTER}/${props.data.id}`,
 		redirects: `/admin/user`,
 		module_name: `User`,
 		title: `Update`,

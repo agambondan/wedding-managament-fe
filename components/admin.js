@@ -28,7 +28,7 @@ function AdminLayout(props) {
 			const currentDateTime = new Date();
 			axios
 				.put(
-					`${process.env.NEXT_PUBLIC_IP}/users/token/ROLE_ADMIN`,
+					`${process.env.IP}/users/token/ROLE_ADMIN`,
 					{
 						last_access: FormatDate(currentDateTime),
 						last_page: router.pathname,
@@ -61,7 +61,7 @@ function AdminLayout(props) {
 	];
 	if (verified) {
 		return (
-            <AdminContext.Provider value={user}>
+			<AdminContext.Provider value={user}>
 				<Meta
 					title={'undefined'}
 					keywords={'undefined'}
@@ -74,44 +74,42 @@ function AdminLayout(props) {
 								{click ? (
 									menusSidebar.map((value, index) => {
 										return (
-                                            <ul className='space-y-2' key={index}>
+											<ul className='space-y-2' key={index}>
 												<li>
 													<Link
-                                                        href={value.link}
-                                                        className={`${
-                                                            router.pathname === value.path
-                                                                ? 'bg-gray-300'
-                                                                : 'hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
-                                                        } flex items-center pb-3.5 pt-3.5 pr-2 pl-2 text-base font-normal text-gray-900 rounded-lg dark:text-white`}
-                                                        onClick={() => {
-                                                            if (value.link === '') {
-                                                                setClick1(true);
-                                                                setClick(false);
-                                                            }
-                                                        }}>
-
-                                                        <i className={value.icon} />
-
-                                                    </Link>
+														href={value.link}
+														className={`${
+															router.pathname === value.path
+																? 'bg-gray-300'
+																: 'hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
+														} flex items-center pb-3.5 pt-3.5 pr-2 pl-2 text-base font-normal text-gray-900 rounded-lg dark:text-white`}
+														onClick={() => {
+															if (value.link === '') {
+																setClick1(true);
+																setClick(false);
+															}
+														}}
+													>
+														<i className={value.icon} />
+													</Link>
 												</li>
 											</ul>
-                                        );
+										);
 									})
 								) : (
 									<ul className='space-y-2'>
 										<li>
 											<Link
-                                                href={'/admin'}
-                                                className={`${
-                                                    router.pathname === '/admin'
-                                                        ? 'bg-gray-300'
-                                                        : 'hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
-                                                } flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white`}>
-
-                                                <i className='fas fa-chart-pie' />
-                                                <span className='ml-3'>Dashboard</span>
-
-                                            </Link>
+												href={'/admin'}
+												className={`${
+													router.pathname === '/admin'
+														? 'bg-gray-300'
+														: 'hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
+												} flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white`}
+											>
+												<i className='fas fa-chart-pie' />
+												<span className='ml-3'>Dashboard</span>
+											</Link>
 										</li>
 										<SidebarDropdown
 											router={router}
@@ -181,7 +179,7 @@ function AdminLayout(props) {
 					</div>
 				</div>
 			</AdminContext.Provider>
-        );
+		);
 	} else {
 		return <></>;
 	}

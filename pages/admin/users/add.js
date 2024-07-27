@@ -9,7 +9,7 @@ export default function UserAdd(props) {
 		user_name: '',
 	});
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}`,
+		url: `${process.env.ENDPOINT_MASTER}`,
 		redirects: `/admin/user`,
 		module_name: `User`,
 		title: `Save`,

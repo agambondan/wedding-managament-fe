@@ -8,7 +8,7 @@ export default function ReligionAdd() {
 		religion_name: '',
 	});
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/religions`,
+		url: `${process.env.ENDPOINT_MASTER}/religions`,
 		redirects: `/admin/religion`,
 		module_name: `Religion`,
 		title: `Save`,

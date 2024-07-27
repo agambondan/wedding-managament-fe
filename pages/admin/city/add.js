@@ -54,7 +54,7 @@ export default function CityAdd() {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/cities`,
+		url: `${process.env.ENDPOINT_MASTER}/cities`,
 		redirects: `/admin/city`,
 		module_name: `City`,
 		title: `Save`,

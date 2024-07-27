@@ -24,7 +24,7 @@ export function Table(props) {
 		});
 	});
 	return (
-        <div className='overflow-x-auto shadow-md sm:rounded-lg'>
+		<div className='overflow-x-auto shadow-md sm:rounded-lg'>
 			<div className='flex justify-between items-center px-4 py-3 overflow-auto'>
 				<div className='dark:bg-gray-900'>
 					<label htmlFor='table-search' className='sr-only'>
@@ -57,14 +57,13 @@ export function Table(props) {
 				{props.detail !== undefined ? (
 					<div className=''>
 						<Link
-                            href={`${props.detail.redirects}`}
-                            className={
-                                'inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white ' +
-                                'dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 px-4 py-2 mx-auto'
-                            }>
-							
-								Add
-							
+							href={`${props.detail.redirects}`}
+							className={
+								'inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white ' +
+								'dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 px-4 py-2 mx-auto'
+							}
+						>
+							Add
 						</Link>
 					</div>
 				) : (
@@ -112,9 +111,9 @@ export function Table(props) {
 									return '';
 								} else {
 									return (
-                                        //             <tr key={index} className={`${index % 2 === 1 ? "text-gray-700 bg-gray-300 dark:bg-gray-900 dark:text-gray-400" : "hover:bg-gray-300"} border-2 border-gray-400 bg-white border-b dark:bg-gray-800 dark:border-gray-700
-                                        // hover:bg-gray-50 dark:hover:bg-gray-600`}>
-                                        <tr
+										//             <tr key={index} className={`${index % 2 === 1 ? "text-gray-700 bg-gray-300 dark:bg-gray-900 dark:text-gray-400" : "hover:bg-gray-300"} border-2 border-gray-400 bg-white border-b dark:bg-gray-800 dark:border-gray-700
+										// hover:bg-gray-50 dark:hover:bg-gray-600`}>
+										<tr
 											key={index}
 											className='border-2 border-gray-400 bg-white border-b dark:bg-gray-800 dark:border-gray-700
                             hover:bg-gray-50 dark:hover:bg-gray-600'
@@ -163,27 +162,25 @@ export function Table(props) {
 															}
 															onClick={() => {
 																SwalDeletePopUp({
-																	url: `${process.env.NEXT_PUBLIC_IP}/master/cities/${ids[index]}/soft`,
+																	url: `${process.env.IP}/master/cities/${ids[index]}/soft`,
 																	router: router,
 																});
-																// handleDelete(ids[index])
 															}}
 														>
 															<i className='fa-regular fa-trash-can fa-fw fa-1x' />
 														</button>
 														<Link
-                                                            href={`${router.pathname}/${ids[index]}`}
-                                                            className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-
-                                                            <i className='fa-regular fa-pen-to-square fa-fw fa-1x' />
-
-                                                        </Link>
+															href={`${router.pathname}/${ids[index]}`}
+															className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+														>
+															<i className='fa-regular fa-pen-to-square fa-fw fa-1x' />
+														</Link>
 													</>
 												)}
 												{props.action !== undefined ? props.action : <></>}
 											</th>
 										</tr>
-                                    );
+									);
 								}
 							})}
 						</tbody>
@@ -194,5 +191,5 @@ export function Table(props) {
 				{props.children}
 			</table>
 		</div>
-    );
+	);
 }

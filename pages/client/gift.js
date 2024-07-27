@@ -1,12 +1,8 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
 import ClientLayout from '../../components/client';
 import { InputEmail, InputText } from '../../components/layout/form/fields';
 import { BaseModal } from '../../components/layout/form/modal';
-import { SwalDeletePopUp } from '../../components/layout/form/pop-up';
-import { Table } from '../../components/layout/form/table';
-import { TabsNavigation } from '../../components/layout/form/tabs';
 import { Spinner1 } from '../../components/layout/spinner';
 export default function Gift() {
 	const router = useRouter();
@@ -139,7 +135,7 @@ function FormModalGift(props) {
 		props.setInputFields({ ...props.inputFields, [key]: event.target.value });
 	};
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}`, // TODO
+		url: `${process.env.ENDPOINT_MASTER}`, // TODO
 		redirects: `/client/profile`,
 		module_name: `Profile`,
 		title: `Save`,

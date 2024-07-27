@@ -9,12 +9,6 @@ const withPWA = require('next-pwa')({
 	buildExcludes: [/middleware-manifest.json$/],
 });
 
-// Load environment variables early
-require('dotenv').config();
-require('dotenv').config({
-	path: `.env.${process.env.NEXT_PUBLIC_ENV}`,
-});
-
 // Define Next.js configuration with conditional PWA
 const isDev = process.env.NODE_ENV === 'development'; // Check for development mode
 
@@ -39,17 +33,6 @@ const nextConfig = {
 			};
 		}
 		return config;
-	},
-	images: {
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: 'berita.99.co',
-				port: '',
-				pathname: '/wp-content/uploads/**',
-			},
-		],
-		domains: ['berita.99.co'],
 	},
 };
 

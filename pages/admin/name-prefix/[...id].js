@@ -71,7 +71,7 @@ export default function NamePrefixEdit(props) {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/name-prefixes/${query.id[0]}`,
+		url: `${process.env.ENDPOINT_MASTER}/name-prefixes/${query.id[0]}`,
 		redirects: `/admin/name-prefix`,
 		module_name: `Name Prefix`,
 		title: `Update`,

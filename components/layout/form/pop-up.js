@@ -32,7 +32,7 @@ export function FormPopUp(props) {
 			});
 			Swal.showLoading();
 			axios
-				.delete(`${process.env.NEXT_PUBLIC_IP}/{props.url}`, {
+				.delete(`${process.env.IP}/{props.url}`, {
 					withCredentials: true,
 				})
 				.then((res) => {
@@ -75,7 +75,7 @@ export function SwalDeletePopUp(props) {
 			});
 			Swal.showLoading();
 			axios
-				.delete(`${process.env.NEXT_PUBLIC_IP}/{props.url}`, {
+				.delete(`${process.env.IP}/{props.url}`, {
 					withCredentials: true,
 				})
 				.then((res) => {

@@ -45,7 +45,7 @@ export default function ThemeEdit() {
 		fetch().then(() => setIsLoading(false));
 	});
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/themes/${query.id[0]}`,
+		url: `${process.env.ENDPOINT_MASTER}/themes/${query.id[0]}`,
 		redirects: `/admin/theme`,
 		module_name: `Theme`,
 		title: `Update`,

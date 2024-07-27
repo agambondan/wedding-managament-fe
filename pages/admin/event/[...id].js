@@ -41,7 +41,7 @@ export default function EventEdit() {
 		fetch().then(() => setIsLoading(false));
 	}, [router]);
 	const data = {
-		url: `${process.env.NEXT_PUBLIC_ENDPOINT_MASTER}/events/${query.id[0]}`,
+		url: `${process.env.ENDPOINT_MASTER}/events/${query.id[0]}`,
 		redirects: `/admin/event`,
 		module_name: `Event`,
 		title: `Update`,
