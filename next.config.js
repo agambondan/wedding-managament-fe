@@ -9,6 +9,8 @@ const withPWA = require('next-pwa')({
 	buildExcludes: [/middleware-manifest.json$/],
 });
 
+require('dotenv').config();
+
 // Define Next.js configuration with conditional PWA
 const isDev = process.env.NEXT_PUBLIC_NODE_ENV === 'development'; // Check for development mode
 
