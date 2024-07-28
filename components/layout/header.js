@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { AdminContext, ClientContext } from '../../lib/const';
-import { toPascalCase } from '../../lib/helper';
 
 export default function Header(props) {
 	let user = {};
@@ -34,8 +33,11 @@ export default function Header(props) {
 		<header className='w-full items-center bg-gray-100 py-2 px-6 flex flex-row justify-between'>
 			<div className='xl:w-1/2 justify-between'>
 				<h6>
-					Hi, {toPascalCase(user.person.given_name)}{' '}
-					{toPascalCase(user.person.middle_name)}
+					{user.person
+						? `Hi, ${toPascalCase(user.person.given_name)} ${toPascalCase(
+								user.person.middle_name
+						  )}`
+						: ''}
 				</h6>
 			</div>
 			<div className=' xl:w-1/2 flex justify-end'>

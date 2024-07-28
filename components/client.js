@@ -21,7 +21,7 @@ function ClientLayout(props) {
 	useEffect(() => {
 		(async () => {
 			const currentDatetime = new Date();
-			axios
+			await axios
 				.put(
 					`${process.env.NEXT_PUBLIC_IP}/users/token/ROLE_CLIENT`,
 					{
@@ -31,6 +31,8 @@ function ClientLayout(props) {
 					{ withCredentials: true }
 				)
 				.then((res) => {
+					console.log(res);
+					console.log(res.data);
 					setVerified(true);
 					setUser(res.data);
 					return res;
